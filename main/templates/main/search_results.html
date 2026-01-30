@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>نتائج البحث</title>
+</head>
+<body>
+
+<h2>نتائج البحث عن: "{{ query }}"</h2>
+
+<hr>
+
+<h3>📰 المقالات</h3>
+{% if articles %}
+<ul>
+    {% for article in articles %}
+        <li>
+            <a href="{% url 'article_detail' article.pk %}">
+                {{ article.title }}
+            </a>
+        </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>لا توجد مقالات مطابقة</p>
+{% endif %}
+
+<hr>
+
+<h3>🧠 الاختبارات</h3>
+{% if quizzes %}
+<ul>
+    {% for quiz in quizzes %}
+        <li>
+            <a href="{% url 'quiz_detail' quiz.id %}">
+                {{ quiz.name }}
+            </a>
+        </li>
+    {% endfor %}
+</ul>
+{% else %}
+<p>لا توجد اختبارات مطابقة</p>
+{% endif %}
+
+<a href="{% url 'home' %}">⬅ العودة للرئيسية</a>
+
+</body>
+</html>

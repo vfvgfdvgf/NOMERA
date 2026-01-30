@@ -1,0 +1,1832 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نوميرا - منصة المحتوى المتكاملة</title>
+    
+    <!-- تحسينات SEO -->
+    <meta name="description" content="منصة نوميرا - محتوى متكامل مع حاسبات ذكية، اختبارات، مقالات وكوبونات حصرية">
+    <meta property="og:title" content="نوميرا - منصة المحتوى المتكاملة">
+    <meta property="og:description" content="منصة رقمية متكاملة تقدم محتوى متنوع يشمل الحاسبات الذكية، الاختبارات المعرفية، المقالات المتميزة وعروض الكوبونات الحصرية">
+    <meta property="og:image" content="https://d.top4top.io/p_36757e7681.png">
+    <meta property="og:url" content="https://nomira.com">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ar_AR">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="نوميرا - منصة المحتوى المتكاملة">
+    <meta name="twitter:description" content="منصة رقمية متكاملة تقدم محتوى متنوع">
+    <meta name="theme-color" content="#8B7355">
+    <link rel="canonical" href="https://nomira.com">
+    
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "نوميرا",
+        "alternateName": "Nomira",
+        "url": "https://nomira.com",
+        "description": "منصة المحتوى المتكاملة - حاسبات ذكية، اختبارات، مقالات وكوبونات حصرية",
+        "publisher": {
+            "@type": "Organization",
+            "name": "نوميرا",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://d.top4top.io/p_36757e7681.png"
+            }
+        },
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://nomira.com/search?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+    }
+    </script>
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json" crossorigin="use-credentials">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="نوميرا">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;500;700;800&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ===== نظام ألوان فاتح مع البيج والأزرق ===== */
+        :root {
+            /* خلفيات فاتحة أنيقة */
+            --primary-bg: #FAFAFA;
+            --secondary-bg: #FFFFFF;
+            --card-bg: #FFFFFF;
+            --surface-1: #F5F5F5;
+            --surface-2: #FFFFFF;
+            --surface-3: #F8F8F8;
+            
+            /* نص باللون الرمادي الداكن مع لمسات زرقاء */
+            --text-primary: #2C3E50;
+            --text-secondary: #5D6D7E;
+            --text-tertiary: #95A5A6;
+            --text-quaternary: #BDC3C7;
+            --text-blue: #3498DB;
+            --text-blue-light: #5DADE2;
+            
+            /* اللون البيج كأساسي */
+            --beige-primary: #8B7355;
+            --beige-light: #A38B6D;
+            --beige-dark: #6B5B45;
+            --beige-soft: rgba(139, 115, 85, 0.1);
+            --beige-medium: rgba(139, 115, 85, 0.15);
+            --beige-gradient: linear-gradient(135deg, #8B7355 0%, #A38B6D 100%);
+            
+            /* ألوان ثانوية متناسقة */
+            --accent-teal: #1ABC9C;
+            --accent-coral: #E74C3C;
+            --accent-gold: #F39C12;
+            --accent-purple: #9B59B6;
+            --accent-green: #27AE60;
+            
+            /* تأثيرات الظلال */
+            --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+            --card-shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.08);
+            --card-shadow-elevated: 0 12px 35px rgba(0, 0, 0, 0.1);
+            --card-shadow-float: 0 16px 45px rgba(0, 0, 0, 0.12);
+            
+            /* تدرجات جميلة */
+            --gradient-beige: linear-gradient(135deg, #8B7355 0%, #A38B6D 100%);
+            --gradient-blue: linear-gradient(135deg, #3498DB 0%, #5DADE2 100%);
+            --gradient-teal: linear-gradient(135deg, #1ABC9C 0%, #48C9B0 100%);
+            --gradient-coral: linear-gradient(135deg, #E74C3C 0%, #EC7063 100%);
+            --gradient-gold: linear-gradient(135deg, #F39C12 0%, #F7DC6F 100%);
+            --gradient-light: linear-gradient(135deg, #FFFFFF 0%, #FAFAFA 100%);
+            --gradient-soft: linear-gradient(135deg, rgba(139, 115, 85, 0.08) 0%, rgba(163, 139, 109, 0.04) 100%);
+            
+            /* أبعاد وتقريب */
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+            --radius-pill: 50px;
+            --radius-circle: 50%;
+            
+            /* مسافات */
+            --space-xs: 8px;
+            --space-sm: 16px;
+            --space-md: 24px;
+            --space-lg: 32px;
+            --space-xl: 48px;
+            --space-2xl: 64px;
+            --space-3xl: 80px;
+            
+            /* انتقالات سلسة */
+            --transition-fast: all 0.2s ease;
+            --transition-normal: all 0.3s ease;
+            --transition-slow: all 0.5s ease;
+            --transition-bounce: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* ===== إعادة الضبط الأساسية ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Almarai', 'Tajawal', 'Segoe UI', sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ===== Utility Classes ===== */
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-md);
+        }
+
+        .container-wide {
+            max-width: 1400px;
+        }
+
+        .section {
+            padding: var(--space-3xl) 0;
+        }
+
+        .section-lg {
+            padding: var(--space-3xl) 0;
+        }
+
+        /* ===== Card System ===== */
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            transition: var(--transition-bounce);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        .card-elevated {
+            box-shadow: var(--card-shadow-elevated);
+        }
+
+        .card-float {
+            box-shadow: var(--card-shadow-float);
+        }
+
+        .card-padding {
+            padding: var(--space-lg);
+        }
+
+        /* ===== Header ===== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10000;
+            padding: var(--space-sm) 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+            transition: var(--transition-normal);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 72px;
+        }
+
+        /* الشعار */
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            text-decoration: none;
+            transition: var(--transition-fast);
+        }
+
+        .logo:hover {
+            transform: translateY(-2px);
+        }
+
+        .logo-icon {
+            width: 52px;
+            height: 52px;
+            background: url("https://d.top4top.io/p_36757e7681.png") no-repeat center;
+            background-size: contain;
+            border-radius: var(--radius-md);
+        }
+
+        .logo-text h1 {
+            font-size: 1.7rem;
+            font-weight: 800;
+            color: var(--beige-primary);
+            margin-bottom: 2px;
+            line-height: 1.2;
+        }
+
+        .logo-text p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            gap: var(--space-xs);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(5px);
+            border-radius: var(--radius-pill);
+            padding: 6px;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+        }
+
+        nav a {
+            padding: 12px 24px;
+            border-radius: var(--radius-pill);
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition-fast);
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--beige-primary);
+            background: var(--beige-soft);
+        }
+
+        nav a.active {
+            color: var(--beige-primary);
+            background: var(--beige-medium);
+            font-weight: 700;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            width: 46px;
+            height: 46px;
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            background: var(--secondary-bg);
+            color: var(--text-primary);
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: var(--transition-fast);
+        }
+
+        .mobile-menu-btn:hover {
+            background: var(--surface-1);
+        }
+
+        /* ===== Hero Section ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 92px;
+            background: linear-gradient(135deg, #FFFFFF 0%, #FAFAFA 100%);
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.25;
+        }
+
+        .hero-background img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: blur(25px);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: var(--space-3xl) 0;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 22px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: var(--radius-pill);
+            color: var(--beige-primary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: var(--space-xl);
+            border: 1px solid rgba(139, 115, 85, 0.15);
+            animation: float 4s ease-in-out infinite;
+            backdrop-filter: blur(5px);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .hero-title {
+            font-size: 3.3rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: var(--space-lg);
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
+        }
+
+        .hero-title span {
+            color: var(--beige-primary);
+            background: var(--gradient-beige);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: var(--space-2xl);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Search Box */
+        .search-portal {
+            max-width: 600px;
+            margin: 0 auto var(--space-2xl);
+        }
+
+        .search-container {
+            position: relative;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: var(--radius-xl);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            padding: 4px;
+            box-shadow: var(--card-shadow-elevated);
+            backdrop-filter: blur(10px);
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 18px 60px 18px 20px;
+            border: none;
+            background: transparent;
+            font-size: 1rem;
+            color: var(--text-primary);
+            font-family: inherit;
+        }
+
+        .search-input:focus {
+            outline: none;
+        }
+
+        .search-input::placeholder {
+            color: var(--text-quaternary);
+        }
+
+        .search-button {
+            position: absolute;
+            left: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 46px;
+            height: 46px;
+            border-radius: var(--radius-circle);
+            background: var(--gradient-beige);
+            border: none;
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            transition: var(--transition-bounce);
+        }
+
+        .search-button:hover {
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 6px 20px rgba(139, 115, 85, 0.2);
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: var(--space-md);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* ===== Buttons ===== */
+        .btn {
+            padding: 14px 30px;
+            border-radius: var(--radius-pill);
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: var(--transition-bounce);
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: var(--gradient-beige);
+            color: white;
+            box-shadow: 0 4px 15px rgba(139, 115, 85, 0.15);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(139, 115, 85, 0.25);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--beige-primary);
+            border: 1px solid rgba(139, 115, 85, 0.2);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .btn-secondary:hover {
+            background: var(--beige-soft);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--beige-primary);
+            border: 1px solid rgba(139, 115, 85, 0.3);
+        }
+
+        .btn-outline:hover {
+            background: var(--beige-soft);
+            transform: translateY(-3px);
+        }
+
+        /* ===== Features Grid ===== */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-xl);
+            margin-top: var(--space-2xl);
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-xl);
+            padding: var(--space-xl);
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            text-align: center;
+            transition: var(--transition-bounce);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--card-shadow-float);
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: var(--radius-lg);
+            background: var(--beige-soft);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--space-lg);
+            color: var(--beige-primary);
+            font-size: 1.8rem;
+            transition: var(--transition-bounce);
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1);
+            background: var(--gradient-beige);
+            color: white;
+        }
+
+        .feature-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: var(--space-sm);
+            color: var(--text-primary);
+        }
+
+        .feature-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: var(--space-lg);
+            flex-grow: 1;
+        }
+
+        /* ===== Section Titles ===== */
+        .section-title {
+            font-size: 2.3rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: var(--space-md);
+            color: var(--text-primary);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            right: 50%;
+            transform: translateX(50%);
+            width: 60px;
+            height: 4px;
+            background: var(--gradient-beige);
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+            max-width: 600px;
+            margin: 0 auto var(--space-2xl);
+            line-height: 1.6;
+        }
+
+        /* ===== Articles Grid ===== */
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: var(--space-xl);
+            margin-top: var(--space-2xl);
+        }
+
+        .article-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            transition: var(--transition-bounce);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .article-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        .article-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .article-card:hover .article-image {
+            transform: scale(1.03);
+        }
+
+        .article-content {
+            padding: var(--space-lg);
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .article-category {
+            display: inline-block;
+            padding: 6px 12px;
+            background: var(--beige-soft);
+            color: var(--beige-primary);
+            border-radius: var(--radius-pill);
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+            align-self: flex-start;
+        }
+
+        .article-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: var(--space-sm);
+            color: var(--text-primary);
+            line-height: 1.4;
+        }
+
+        .article-title a {
+            color: inherit;
+            text-decoration: none;
+            transition: var(--transition-fast);
+        }
+
+        .article-title a:hover {
+            color: var(--beige-primary);
+        }
+
+        .article-excerpt {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: var(--space-lg);
+            flex-grow: 1;
+        }
+
+        .article-meta {
+            display: flex;
+            align-items: center;
+            gap: var(--space-lg);
+            font-size: 0.875rem;
+            color: var(--text-tertiary);
+            padding-top: var(--space-md);
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        /* ===== Sidebar Cards ===== */
+        .sidebar-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-xl);
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(0, 0, 0, 0.03);
+        }
+
+        .sidebar-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: var(--space-lg);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .sidebar-title i {
+            color: var(--beige-primary);
+        }
+
+        /* Categories List */
+        .categories-list {
+            list-style: none;
+        }
+
+        .category-item {
+            margin-bottom: var(--space-sm);
+        }
+
+        .category-link {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 14px;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            color: var(--text-secondary);
+            transition: var(--transition-fast);
+        }
+
+        .category-link:hover {
+            background: var(--beige-soft);
+            color: var(--beige-primary);
+            transform: translateX(-4px);
+        }
+
+        .category-count {
+            background: var(--surface-1);
+            color: var(--text-tertiary);
+            padding: 4px 8px;
+            border-radius: var(--radius-pill);
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        /* Newsletter Card */
+        .newsletter-card {
+            background: var(--gradient-soft);
+            padding: var(--space-xl);
+            border-radius: var(--radius-lg);
+            text-align: center;
+            border: 1px solid rgba(139, 115, 85, 0.1);
+        }
+
+        .newsletter-card h4 {
+            font-size: 1.2rem;
+            margin-bottom: var(--space-sm);
+            color: var(--beige-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+        }
+
+        .newsletter-card p {
+            color: var(--text-secondary);
+            margin-bottom: var(--space-lg);
+            font-size: 0.9rem;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: var(--space-sm);
+        }
+
+        .newsletter-form input {
+            flex-grow: 1;
+            padding: 12px 16px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: var(--radius-pill);
+            font-family: inherit;
+            font-size: 0.875rem;
+            background: white;
+            transition: var(--transition-fast);
+        }
+
+        .newsletter-form input:focus {
+            outline: none;
+            border-color: var(--beige-primary);
+            box-shadow: 0 0 0 3px rgba(139, 115, 85, 0.1);
+        }
+
+        .newsletter-form button {
+            padding: 12px 24px;
+            background: var(--gradient-beige);
+            color: white;
+            border: none;
+            border-radius: var(--radius-pill);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .newsletter-form button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(139, 115, 85, 0.2);
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-xl);
+            margin-top: var(--space-2xl);
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            text-align: center;
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            transition: var(--transition-bounce);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: var(--gradient-beige);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1;
+            margin-bottom: var(--space-sm);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* ===== Footer ===== */
+        footer {
+            background: var(--surface-1);
+            padding: var(--space-3xl) 0 var(--space-xl);
+            margin-top: var(--space-3xl);
+            border-top: 1px solid rgba(0, 0, 0, 0.04);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-2xl);
+            margin-bottom: var(--space-2xl);
+        }
+
+        .footer-section h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: var(--space-lg);
+            color: var(--beige-primary);
+            position: relative;
+            padding-bottom: 8px;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--gradient-beige);
+            border-radius: 2px;
+        }
+
+        .footer-section p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: var(--space-lg);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: var(--space-sm);
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition-fast);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .footer-links a:hover {
+            color: var(--beige-primary);
+            transform: translateX(-4px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: var(--space-lg);
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            color: var(--text-tertiary);
+            font-size: 0.875rem;
+        }
+
+        /* ===== Blue Text Elements ===== */
+        .text-blue {
+            color: var(--text-blue) !important;
+        }
+        
+        .text-blue-light {
+            color: var(--text-blue-light) !important;
+        }
+        
+        /* Add blue accents to some elements */
+        .hero-subtitle,
+        .feature-description,
+        .article-excerpt,
+        .section-subtitle {
+            color: var(--text-secondary);
+        }
+        
+        /* Blue icons in some places */
+        .hero-badge i,
+        .search-button i {
+            color: inherit;
+        }
+        
+        /* Blue hover effects for some links */
+        a:hover i.fa-calculator,
+        a:hover i.fa-brain,
+        a:hover i.fa-newspaper,
+        a:hover i.fa-gift {
+            color: var(--text-blue) !important;
+        }
+
+        /* ===== Responsive Design ===== */
+        @media (max-width: 1024px) {
+            .hero-title {
+                font-size: 2.8rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 var(--space-sm);
+            }
+            
+            .header-container {
+                height: 64px;
+            }
+            
+            .logo-text h1 {
+                font-size: 1.4rem;
+            }
+            
+            nav {
+                position: fixed;
+                top: 64px;
+                right: 0;
+                left: 0;
+                background: var(--card-bg);
+                border-radius: 0;
+                border: none;
+                border-top: 1px solid rgba(0, 0, 0, 0.04);
+                padding: var(--space-md);
+                flex-direction: column;
+                display: none;
+                z-index: 9999;
+                max-height: calc(100vh - 64px);
+                overflow-y: auto;
+                box-shadow: var(--card-shadow-elevated);
+            }
+            
+            nav.active {
+                display: flex;
+                animation: slideIn 0.3s ease;
+            }
+
+            @keyframes slideIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(-10px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            
+            nav a {
+                justify-content: center;
+            }
+            
+            .mobile-menu-btn {
+                display: flex;
+            }
+            
+            .hero {
+                min-height: 90vh;
+                padding-top: 64px;
+            }
+            
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .hero-actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .articles-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section {
+                padding: var(--space-2xl) 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 1.9rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.7rem;
+            }
+            
+            .feature-card {
+                padding: var(--space-lg);
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+            
+            .search-input {
+                padding: 16px 50px 16px 16px;
+                font-size: 0.9rem;
+            }
+            
+            .search-button {
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        /* ===== Accessibility ===== */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            
+            .hero-badge {
+                animation: none;
+            }
+        }
+
+        /* ===== Focus Styles ===== */
+        :focus-visible {
+            outline: 2px solid var(--beige-primary);
+            outline-offset: 2px;
+        }
+
+        /* ===== Smooth Fade In ===== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container container-wide">
+            <div class="header-container">
+                <!-- Logo -->
+                <a href="{% url 'home' %}" class="logo">
+                    <div class="logo-icon"></div>
+                    <div class="logo-text">
+                        <h1>نوميرا</h1>
+                        <p>منصة المحتوى المتكاملة</p>
+                    </div>
+                </a>
+
+                <!-- Navigation -->
+                <nav id="mainNav">
+                    <a href="{% url 'home' %}" class="active">
+                        <i class="fas fa-home"></i>
+                        الرئيسية
+                    </a>
+                    <a href="{% url 'calculators' %}">
+                        <i class="fas fa-calculator"></i>
+                        الحاسبات
+                    </a>
+                    <a href="{% url 'quizzes' %}">
+                        <i class="fas fa-brain"></i>
+                        الاختبارات
+                    </a>
+                    <a href="{% url 'articles' %}">
+                        <i class="fas fa-newspaper"></i>
+                        المقالات
+                    </a>
+                    <a href="{% url 'coupons' %}">
+                        <i class="fas fa-gift"></i>
+                        الكوبونات
+                    </a>
+                </nav>
+
+                <!-- Mobile Menu Button -->
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="فتح القائمة">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <main>
+        <section class="hero">
+            <div class="hero-background" aria-hidden="true">
+                <img src="https://l.top4top.io/p_36788w7kz1.png" alt="خلفية نوميرا">
+            </div>
+            
+            <div class="container">
+                <div class="hero-content fade-in">
+                    <div class="hero-badge">
+                        <i class="fas fa-sparkles"></i>
+                        تجربة محتوى استثنائية
+                    </div>
+                    
+                    <h1 class="hero-title">
+                        مستقبل المحتوى الرقمي<br>يبدأ من <span>هنا</span>
+                    </h1>
+                    
+                    <p class="hero-subtitle">
+                        منصة نوميرا تجمع بين الذكاء الاصطناعي والإبداع البشري لتقديم تجربة محتوى فريدة. 
+                        حاسبات ذكية، اختبارات تفاعلية، مقالات متميزة، وكوبونات حصرية في مكان واحد.
+                    </p>
+                    
+                    <!-- Search Box -->
+                    <div class="search-portal">
+                        <div class="search-container">
+                            <input type="text" 
+                                   class="search-input" 
+                                   placeholder="ابحث عن حاسبة، مقال، اختبار، أو كوبون..."
+                                   aria-label="بحث في نوميرا"
+                                   id="searchInput">
+                            <button class="search-button" aria-label="بحث" id="searchButton">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="hero-actions">
+                        <a href="#features" class="btn btn-primary">
+                            <span>اكتشف المميزات</span>
+                            <i class="fas fa-arrow-left"></i>
+                        </a>
+                        <a href="#content" class="btn btn-secondary">
+                            <span>تصفح المحتوى</span>
+                            <i class="fas fa-compass"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="section">
+            <div class="container">
+                <h2 class="section-title fade-in">المميزات المتقدمة</h2>
+                <p class="section-subtitle fade-in">
+                    تصميم متطور يلبي جميع احتياجاتك الرقمية بتجربة مستخدم استثنائية
+                </p>
+                
+                <div class="features-grid">
+                    <!-- Calculator Card -->
+                    <div class="feature-card fade-in">
+                        <div class="feature-icon">
+                            <i class="fas fa-calculator"></i>
+                        </div>
+                        <h3 class="feature-title">حاسبات ذكية</h3>
+                        <p class="feature-description">
+                            مجموعة متكاملة من الحاسبات الذكية التي تعمل بالذكاء الاصطناعي لتقديم نتائج دقيقة وفورية.
+                        </p>
+                        <a href="{% url 'calculators' %}" class="btn btn-outline">
+                            استكشف الحاسبات
+                        </a>
+                    </div>
+                    
+                    <!-- Quizzes Card -->
+                    <div class="feature-card fade-in">
+                        <div class="feature-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h3 class="feature-title">اختبارات تفاعلية</h3>
+                        <p class="feature-description">
+                            اختبارات شخصية ومعرفية مصممة بتقنيات حديثة لتقديم تحليل دقيق وتوصيات مخصصة.
+                        </p>
+                        <a href="{% url 'quizzes' %}" class="btn btn-outline">
+                            ابدأ الاختبار
+                        </a>
+                    </div>
+                    
+                    <!-- Articles Card -->
+                    <div class="feature-card fade-in">
+                        <div class="feature-icon">
+                            <i class="fas fa-newspaper"></i>
+                        </div>
+                        <h3 class="feature-title">مكتبة معرفية</h3>
+                        <p class="feature-description">
+                            آلاف المقالات المتميزة في مختلف المجالات، مصنفة ومنظمة لتسهيل الوصول للمعلومة.
+                        </p>
+                        <a href="{% url 'articles' %}" class="btn btn-outline">
+                            اقرأ الآن
+                        </a>
+                    </div>
+                    
+                    <!-- Coupons Card -->
+                    <div class="feature-card fade-in">
+                        <div class="feature-icon">
+                            <i class="fas fa-tags"></i>
+                        </div>
+                        <h3 class="feature-title">كوبونات وعروض</h3>
+                        <p class="feature-description">
+                            أحدث كوبونات الخصم والعروض الحصرية للمتاجر والخدمات الرقمية.
+                        </p>
+                        <a href="{% url 'coupons' %}" class="btn btn-outline">
+                            تصفح الكوبونات
+                        </a>
+                    </div>
+                    
+                    <!-- Community Card -->
+                    <div class="feature-card fade-in">
+                        <div class="feature-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3 class="feature-title">مجتمع تفاعلي</h3>
+                        <p class="feature-description">
+                            انضم إلى مجتمع نوميرا التفاعلي وشارك في النقاشات وتبادل الخبرات مع الأعضاء.
+                        </p>
+                        <a href="#community" class="btn btn-outline">
+                            انضم الآن
+                        </a>
+                    </div>
+                    
+                    <!-- Customization Card -->
+                    <div class="feature-card fade-in">
+                        <div class="feature-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <h3 class="feature-title">تخصيص كامل</h3>
+                        <p class="feature-description">
+                            خصص تجربتك على المنصة حسب اهتماماتك واحصل على محتوى مخصص لك فقط.
+                        </p>
+                        <a href="#customize" class="btn btn-outline">
+                            خصص تجربتك
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Content Section -->
+        <section id="content" class="section" style="background: var(--surface-1);">
+            <div class="container">
+                <div class="content-layout">
+                    <!-- Main Content -->
+                    <div>
+                        <h2 class="section-title fade-in">أحدث المقالات</h2>
+                        
+                        <div class="articles-grid">
+                            {% for article in latest_articles %}
+                            <article class="article-card fade-in">
+                                {% if article.image or article.image_url %}
+                                <img src="{% if article.image %}{{ article.image.url }}{% else %}{{ article.image_url }}{% endif %}"
+                                     alt="{{ article.title }}"
+                                     class="article-image"
+                                     loading="lazy">
+                                {% else %}
+                                <div class="article-image" style="background: var(--gradient-soft); display: flex; align-items: center; justify-content: center;">
+                                    <i class="fas fa-newspaper" style="font-size: 3rem; color: var(--beige-primary);"></i>
+                                </div>
+                                {% endif %}
+                                
+                                <div class="article-content">
+                                    {% if article.category %}
+                                    <span class="article-category">{{ article.category.name }}</span>
+                                    {% endif %}
+                                    
+                                    <h3 class="article-title">
+                                        <a href="{% url 'article_detail' article.pk %}">{{ article.title }}</a>
+                                    </h3>
+                                    
+                                    <p class="article-excerpt">
+                                        {{ article.excerpt|default:article.content|truncatewords:25 }}
+                                    </p>
+                                    
+                                    <div class="article-meta">
+                                        <span>
+                                            <i class="far fa-clock text-blue"></i>
+                                            {{ article.published_date|date:"Y/m/d" }}
+                                        </span>
+                                        <span>
+                                            <i class="far fa-eye text-blue"></i>
+                                            {{ article.views }} مشاهدة
+                                        </span>
+                                    </div>
+                                </div>
+                            </article>
+                            {% empty %}
+                            <div class="card card-padding fade-in" style="text-align: center; grid-column: 1 / -1;">
+                                <div class="feature-icon" style="margin: 0 auto 20px;">
+                                    <i class="fas fa-newspaper"></i>
+                                </div>
+                                <h3 class="feature-title">لا توجد مقالات حالياً</h3>
+                                <p class="feature-description">سيتم إضافة مقالات قريباً. تابعنا!</p>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        
+                        <!-- Latest Coupons -->
+                        <div style="margin-top: var(--space-3xl);">
+                            <h2 class="section-title fade-in">أحدث الكوبونات</h2>
+                            
+                            <div class="features-grid">
+                                {% for coupon in latest_coupons %}
+                                <div class="feature-card fade-in">
+                                    <div class="feature-icon">
+                                        <i class="fas fa-gift"></i>
+                                    </div>
+                                    <h3 class="feature-title">{{ coupon.title }}</h3>
+                                    <p class="feature-description">
+                                        {% if coupon.coupon_type == 'percentage' %}
+                                        خصم {{ coupon.discount_value }}%
+                                        {% elif coupon.coupon_type == 'fixed' %}
+                                        خصم {{ coupon.discount_value }} ريال
+                                        {% elif coupon.coupon_type == 'free_shipping' %}
+                                        شحن مجاني
+                                        {% else %}
+                                        عرض خاص
+                                        {% endif %}
+                                    </p>
+                                    <a href="{% url 'coupon_detail' coupon.pk %}" class="btn btn-outline">
+                                        استخدم الكوبون
+                                    </a>
+                                </div>
+                                {% empty %}
+                                <div class="card card-padding fade-in" style="text-align: center; grid-column: 1 / -1;">
+                                    <div class="feature-icon" style="margin: 0 auto 20px;">
+                                        <i class="fas fa-gift"></i>
+                                    </div>
+                                    <h3 class="feature-title">لا توجد كوبونات حالياً</h3>
+                                    <p class="feature-description">سيتم إضافة كوبونات قريباً. تابعنا!</p>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Sidebar -->
+                    <aside>
+                        <!-- Categories Card -->
+                        <div class="sidebar-card fade-in">
+                            <h3 class="sidebar-title">
+                                <i class="fas fa-tags"></i>
+                                تصنيفات المقالات
+                            </h3>
+                            <ul class="categories-list">
+                                {% for category in categories %}
+                                <li class="category-item">
+                                    <a href="{% url 'articles' %}?category={{ category.slug }}" class="category-link">
+                                        <span>{{ category.name }}</span>
+                                        <span class="category-count">{{ category.article_count }}</span>
+                                    </a>
+                                </li>
+                                {% empty %}
+                                <li style="text-align: center; color: var(--text-tertiary); padding: var(--space-md);">
+                                    لا توجد تصنيفات حالياً
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        
+                        <!-- Newsletter Card -->
+                        <div class="newsletter-card fade-in">
+                            <h4>
+                                <i class="fas fa-envelope"></i>
+                                النشرة البريدية
+                            </h4>
+                            <p>اشترك للحصول على أحدث المقالات والعروض مباشرة في بريدك</p>
+                            <form class="newsletter-form" id="newsletterForm">
+                                <input type="email" placeholder="بريدك الإلكتروني" required>
+                                <button type="submit">اشترك</button>
+                            </form>
+                        </div>
+                        
+                        <!-- Stats Card -->
+                        <div class="sidebar-card fade-in">
+                            <h3 class="sidebar-title">
+                                <i class="fas fa-chart-line text-blue"></i>
+                                إحصائيات سريعة
+                            </h3>
+                            <div style="display: grid; gap: var(--space-md);">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="color: var(--text-secondary);">المستخدمين النشطين</span>
+                                    <span style="font-weight: 700; color: var(--beige-primary);">+1,200</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="color: var(--text-secondary);">المقالات المنشورة</span>
+                                    <span style="font-weight: 700; color: var(--accent-teal);">+850</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="color: var(--text-secondary);">الحسابات اليومية</span>
+                                    <span style="font-weight: 700; color: var(--text-blue);">+3,400</span>
+                                </div>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title fade-in">إحصائيات نوميرا</h2>
+                <p class="section-subtitle fade-in">أرقام تعكس تطورنا وثقة مستخدمينا</p>
+                
+                <div class="stats-grid">
+                    {% for stat in site_stats %}
+                    <div class="stat-card fade-in">
+                        <span class="stat-number" data-count="{{ stat.value }}">+0</span>
+                        <div class="stat-label">{{ stat.name }}</div>
+                    </div>
+                    {% empty %}
+                    <div class="stat-card fade-in">
+                        <span class="stat-number" data-count="50">+0</span>
+                        <div class="stat-label">نوع من الحاسبات</div>
+                    </div>
+                    <div class="stat-card fade-in">
+                        <span class="stat-number" data-count="200">+0</span>
+                        <div class="stat-label">اختبار وكويز</div>
+                    </div>
+                    <div class="stat-card fade-in">
+                        <span class="stat-number" data-count="1000">+0</span>
+                        <div class="stat-label">مقال في المدونة</div>
+                    </div>
+                    <div class="stat-card fade-in">
+                        <span class="stat-number" data-count="500">+0</span>
+                        <div class="stat-label">كوبون خصم</div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>عن نوميرا</h3>
+                    <p>
+                        منصة رقمية متكاملة تقدم محتوى متنوع يشمل الحاسبات الذكية، الاختبارات المعرفية، 
+                        المقالات المتميزة، وعروض الكوبونات الحصرية.
+                    </p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>روابط مهمة</h3>
+                    <ul class="footer-links">
+                        <li><a href="{% url 'home' %}"><i class="fas fa-arrow-left"></i> الصفحة الرئيسية</a></li>
+                        <li><a href="{% url 'calculators' %}"><i class="fas fa-arrow-left"></i> الحاسبات الذكية</a></li>
+                        <li><a href="{% url 'quizzes' %}"><i class="fas fa-arrow-left"></i> الاختبارات</a></li>
+                        <li><a href="{% url 'articles' %}"><i class="fas fa-arrow-left"></i> المدونة</a></li>
+                        <li><a href="{% url 'coupons' %}"><i class="fas fa-arrow-left"></i> كوبونات الخصم</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>تواصل معنا</h3>
+                    <ul class="footer-links">
+                        <li><a href="mailto:info@nomira.com"><i class="fas fa-envelope"></i> البريد الإلكتروني</a></li>
+                        <li><a href="https://twitter.com/nomira"><i class="fab fa-twitter"></i> تويتر</a></li>
+                        <li><a href="https://linkedin.com/company/nomira"><i class="fab fa-linkedin text-blue"></i> لينكد إن</a></li>
+                        <li><a href="https://instagram.com/nomira"><i class="fab fa-instagram"></i> إنستغرام</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>© <span id="currentYear"></span> نوميرا. جميع الحقوق محفوظة.</p>
+                <p style="margin-top: var(--space-sm);">
+                    <a href="/privacy" style="color: inherit; text-decoration: none;">سياسة الخصوصية</a> | 
+                    <a href="/terms" style="color: inherit; text-decoration: none;">شروط الاستخدام</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mainNav = document.getElementById('mainNav');
+        const navIcon = mobileMenuBtn.querySelector('i');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+            const isExpanded = mainNav.classList.contains('active');
+            mobileMenuBtn.setAttribute('aria-expanded', isExpanded);
+            
+            if (isExpanded) {
+                navIcon.classList.remove('fa-bars');
+                navIcon.classList.add('fa-times');
+                document.body.style.overflow = 'hidden';
+            } else {
+                navIcon.classList.remove('fa-times');
+                navIcon.classList.add('fa-bars');
+                document.body.style.overflow = '';
+            }
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!mainNav.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                mainNav.classList.remove('active');
+                mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                navIcon.classList.remove('fa-times');
+                navIcon.classList.add('fa-bars');
+                document.body.style.overflow = '';
+            }
+        });
+        
+        // Close menu on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && mainNav.classList.contains('active')) {
+                mainNav.classList.remove('active');
+                mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                navIcon.classList.remove('fa-times');
+                navIcon.classList.add('fa-bars');
+                document.body.style.overflow = '';
+            }
+        });
+        
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        const searchButton = document.getElementById('searchButton');
+        
+        searchButton.addEventListener('click', () => {
+            const query = searchInput.value.trim();
+            if (query) {
+                performSearch(query);
+            }
+        });
+        
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const query = searchInput.value.trim();
+                if (query) {
+                    performSearch(query);
+                }
+            }
+        });
+        
+        function performSearch(query) {
+            // Show loading state
+            const originalHTML = searchButton.innerHTML;
+            searchButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            searchButton.disabled = true;
+            
+            // Simulate search delay
+            setTimeout(() => {
+                alert(`جاري البحث عن: "${query}"`);
+                searchButton.innerHTML = originalHTML;
+                searchButton.disabled = false;
+                
+                // In real app: window.location.href = `/search/?q=${encodeURIComponent(query)}`;
+            }, 800);
+        }
+        
+        // Animated counters
+        const statNumbers = document.querySelectorAll('.stat-number');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const stat = entry.target;
+                    const target = parseInt(stat.getAttribute('data-count'));
+                    animateCounter(stat, target);
+                    observer.unobserve(stat);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        statNumbers.forEach(stat => observer.observe(stat));
+        
+        function animateCounter(element, target) {
+            let current = 0;
+            const increment = target / 40;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                element.textContent = `+${Math.floor(current)}`;
+            }, 30);
+        }
+        
+        // Newsletter form
+        const newsletterForm = document.getElementById('newsletterForm');
+        if (newsletterForm) {
+            newsletterForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const emailInput = newsletterForm.querySelector('input[type="email"]');
+                const submitBtn = newsletterForm.querySelector('button');
+                
+                if (!emailInput.value.trim()) {
+                    alert('يرجى إدخال بريد إلكتروني صحيح');
+                    return;
+                }
+                
+                // Show loading state
+                const originalText = submitBtn.textContent;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+                submitBtn.disabled = true;
+                
+                // Simulate API call
+                setTimeout(() => {
+                    alert(`تم تسجيل بريدك ${emailInput.value} بنجاح في النشرة البريدية!`);
+                    newsletterForm.reset();
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                }, 1500);
+            });
+        }
+        
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href === '#') return;
+                
+                const target = document.querySelector(href);
+                if (target) {
+                    e.preventDefault();
+                    
+                    // Close mobile menu if open
+                    if (mainNav.classList.contains('active')) {
+                        mainNav.classList.remove('active');
+                        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                        navIcon.classList.remove('fa-times');
+                        navIcon.classList.add('fa-bars');
+                        document.body.style.overflow = '';
+                    }
+                    
+                    // Calculate header offset
+                    const headerHeight = document.querySelector('header').offsetHeight;
+                    const targetPosition = target.offsetTop - headerHeight - 20;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Focus the target for accessibility
+                    target.setAttribute('tabindex', '-1');
+                    target.focus({ preventScroll: true });
+                }
+            });
+        });
+        
+        // Fade in animation on scroll
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const fadeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        fadeElements.forEach(element => fadeObserver.observe(element));
+        
+        // Header scroll effect
+        let lastScroll = 0;
+        
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            const header = document.querySelector('header');
+            
+            if (currentScroll > 50) {
+                header.style.background = 'rgba(255, 255, 255, 0.99)';
+                header.style.boxShadow = '0 2px 15px rgba(0, 0, 0, 0.03)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = 'none';
+            }
+            
+            lastScroll = currentScroll;
+        });
+        
+        // Update copyright year
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        
+        // Initialize animations
+        window.addEventListener('load', () => {
+            // Add visible class to hero content
+            document.querySelector('.hero-content').classList.add('visible');
+            
+            // Performance logging
+            const loadTime = window.performance.timing.domContentLoadedEventEnd - 
+                           window.performance.timing.navigationStart;
+            console.log(`✨ وقت تحميل الصفحة: ${loadTime}ms`);
+        });
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            // Ctrl + K to focus search
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                searchInput.focus();
+            }
+            
+            // Escape to close modal/menu
+            if (e.key === 'Escape') {
+                if (mainNav.classList.contains('active')) {
+                    mainNav.classList.remove('active');
+                    mobileMenuBtn.setAttribute('aria-expanded', 'false');
+                    navIcon.classList.remove('fa-times');
+                    navIcon.classList.add('fa-bars');
+                    document.body.style.overflow = '';
+                }
+            }
+        });
+        
+        // Add blue color to some text elements
+        document.addEventListener('DOMContentLoaded', () => {
+            // Add blue color to all clock and eye icons
+            document.querySelectorAll('.fa-clock, .fa-eye').forEach(icon => {
+                icon.classList.add('text-blue');
+            });
+            
+            // Add blue hover to social media links
+            document.querySelectorAll('.footer-links a i.fa-linkedin').forEach(icon => {
+                icon.classList.add('text-blue');
+            });
+        });
+    </script>
+</body>
+</html>

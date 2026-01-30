@@ -1,0 +1,2533 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المدونة والمقالات - نوميرا</title>
+    
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;500;700;800&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* ===== نظام Vision Pro مع اللون F5F5DC كأساس ===== */
+        :root {
+            /* نظام ألوان Vision Pro مع اللون البيج الأساسي */
+            --primary-bg: #0A0A0C;
+            --secondary-bg: #111113;
+            --card-bg: rgba(20, 20, 22, 0.85);
+            --text-primary: #F5F5DC;
+            --text-secondary: #C0C0B0;
+            --text-tertiary: #8A8A7D;
+            --accent-blue: #007AFF;
+            --accent-green: #34C759;
+            --accent-orange: #FF9500;
+            --accent-purple: #AF52DE;
+            --accent-cyan: #5AC8FA;
+            --accent-red: #FF3B30;
+            --beige-color: #F5F5DC;
+            --beige-light: rgba(245, 245, 220, 0.1);
+            --beige-medium: rgba(245, 245, 220, 0.2);
+            --beige-dark: rgba(245, 245, 220, 0.05);
+            --border-light: rgba(245, 245, 220, 0.1);
+            --border-lighter: rgba(245, 245, 220, 0.05);
+            
+            /* تأثيرات الزجاج الداكن المتقدمة */
+            --glass-bg: rgba(20, 20, 22, 0.7);
+            --glass-bg-light: rgba(30, 30, 32, 0.4);
+            --glass-border: rgba(245, 245, 220, 0.15);
+            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            --card-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+            --elevated-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            --accent-glow: 0 0 40px rgba(0, 122, 255, 0.25);
+            --beige-glow: 0 0 20px rgba(245, 245, 220, 0.15);
+            --glass-gradient: linear-gradient(135deg, 
+                rgba(30, 30, 32, 0.9) 0%, 
+                rgba(20, 20, 22, 0.6) 100%);
+            
+            /* تدرجات Vision Pro الحديثة */
+            --gradient-blue: linear-gradient(135deg, #007AFF 0%, #5856D6 100%);
+            --gradient-green: linear-gradient(135deg, #34C759 0%, #30D158 100%);
+            --gradient-orange: linear-gradient(135deg, #FF9500 0%, #FF2D55 100%);
+            --gradient-purple: linear-gradient(135deg, #AF52DE 0%, #5856D6 100%);
+            --gradient-cyan: linear-gradient(135deg, #5AC8FA 0%, #007AFF 100%);
+            --gradient-pink: linear-gradient(135deg, #FF2D55 0%, #FF9500 100%);
+            --gradient-beige: linear-gradient(135deg, rgba(245, 245, 220, 0.1) 0%, rgba(245, 245, 220, 0.05) 100%);
+            --gradient-dark: linear-gradient(135deg, 
+                #0A0A0C 0%, 
+                #111113 50%, 
+                #0A0A0C 100%);
+            
+            /* تأثيرات الإضاءة والعمق */
+            --light-highlight: 0 0 0 1px rgba(245, 245, 220, 0.1);
+            --inner-shadow: inset 0 1px 0 0 rgba(245, 245, 220, 0.05);
+            --depth-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(0, 0, 0, 0.2);
+            
+            /* أبعاد وتقريب */
+            --radius-sm: 12px;
+            --radius-md: 18px;
+            --radius-lg: 24px;
+            --radius-xl: 32px;
+            --radius-pill: 100px;
+            
+            /* انتقالات Vision Pro السلسة */
+            --transition-smooth: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-bounce: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            --transition-fast: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-spring: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            
+            /* متغيرات جديدة للقائمة الجانبية */
+            --sidebar-width: 340px;
+            --sidebar-collapsed-width: 80px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Almarai', 'Tajawal', 'SF Pro Display', sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background: var(--gradient-dark);
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* Video Background - Vision Pro Dark */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+        }
+
+        .video-background video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.2;
+            filter: brightness(0.5) contrast(1.2) blur(2px);
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(0, 122, 255, 0.1) 0%, transparent 50%),
+                      radial-gradient(circle at 80% 20%, rgba(88, 86, 214, 0.08) 0%, transparent 50%),
+                      radial-gradient(circle at 40% 80%, rgba(255, 149, 0, 0.06) 0%, transparent 50%),
+                      radial-gradient(circle at 60% 40%, rgba(245, 245, 220, 0.03) 0%, transparent 50%);
+            background-color: rgba(10, 10, 12, 0.9);
+            pointer-events: none;
+        }
+
+        /* زر الترحيب الدائري */
+        .welcome-circle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--beige-color);
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-align: center;
+            cursor: pointer;
+            z-index: 10001;
+            box-shadow: 0 10px 30px rgba(0, 122, 255, 0.4);
+            transition: var(--transition-spring);
+            border: 2px solid rgba(245, 245, 220, 0.2);
+            overflow: hidden;
+            padding: 5px;
+            backdrop-filter: blur(20px);
+        }
+
+        .welcome-circle:hover {
+            transform: scale(1.15) rotate(10deg);
+            box-shadow: 0 15px 40px rgba(0, 122, 255, 0.5);
+            color: white;
+        }
+
+        /* ===== Header - Vision Pro Glass Dark ===== */
+        header {
+            background: rgba(20, 20, 22, 0.9);
+            backdrop-filter: blur(120px) saturate(180%);
+            -webkit-backdrop-filter: blur(120px) saturate(180%);
+            padding: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10000;
+            border-bottom: 1px solid var(--glass-border);
+            transition: var(--transition-smooth);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* الشعار */
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            text-decoration: none;
+            transition: var(--transition-smooth);
+        }
+
+        .logo:hover {
+            transform: translateY(-2px);
+        }
+
+        .logo-icon {
+            width: 150px;
+            height: 150px;
+            background: url("https://d.top4top.io/p_36757e7681.png") no-repeat center;
+            background-size: contain;
+            border-radius: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            filter: brightness(1.2) contrast(1.1);
+        }
+
+        .logo-icon::before {
+            display: none;
+        }
+
+        .logo:hover .logo-icon {
+            transform: none;
+        }
+
+        .logo-icon i {
+            display: none;
+        }
+
+        /* نص الشعار */
+        .logo-text h1 {
+            background: none;
+            -webkit-text-fill-color: initial;
+            color: var(--beige-color);
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 4px;
+            letter-spacing: -0.5px;
+            text-shadow: var(--beige-glow);
+        }
+
+        .logo-text p {
+            color: var(--text-tertiary);
+            font-size: 0.9rem;
+            font-weight: 400;
+        }
+
+        /* Navigation - Vision Pro Dark Glass Style */
+        nav {
+            display: flex;
+            gap: 4px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(80px) saturate(180%);
+            border-radius: var(--radius-pill);
+            padding: 6px;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow), 0 1px 0 0 rgba(245, 245, 220, 0.05);
+            position: relative;
+        }
+
+        nav::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: var(--radius-pill);
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(245, 245, 220, 0.15), rgba(245, 245, 220, 0.05));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 12px 24px;
+            border-radius: var(--radius-pill);
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 122, 255, 0.15), transparent);
+            opacity: 0;
+            transition: var(--transition-fast);
+        }
+
+        nav a:hover {
+            color: var(--beige-color);
+            background: var(--beige-light);
+            transform: translateY(-1px);
+        }
+
+        nav a:hover::before {
+            opacity: 1;
+        }
+
+        nav a.active {
+            background: var(--beige-medium);
+            color: var(--beige-color);
+            font-weight: 700;
+            box-shadow: var(--beige-glow);
+            border: 1px solid var(--beige-light);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--beige-color);
+            font-size: 1.2rem;
+            cursor: pointer;
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            transition: var(--transition-smooth);
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(20px);
+            box-shadow: var(--glass-shadow);
+        }
+
+        /* ===== Layout جديد ===== */
+        .app-container {
+            display: flex;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .main-content {
+            flex: 1;
+            transition: margin var(--transition-smooth);
+            margin-right: 0;
+            width: 100%;
+        }
+
+        .main-content.sidebar-expanded {
+            margin-right: var(--sidebar-width);
+        }
+
+        .main-content.sidebar-collapsed {
+            margin-right: var(--sidebar-collapsed-width);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* ===== Hero Section - Articles ===== */
+        .hero {
+            padding: 200px 0 140px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            margin-top: 80px;
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .hero-background img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            filter: brightness(0.6) contrast(1.1) saturate(1.1);
+            transform: scale(1.05);
+            transition: transform 20s ease;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(10, 10, 12, 0.9) 0%, rgba(17, 17, 19, 0.4) 100%);
+            z-index: -1;
+        }
+
+        @keyframes heroImageFloat {
+            0%, 100% {
+                transform: scale(1.05) translateY(0);
+            }
+            50% {
+                transform: scale(1.08) translateY(-10px);
+            }
+        }
+
+        .hero-background img {
+            animation: heroImageFloat 30s ease-in-out infinite;
+        }
+
+        .hero-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h2 {
+            font-size: 5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 32px;
+            letter-spacing: -1.5px;
+            position: relative;
+            animation: fadeInUp 0.8s ease-out;
+            background: linear-gradient(135deg, var(--beige-color) 0%, #d1d1a0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 4px 15px rgba(245, 245, 220, 0.3);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 40px auto 60px;
+            line-height: 1.8;
+            font-weight: 400;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+            opacity: 0.9;
+        }
+
+        /* ===== القائمة الجانبية ===== */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: var(--sidebar-width);
+            height: 100vh;
+            background: rgba(20, 20, 22, 0.95);
+            backdrop-filter: blur(120px) saturate(180%);
+            -webkit-backdrop-filter: blur(120px) saturate(180%);
+            border-left: 1px solid var(--glass-border);
+            transition: all var(--transition-smooth);
+            z-index: 900;
+            overflow-y: auto;
+            overflow-x: hidden;
+            box-shadow: -5px 0 30px rgba(0, 0, 0, 0.3);
+            border-radius: 0;
+        }
+
+        .sidebar.collapsed {
+            width: var(--sidebar-collapsed-width);
+        }
+
+        .sidebar-header {
+            padding: 25px;
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(20, 20, 22, 0.9);
+        }
+
+        .sidebar.collapsed .sidebar-header {
+            justify-content: center;
+            padding: 25px 10px;
+        }
+
+        .sidebar-title {
+            font-family: inherit;
+            color: var(--beige-color);
+            font-size: 1.3rem;
+            font-weight: 700;
+            transition: all var(--transition-smooth);
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .sidebar.collapsed .sidebar-title {
+            opacity: 0;
+            width: 0;
+            visibility: hidden;
+        }
+
+        .sidebar-toggle {
+            background: var(--beige-light);
+            border: 1px solid var(--glass-border);
+            color: var(--beige-color);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            flex-shrink: 0;
+        }
+
+        .sidebar-toggle:hover {
+            background: var(--beige-medium);
+            border-color: var(--beige-color);
+            color: var(--beige-color);
+        }
+
+        .sidebar.collapsed .sidebar-toggle {
+            transform: rotate(180deg);
+        }
+
+        .sidebar-content {
+            padding: 20px;
+        }
+
+        .sidebar.collapsed .sidebar-content {
+            padding: 20px 10px;
+        }
+
+        .sidebar-section {
+            margin-bottom: 35px;
+            transition: all var(--transition-smooth);
+        }
+
+        .sidebar.collapsed .sidebar-section {
+            opacity: 0;
+            height: 0;
+            overflow: hidden;
+            margin: 0;
+            pointer-events: none;
+        }
+
+        .sidebar-section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--beige-color);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--beige-light);
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .sidebar-section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            right: 0;
+            width: 60px;
+            height: 2px;
+            background: var(--beige-color);
+        }
+
+        .sidebar-list {
+            list-style: none;
+        }
+
+        .sidebar-item {
+            margin-bottom: 12px;
+            transition: var(--transition-fast);
+        }
+
+        .sidebar-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .sidebar-item a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            background: var(--beige-dark);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--glass-border);
+            color: var(--text-secondary);
+            transition: var(--transition-smooth);
+        }
+
+        .sidebar-item a:hover {
+            background: var(--beige-light);
+            border-color: var(--beige-color);
+            color: var(--beige-color);
+            transform: translateX(-5px);
+        }
+
+        .sidebar-item.active a {
+            background: var(--beige-medium);
+            border-color: var(--beige-color);
+            color: var(--beige-color);
+            box-shadow: var(--beige-glow);
+        }
+
+        .sidebar-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--glass-gradient);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            color: var(--beige-color);
+            flex-shrink: 0;
+            transition: var(--transition-smooth);
+        }
+
+        .sidebar-item a:hover .sidebar-icon {
+            background: var(--gradient-beige);
+            color: var(--beige-color);
+            transform: scale(1.1);
+        }
+
+        .sidebar-item-content {
+            flex: 1;
+            min-width: 0;
+            transition: opacity var(--transition-smooth);
+        }
+
+        .sidebar.collapsed .sidebar-item-content {
+            opacity: 0;
+            width: 0;
+            visibility: hidden;
+        }
+
+        .sidebar-item-title {
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: var(--beige-color);
+        }
+
+        .sidebar-item-meta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.8rem;
+            color: var(--text-tertiary);
+            flex-wrap: wrap;
+        }
+
+        .sidebar-item-meta span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .sidebar-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            background: var(--gradient-blue);
+            color: white;
+            border-radius: var(--radius-pill);
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-right: auto;
+        }
+
+        /* زر تبديل القائمة للجوال */
+        .sidebar-toggle-mobile {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-blue);
+            color: var(--beige-color);
+            border: none;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 800;
+            box-shadow: var(--elevated-shadow);
+            transition: var(--transition-smooth);
+        }
+
+        .sidebar-toggle-mobile:hover {
+            transform: scale(1.1);
+        }
+
+        /* ===== تخطيط المقالات ===== */
+        .articles-layout {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        /* ===== شبكة المقالات المحسنة ===== */
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .article-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(120px);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            transition: var(--transition-spring);
+            border: 1px solid var(--glass-border);
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+            box-shadow: var(--depth-shadow);
+        }
+
+        .article-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .article-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--beige-light);
+            box-shadow: var(--elevated-shadow), 0 0 40px rgba(245, 245, 220, 0.1);
+        }
+
+        .article-image {
+            position: relative;
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .article-image img {
+            width: 400px;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .article-card:hover .article-image img {
+            transform: scale(1.1);
+        }
+
+        .article-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--gradient-blue);
+            color: var(--beige-color);
+            padding: 8px 16px;
+            border-radius: var(--radius-pill);
+            font-size: 0.85rem;
+            font-weight: 600;
+            z-index: 2;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(245, 245, 220, 0.3);
+        }
+
+        .article-content {
+            padding: 25px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .article-meta {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            color: var(--text-tertiary);
+            flex-wrap: wrap;
+        }
+
+        .article-meta i {
+            margin-left: 5px;
+            color: var(--beige-color);
+        }
+
+        .article-title {
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+            line-height: 1.4;
+            font-weight: 700;
+            color: var(--beige-color);
+        }
+
+        .article-title a {
+            color: var(--beige-color);
+            transition: var(--transition-fast);
+            text-decoration: none;
+        }
+
+        .article-title a:hover {
+            color: var(--accent-blue);
+        }
+
+        .article-excerpt {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            line-height: 1.7;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* ===== الشريط الجانبي للمقالات ===== */
+        .sidebar-widget {
+            background: var(--card-bg);
+            backdrop-filter: blur(120px);
+            border-radius: var(--radius-xl);
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--depth-shadow);
+        }
+
+        .widget-title {
+            font-size: 1.3rem;
+            color: var(--beige-color);
+            margin-bottom: 20px;
+            font-family: inherit;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .widget-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--beige-color);
+            border-radius: 2px;
+        }
+
+        /* البحث في الشريط الجانبي */
+        .search-widget {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .search-widget input {
+            width: 100%;
+            padding: 15px 50px 15px 20px;
+            background: var(--beige-dark);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-pill);
+            color: var(--beige-color);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: var(--transition-fast);
+        }
+
+        .search-widget input:focus {
+            outline: none;
+            border-color: var(--beige-color);
+            box-shadow: 0 0 0 3px var(--beige-dark);
+        }
+
+        .search-widget input::placeholder {
+            color: var(--text-tertiary);
+        }
+
+        .search-widget button {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--gradient-blue);
+            color: var(--beige-color);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .search-widget button:hover {
+            background: #0056cc;
+            transform: translateY(-50%) scale(1.1);
+            color: white;
+        }
+
+        /* فلترة المقالات */
+        .filter-group {
+            margin-bottom: 25px;
+        }
+
+        .filter-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .filter-group h4 {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: var(--beige-color);
+            font-weight: 600;
+        }
+
+        .filter-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 15px;
+            background: var(--beige-dark);
+            border-radius: var(--radius-md);
+            transition: var(--transition-fast);
+            cursor: pointer;
+        }
+
+        .filter-option:hover {
+            background: var(--beige-light);
+            transform: translateX(-5px);
+        }
+
+        .filter-option input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--accent-blue);
+        }
+
+        .filter-option label {
+            flex: 1;
+            cursor: pointer;
+            font-size: 0.95rem;
+            color: var(--beige-color);
+        }
+
+        .filter-count {
+            background: var(--accent-blue);
+            color: var(--beige-color);
+            padding: 4px 10px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* المقالات الشائعة */
+        .popular-articles {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .popular-item {
+            display: flex;
+            gap: 15px;
+            padding: 15px;
+            border-radius: var(--radius-md);
+            transition: var(--transition-fast);
+            border: 1px solid transparent;
+            background: var(--beige-dark);
+            text-decoration: none;
+        }
+
+        .popular-item:hover {
+            background: var(--beige-light);
+            border-color: var(--glass-border);
+            transform: translateX(-5px);
+        }
+
+        .popular-thumb {
+            width: 80px;
+            height: 80px;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .popular-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .popular-item:hover .popular-thumb img {
+            transform: scale(1.1);
+        }
+
+        .popular-content {
+            flex: 1;
+        }
+
+        .popular-content h4 {
+            font-size: 0.95rem;
+            line-height: 1.4;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--beige-color);
+        }
+
+        .popular-content h4 a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .popular-content h4 a:hover {
+            color: var(--accent-blue);
+        }
+
+        .popular-meta {
+            display: flex;
+            gap: 15px;
+            font-size: 0.8rem;
+            color: var(--text-tertiary);
+        }
+
+        .popular-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .popular-meta i {
+            color: var(--accent-blue);
+            font-size: 0.8rem;
+        }
+
+        /* النشرة البريدية */
+        .newsletter-widget .newsletter-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .newsletter-widget input {
+            width: 100%;
+            padding: 15px 20px;
+            background: var(--beige-dark);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-pill);
+            color: var(--beige-color);
+            font-family: inherit;
+            transition: var(--transition-fast);
+        }
+
+        .newsletter-widget input:focus {
+            outline: none;
+            border-color: var(--beige-color);
+            box-shadow: 0 0 0 3px var(--beige-dark);
+        }
+
+        .newsletter-widget input::placeholder {
+            color: var(--text-tertiary);
+        }
+
+        /* ===== Extra Content Section ===== */
+        .extra-content {
+            padding: 120px 0;
+            background: var(--secondary-bg);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 80px;
+            color: var(--beige-color);
+            letter-spacing: -0.8px;
+            position: relative;
+            padding-top: 60px;
+            text-shadow: var(--beige-glow);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 160px;
+            height: 5px;
+            background: linear-gradient(135deg, var(--beige-color) 0%, #d1d1a0 100%);
+            bottom: -25px;
+            right: 50%;
+            transform: translateX(50%);
+            border-radius: 3px;
+            box-shadow: 0 0 20px rgba(245, 245, 220, 0.3);
+        }
+
+        .categories-filter {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+
+        .category-filter-btn {
+            background: var(--glass-bg);
+            backdrop-filter: blur(40px);
+            padding: 14px 28px;
+            border-radius: var(--radius-pill);
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            transition: var(--transition-spring);
+            cursor: pointer;
+            border: 1px solid var(--glass-border);
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--glass-shadow);
+        }
+
+        .category-filter-btn:hover,
+        .category-filter-btn.active {
+            background: var(--beige-medium);
+            color: var(--beige-color);
+            transform: translateY(-3px);
+            border-color: var(--beige-light);
+            box-shadow: 0 10px 30px rgba(245, 245, 220, 0.15);
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .content-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(120px);
+            border-radius: var(--radius-xl);
+            padding: 40px;
+            box-shadow: var(--depth-shadow);
+            border: 1px solid var(--glass-border);
+            transition: var(--transition-spring);
+            text-align: center;
+        }
+
+        .content-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--elevated-shadow);
+            border-color: var(--beige-light);
+        }
+
+        .content-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: var(--radius-md);
+            margin-bottom: 25px;
+            transition: var(--transition-smooth);
+        }
+
+        .content-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .content-card h3 {
+            color: var(--beige-color);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        .content-card p {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .read-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition-fast);
+        }
+
+        .read-more:hover {
+            color: var(--beige-color);
+            transform: translateX(-5px);
+        }
+
+        /* ===== الترقيم ===== */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 60px;
+        }
+
+        .pagination a, .pagination span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 45px;
+            height: 45px;
+            padding: 0 15px;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            transition: var(--transition-fast);
+            text-decoration: none;
+        }
+
+        .pagination a {
+            background: var(--glass-bg);
+            color: var(--text-secondary);
+            border: 1px solid var(--glass-border);
+        }
+
+        .pagination a:hover {
+            background: var(--accent-blue);
+            color: var(--beige-color);
+            border-color: var(--accent-blue);
+            transform: translateY(-2px);
+        }
+
+        .pagination .current {
+            background: var(--accent-blue);
+            color: var(--beige-color);
+            border: 1px solid var(--accent-blue);
+        }
+
+        .pagination .prev, .pagination .next {
+            gap: 8px;
+            padding: 0 20px;
+        }
+
+        /* ===== Breadcrumbs ===== */
+        .breadcrumbs {
+            padding: 20px 0;
+            margin: 30px 0;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .breadcrumbs ol {
+            display: flex;
+            align-items: center;
+            list-style: none;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .breadcrumbs li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .breadcrumbs a {
+            color: var(--text-secondary);
+            transition: var(--transition-fast);
+            padding: 8px 12px;
+            border-radius: var(--radius-sm);
+            text-decoration: none;
+        }
+
+        .breadcrumbs a:hover {
+            color: var(--beige-color);
+            background: var(--beige-dark);
+        }
+
+        .breadcrumbs .separator {
+            color: var(--border-light);
+            font-size: 0.8rem;
+        }
+
+        .breadcrumbs .current {
+            color: var(--beige-color);
+            font-weight: 600;
+            background: var(--beige-dark);
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+        }
+
+        /* ===== Empty State ===== */
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 80px 20px;
+            color: var(--text-tertiary);
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            color: var(--accent-blue);
+            margin-bottom: 20px;
+            opacity: 0.7;
+        }
+
+        .empty-state h3 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: var(--beige-color);
+        }
+
+        .empty-state p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 500px;
+            margin: 0 auto 30px;
+            color: var(--text-secondary);
+        }
+
+        /* ===== Stats Section ===== */
+        .stats {
+            padding: 120px 0;
+            position: relative;
+            background: var(--primary-bg);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            margin-top: 80px;
+        }
+
+        .stat-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(120px);
+            border-radius: var(--radius-xl);
+            padding: 48px 32px;
+            text-align: center;
+            transition: var(--transition-spring);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--depth-shadow);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-12px) scale(1.05);
+            box-shadow: var(--elevated-shadow), 0 0 40px rgba(245, 245, 220, 0.15);
+            border-color: var(--beige-light);
+        }
+
+        .stat-number {
+            font-size: 4.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--beige-color) 0%, #d1d1a0 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1;
+            margin-bottom: 20px;
+            display: block;
+            text-shadow: 0 0 40px rgba(245, 245, 220, 0.3);
+        }
+
+        .stat-text {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        /* ===== Footer ===== */
+        footer {
+            background: linear-gradient(180deg, #0A0A0C 0%, #111113 100%);
+            color: var(--beige-color);
+            padding: 120px 0 60px;
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+            border-top: 1px solid var(--beige-light);
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, var(--beige-color) 0%, #d1d1a0 100%);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 48px;
+            margin-bottom: 48px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: var(--beige-color);
+            position: relative;
+            padding-bottom: 12px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(135deg, var(--beige-color) 0%, #d1d1a0 100%);
+            border-radius: 2px;
+        }
+
+        .footer-column p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 1.1rem;
+            margin-top: 16px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid var(--border-light);
+            color: var(--text-tertiary);
+            font-size: 14px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ===== عناصر إضافية ===== */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 0%;
+            height: 3px;
+            background: var(--gradient-blue);
+            z-index: 1001;
+            transition: width 0.1s ease;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-blue);
+            color: var(--beige-color);
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all var(--transition-smooth);
+            z-index: 999;
+            box-shadow: var(--elevated-shadow);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 122, 255, 0.4);
+            color: white;
+        }
+
+        /* ===== Responsive Design ===== */
+        @media (max-width: 1400px) {
+            :root {
+                --sidebar-width: 300px;
+                --sidebar-collapsed-width: 70px;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .container {
+                max-width: 100%;
+                padding: 0 30px;
+            }
+            
+            .sidebar {
+                transform: translateX(100%);
+                width: 320px;
+            }
+            
+            .sidebar.active {
+                transform: translateX(0);
+                box-shadow: -10px 0 40px rgba(0, 0, 0, 0.3);
+            }
+            
+            .main-content.sidebar-expanded,
+            .main-content.sidebar-collapsed {
+                margin-right: 0;
+            }
+            
+            .sidebar-toggle-mobile {
+                display: flex;
+            }
+            
+            .articles-layout {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .hero h2 {
+                font-size: 4.2rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .header-container {
+                height: 72px;
+            }
+            
+            nav {
+                position: fixed;
+                top: 72px;
+                right: 0;
+                left: 0;
+                background: var(--glass-bg);
+                backdrop-filter: blur(80px);
+                border-radius: 0;
+                padding: 24px;
+                flex-direction: column;
+                gap: 12px;
+                border-top: 1px solid var(--glass-border);
+                display: none;
+                z-index: 9999;
+                max-height: calc(100vh - 72px);
+                overflow-y: auto;
+                box-shadow: var(--elevated-shadow);
+            }
+            
+            nav.active {
+                display: flex;
+                animation: slideDown 0.3s ease-out;
+            }
+            
+            @keyframes slideDown {
+                from {
+                    opacity: 0;
+                    transform: translateY(-20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            
+            .mobile-menu-btn {
+                display: flex;
+            }
+            
+            .hero {
+                padding: 160px 0 80px;
+                min-height: 80vh;
+                margin-top: 72px;
+            }
+            
+            .hero h2 {
+                font-size: 3.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+                margin: 32px auto 48px;
+            }
+            
+            .section-title {
+                font-size: 3rem;
+                margin-bottom: 60px;
+            }
+            
+            .articles-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 24px;
+            }
+            
+            .hero {
+                min-height: 70vh;
+            }
+            
+            .hero h2 {
+                font-size: 3rem;
+            }
+            
+            .section-title {
+                font-size: 2.8rem;
+                margin-bottom: 60px;
+            }
+            
+            .articles-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .pagination {
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+            
+            .pagination a, .pagination span {
+                min-width: 40px;
+                height: 40px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero {
+                padding: 140px 0 60px;
+                min-height: 60vh;
+            }
+            
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .logo-text h1 {
+                font-size: 1.5rem;
+            }
+            
+            .article-content {
+                padding: 20px;
+            }
+            
+            .article-title {
+                font-size: 1.3rem;
+            }
+            
+            .sidebar {
+                width: 100%;
+            }
+            
+            .sidebar-header {
+                padding: 20px;
+            }
+            
+            .sidebar-widget {
+                padding: 20px;
+            }
+            
+            .back-to-top {
+                bottom: 20px;
+                left: 20px;
+                width: 45px;
+                height: 45px;
+            }
+            
+            .welcome-circle {
+                width: 50px;
+                height: 50px;
+                font-size: 0.6rem;
+                top: 15px;
+                right: 15px;
+            }
+        }
+
+        /* دعم تقليل الحركة */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Video Background -->
+    <div class="video-background">
+        <video autoplay muted loop playsinline>
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-geometric-shapes-rotating-in-space-34905-large.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+
+    <!-- ====== عناصر جديدة من صفحة المقالات الأولى ====== -->
+    <!-- شريط التقدم -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- زر العودة للأعلى -->
+    <button class="back-to-top" id="backToTop" aria-label="العودة إلى الأعلى">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- زر الترحيب الدائري -->
+    <div class="welcome-circle" id="welcomeCircle">
+        مرحباً بك في مقالات نوميرا
+    </div>
+
+    <!-- ====== الهيكل الرئيسي ====== -->
+    <div class="app-container">
+        <!-- ====== القائمة الجانبية (تم تبسيطها) ====== -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h3 class="sidebar-title">تصفية المقالات</h3>
+                <button class="sidebar-toggle" id="sidebarToggle" aria-label="تبديل القائمة">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+            </div>
+            
+            <div class="sidebar-content">
+                <!-- يتم إضافة محتوى القائمة ديناميكياً -->
+            </div>
+        </aside>
+
+        <!-- زر تبديل القائمة للجوال -->
+        <button class="sidebar-toggle-mobile" id="sidebarToggleMobile" aria-label="تبديل القائمة">
+            <i class="fas fa-filter"></i>
+        </button>
+   
+        <!-- ====== المحتوى الرئيسي ====== -->
+        <main class="main-content" id="mainContent">
+            <!-- Header -->
+            <header>
+                <div class="container header-container">
+                    <a href="{% url 'home' %}" class="logo">
+                        <div class="logo-icon"></div>
+                        <div class="logo-text">
+                            <h1>نوميرا</h1>
+                            <p>المدونة والمقالات</p>
+                        </div>
+                    </a>
+                    
+                    <nav id="main-nav">
+                        <a href="{% url 'home' %}">
+                            <i class="fas fa-home"></i>
+                            الرئيسية
+                        </a>
+                        <a href="{% url 'calculators' %}">
+                            <i class="fas fa-calculator"></i>
+                            الحاسبات الذكية
+                        </a>
+                        <a href="{% url 'quizzes' %}">
+                            <i class="fas fa-brain"></i>
+                            اختبارات شخصية
+                        </a>
+                        <a href="{% url 'articles' %}" class="active">
+                            <i class="fas fa-newspaper"></i>
+                            المدونة والمقالات
+                        </a>
+                        <a href="{% url 'coupons' %}">
+                            <i class="fas fa-gift"></i>
+                            كوبونات الخصم
+                        </a>
+                    </nav>
+                    
+                    <button class="mobile-menu-btn" id="mobile-menu-btn">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Hero Section -->
+            <section class="hero">
+                <div class="hero-background">
+                    <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3&auto=format&fit=crop&w=2069&q=80" 
+                         alt="خلفية مقالات نوميرا"
+                         loading="lazy">
+                </div>
+                
+                <div class="hero-overlay"></div>
+                
+                <div class="container">
+                    <div class="hero-content">
+                        <h2>مدونة نوميرا<br>اكتشف. تعلم. استمتع</h2>
+                        <p>استكشف عالم المعرفة مع مقالاتنا المتنوعة في التقنية، الصحة، الاقتصاد، الثقافة والترفيه. محتوى غني يلبي جميع اهتماماتك.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Categories Section -->
+            <section class="extra-content">
+                <div class="container">
+                    <h2 class="section-title">تصنيفات المقالات</h2>
+                    
+                    <div class="categories-filter">
+                        <button class="category-filter-btn active">الكل</button>
+                        {% for category in categories %}
+                        <button class="category-filter-btn" data-category="{{ category.id }}">
+                            {{ category.name }}
+                        </button>
+                        {% empty %}
+                        <button class="category-filter-btn">لا توجد تصنيفات</button>
+                        {% endfor %}
+                    </div>
+
+                    <div class="content-grid">
+                        {% for category in categories|slice:":4" %}
+                        <div class="content-card">
+                            {% if category.image_url %}
+                            <img src="{{ category.image_url }}" alt="{{ category.name }}">
+                            {% else %}
+                            <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                                 alt="{{ category.name }}">
+                            {% endif %}
+                            <h3>{{ category.name }}</h3>
+                            <p>{{ category.description|default:"استكشف مقالاتنا في هذا التصنيف"|truncatewords:20 }}</p>
+                            <a href="{% url 'category_detail' category.pk %}" class="read-more">
+                                <span>تصفح التصنيف</span>
+                                <i class="fas fa-arrow-left"></i>
+                            </a>
+                        </div>
+                        {% empty %}
+                        <div class="content-card">
+                            <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                                 alt="مقالات">
+                            <h3>المقالات العامة</h3>
+                            <p>استكشف مقالاتنا في مختلف المجالات والمعرفة</p>
+                            <a href="#" class="read-more">
+                                <span>تصفح المقالات</span>
+                                <i class="fas fa-arrow-left"></i>
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </section>
+
+            <!-- All Articles Section -->
+            <section class="articles-section" id="articles-grid">
+                <div class="container">
+                    <!-- Breadcrumbs -->
+                    <nav class="breadcrumbs" aria-label="مسار التنقل">
+                        <ol>
+                            <li><a href="{% url 'home' %}"><i class="fas fa-home"></i> الرئيسية</a></li>
+                            <li class="separator"><i class="fas fa-chevron-left"></i></li>
+                            <li class="current">جميع المقالات</li>
+                        </ol>
+                    </nav>
+
+                    <div class="articles-layout">
+                        <!-- المحتوى الرئيسي -->
+                        <div class="main-content">
+                            <div class="articles-grid">
+                                {% for article in articles %}
+                                <article class="article-card" style="animation-delay: {{ forloop.counter0|add:"1"|floatformat:1 }}s">
+                                    <a href="{% url 'article_detail' article.pk %}" class="article-image">
+                                        {% if article.image_url %}
+                                            <img src="{{ article.image_url }}" alt="{{ article.title }}" loading="lazy">
+                                        {% else %}
+                                            <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                                                 alt="{{ article.title }}" loading="lazy">
+                                        {% endif %}
+                                        <div class="article-badge">
+                                            {% if article.category %}
+                                                {{ article.category.name }}
+                                            {% else %}
+                                                ثقافة
+                                            {% endif %}
+                                        </div>
+                                    </a>
+                                    <div class="article-content">
+                                        <h3 class="article-title">
+                                            <a href="{% url 'article_detail' article.pk %}">{{ article.title }}</a>
+                                        </h3>
+                                        <div class="article-meta">
+                                            <span><i class="far fa-calendar"></i> <time>{{ article.created_at|date:"Y-m-d"|default:"-" }}</time></span>
+                                            {% if article.read_time %}
+                                            <span><i class="far fa-clock"></i> {{ article.read_time }} دقيقة</span>
+                                            {% endif %}
+                                            <span><i class="far fa-eye"></i> {{ article.views|default:0 }}</span>
+                                        </div>
+                                        <p class="article-excerpt">
+                                            {% if article.excerpt %}
+                                                {{ article.excerpt|truncatewords:25 }}
+                                            {% elif article.content %}
+                                                {{ article.content|striptags|truncatewords:25 }}
+                                            {% else %}
+                                                مقال رائع من نوميرا
+                                            {% endif %}
+                                        </p>
+                                        <a href="{% url 'article_detail' article.pk %}" style="display: inline-flex; align-items: center; gap: 10px; color: var(--accent-blue); text-decoration: none; font-weight: 600; transition: var(--transition-fast);">
+                                            اقرأ المزيد
+                                            <i class="fas fa-arrow-left"></i>
+                                        </a>
+                                    </div>
+                                </article>
+                                {% empty %}
+                                <div class="empty-state">
+                                    <i class="fas fa-book-open"></i>
+                                    <h3>لا توجد مقالات بعد</h3>
+                                    <p>لم يتم نشر أي مقالات حتى الآن. سيتم إضافة محتوى ثقافي مميز قريباً.</p>
+                                    <a href="/" style="display: inline-flex; align-items: center; gap: 10px; background: var(--gradient-blue); color: var(--beige-color); padding: 12px 24px; border-radius: var(--radius-pill); text-decoration: none; font-weight: 600; transition: var(--transition-fast);">
+                                        <i class="fas fa-home"></i> العودة للرئيسية
+                                    </a>
+                                </div>
+                                {% endfor %}
+                            </div>
+
+                            <!-- الترقيم -->
+                            {% if articles.has_other_pages %}
+                            <div class="pagination">
+                                {% if articles.has_previous %}
+                                <a href="?page={{ articles.previous_page_number }}" class="prev"><i class="fas fa-chevron-right"></i> السابق</a>
+                                {% endif %}
+                                
+                                {% for i in articles.paginator.page_range %}
+                                    {% if articles.number == i %}
+                                    <span class="current">{{ i }}</span>
+                                    {% else %}
+                                    <a href="?page={{ i }}">{{ i }}</a>
+                                    {% endif %}
+                                {% endfor %}
+                                
+                                {% if articles.has_next %}
+                                <a href="?page={{ articles.next_page_number }}" class="next">التالي <i class="fas fa-chevron-left"></i></a>
+                                {% endif %}
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- الشريط الجانبي -->
+                        <aside class="articles-sidebar">
+                            <!-- البحث والتصفية -->
+                            <div class="sidebar-widget">
+                                <h3 class="widget-title">🔍 بحث متقدم</h3>
+                                <div class="search-widget">
+                                    <input type="text" class="search-input" placeholder="ابحث في المقالات..." aria-label="بحث في المقالات" id="articleSearch">
+                                    <button class="search-btn" aria-label="بحث" id="searchButton"><i class="fas fa-search"></i></button>
+                                </div>
+                                
+                                <div class="filter-group">
+                                    <h4>التصنيفات</h4>
+                                    <div class="filter-options">
+                                        {% for category in categories|slice:":6" %}
+                                        <div class="filter-option">
+                                            <input type="checkbox" id="cat-{{ category.id }}" name="category" value="{{ category.id }}" class="category-filter">
+                                            <label for="cat-{{ category.id }}">{{ category.name }}</label>
+                                            <span class="filter-count">{{ category.articles.count|default:0 }}</span>
+                                        </div>
+                                        {% empty %}
+                                        <p style="color:var(--text-secondary); text-align:center;">لا توجد تصنيفات</p>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                
+                                <div class="filter-group">
+                                    <h4>الترتيب حسب</h4>
+                                    <div class="filter-options">
+                                        <div class="filter-option">
+                                            <input type="radio" id="sort-newest" name="sort" value="newest" checked class="sort-filter">
+                                            <label for="sort-newest">الأحدث أولاً</label>
+                                        </div>
+                                        <div class="filter-option">
+                                            <input type="radio" id="sort-oldest" name="sort" value="oldest" class="sort-filter">
+                                            <label for="sort-oldest">الأقدم أولاً</label>
+                                        </div>
+                                        <div class="filter-option">
+                                            <input type="radio" id="sort-popular" name="sort" value="popular" class="sort-filter">
+                                            <label for="sort-popular">الأكثر قراءة</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- المقالات الشائعة -->
+                            <div class="sidebar-widget">
+                                <h3 class="widget-title">المقالات الشائعة</h3>
+                                <div class="popular-articles">
+                                    {% for popular in articles|slice:":5" %}
+                                    <a href="{% url 'article_detail' popular.pk %}" class="popular-item">
+                                        <div class="popular-thumb">
+                                            {% if popular.image_url %}
+                                                <img src="{{ popular.image_url }}" alt="{{ popular.title }}" loading="lazy">
+                                            {% else %}
+                                                <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                                                     alt="{{ popular.title }}" loading="lazy">
+                                            {% endif %}
+                                        </div>
+                                        <div class="popular-content">
+                                            <h4>{{ popular.title|truncatewords:6 }}</h4>
+                                            <div class="popular-meta">
+                                                <span><i class="far fa-calendar"></i> {{ popular.created_at|date:"d M"|default:"-" }}</span>
+                                                <span><i class="far fa-eye"></i> {{ popular.views|default:0 }}</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    {% empty %}
+                                    <p style="text-align:center; color:var(--text-secondary); padding: 20px;">لا توجد مقالات شائعة</p>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                            <!-- النشرة البريدية -->
+                            <div class="sidebar-widget newsletter-widget">
+                                <h3 class="widget-title">📧 النشرة البريدية</h3>
+                                <p style="margin-bottom:20px; color:var(--text-secondary); font-size:0.95rem;">
+                                    اشترك في نشرتنا البريدية لتصلك أحدث المقالات
+                                </p>
+                                <form method="POST" action="#" class="newsletter-form">
+                                    {% csrf_token %}
+                                    <input type="email" name="email" placeholder="بريدك الإلكتروني" required>
+                                    <button type="submit" style="display: inline-flex; align-items: center; justify-content: center; gap: 10px; width:100%; padding: 15px 30px; background: var(--gradient-blue); color: var(--beige-color); border: none; border-radius: var(--radius-pill); font-family: inherit; font-size: 1rem; font-weight: 600; cursor: pointer; transition: var(--transition-fast);">
+                                        <i class="fas fa-envelope"></i> اشتراك
+                                    </button>
+                                </form>
+                            </div>
+                        </aside>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Stats Section -->
+            <section class="stats">
+                <div class="container">
+                    <h2 class="section-title">إحصائيات المدونة</h2>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <span class="stat-number">{{ articles|length }}</span>
+                            <p class="stat-text">مقال منشور</p>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number">{{ categories|length }}</span>
+                            <p class="stat-text">تصنيف مختلف</p>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number">1000+</span>
+                            <p class="stat-text">قارئ نشط</p>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number">24/7</span>
+                            <p class="stat-text">تحديث مستمر</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer>
+                <div class="container">
+                    <div class="footer-content">
+                        <div class="footer-column">
+                            <h3>رؤية منصة نوميرا</h3>
+                            <p style="color: var(--text-secondary); line-height: 1.8; margin-top: 20px; font-size: 1.1rem;">
+                                نوميرا منصة متكاملة تهدف إلى تقديم محتوى مفيد ومسلي في مكان واحد. نحن نؤمن بأن المعرفة والتسلية يجب أن تكون متاحة للجميع بشكل سهل ومجاني. من خلال أدواتنا الحسابية، اختباراتنا المسلية، مقالاتنا الغنية، وكوبوناتنا الحصرية، نسعى لجعل تجربتك على الإنترنت أكثر فائدة وإمتاعاً.
+                            </p>
+                            <div style="margin-top: 40px; display: flex; gap: 20px;">
+                                <a href="#" style="color: var(--text-secondary); font-size: 1.4rem; transition: var(--transition-fast); display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 12px; background: var(--card-bg); border: 1px solid var(--glass-border); box-shadow: var(--glass-shadow);"><i class="fab fa-twitter"></i></a>
+                                <a href="#" style="color: var(--text-secondary); font-size: 1.4rem; transition: var(--transition-fast); display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 12px; background: var(--card-bg); border: 1px solid var(--glass-border); box-shadow: var(--glass-shadow);"><i class="fab fa-linkedin"></i></a>
+                                <a href="#" style="color: var(--text-secondary); font-size: 1.4rem; transition: var(--transition-fast); display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 12px; background: var(--card-bg); border: 1px solid var(--glass-border); box-shadow: var(--glass-shadow);"><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="copyright">
+                        <p>© 2024 نوميرا. جميع الحقوق محفوظة. تصميم متقدم بتقنيات Apple Vision Pro</p>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <!-- ====== JavaScript ====== -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // تعريف متغيرات عامة
+            let sidebarCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+            let isMobile = window.innerWidth <= 1200;
+
+            // تهيئة القائمة الجانبية
+            function initializeSidebar() {
+                const sidebar = document.getElementById('sidebar');
+                const sidebarToggle = document.getElementById('sidebarToggle');
+                const sidebarToggleMobile = document.getElementById('sidebarToggleMobile');
+                const mainContent = document.getElementById('mainContent');
+
+                // تطبيق الحالة المحفوظة
+                if (sidebarCollapsed && !isMobile) {
+                    sidebar.classList.add('collapsed');
+                    mainContent.classList.add('sidebar-collapsed');
+                } else if (!isMobile) {
+                    mainContent.classList.add('sidebar-expanded');
+                }
+
+                // حدث زر تبديل القائمة (لأجهزة الكمبيوتر)
+                if (sidebarToggle) {
+                    sidebarToggle.addEventListener('click', toggleSidebar);
+                }
+
+                // حدث زر تبديل القائمة (للأجهزة المحمولة)
+                if (sidebarToggleMobile) {
+                    sidebarToggleMobile.addEventListener('click', function() {
+                        if (isMobile) {
+                            sidebar.classList.toggle('active');
+                            this.innerHTML = sidebar.classList.contains('active') 
+                                ? '<i class="fas fa-times"></i>' 
+                                : '<i class="fas fa-filter"></i>';
+                        } else {
+                            toggleSidebar();
+                        }
+                    });
+                }
+
+                // إغلاق القائمة عند النقر خارجها (للأجهزة المحمولة)
+                document.addEventListener('click', function(event) {
+                    if (isMobile && sidebar.classList.contains('active')) {
+                        if (!sidebar.contains(event.target) && 
+                            !sidebarToggleMobile.contains(event.target)) {
+                            sidebar.classList.remove('active');
+                            sidebarToggleMobile.innerHTML = '<i class="fas fa-filter"></i>';
+                        }
+                    }
+                });
+
+                // تحديث حالة isMobile عند تغيير حجم النافذة
+                window.addEventListener('resize', function() {
+                    isMobile = window.innerWidth <= 1200;
+                    
+                    if (!isMobile) {
+                        sidebar.classList.remove('active');
+                        sidebarToggleMobile.innerHTML = '<i class="fas fa-filter"></i>';
+                        if (sidebarCollapsed) {
+                            sidebar.classList.add('collapsed');
+                            mainContent.classList.remove('sidebar-expanded');
+                            mainContent.classList.add('sidebar-collapsed');
+                        } else {
+                            sidebar.classList.remove('collapsed');
+                            mainContent.classList.remove('sidebar-collapsed');
+                            mainContent.classList.add('sidebar-expanded');
+                        }
+                    } else {
+                        sidebar.classList.remove('collapsed');
+                        mainContent.classList.remove('sidebar-collapsed', 'sidebar-expanded');
+                    }
+                });
+            }
+
+            // تبديل حالة القائمة الجانبية
+            function toggleSidebar() {
+                const sidebar = document.getElementById('sidebar');
+                const mainContent = document.getElementById('mainContent');
+
+                if (sidebarCollapsed) {
+                    // فتح القائمة
+                    sidebar.classList.remove('collapsed');
+                    mainContent.classList.remove('sidebar-collapsed');
+                    mainContent.classList.add('sidebar-expanded');
+                } else {
+                    // طي القائمة
+                    sidebar.classList.add('collapsed');
+                    mainContent.classList.remove('sidebar-expanded');
+                    mainContent.classList.add('sidebar-collapsed');
+                }
+                
+                sidebarCollapsed = !sidebarCollapsed;
+                localStorage.setItem('sidebarCollapsed', sidebarCollapsed);
+            }
+
+            // تهيئة القائمة الجانبية
+            initializeSidebar();
+
+            // تأثير الهيدر عند التمرير
+            const header = document.querySelector('header');
+            const backToTop = document.getElementById('backToTop');
+            const scrollProgress = document.getElementById('scrollProgress');
+
+            function updateScrollEffects() {
+                const scrollY = window.scrollY;
+                
+                // تأثير الهيدر
+                if (scrollY > 100) {
+                    header.style.background = 'rgba(20, 20, 22, 0.95)';
+                    header.style.backdropFilter = 'blur(140px) saturate(200%)';
+                    header.style.borderBottom = '1px solid var(--glass-border)';
+                } else {
+                    header.style.background = 'rgba(20, 20, 22, 0.9)';
+                    header.style.backdropFilter = 'blur(120px) saturate(180%)';
+                    header.style.borderBottom = '1px solid var(--glass-border)';
+                }
+                
+                // زر العودة للأعلى
+                if (scrollY > 300) {
+                    backToTop.classList.add('visible');
+                } else {
+                    backToTop.classList.remove('visible');
+                }
+                
+                // شريط التقدم
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                scrollProgress.style.width = scrolled + '%';
+            }
+
+            window.addEventListener('scroll', updateScrollEffects);
+
+            // زر العودة للأعلى
+            backToTop.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // تأثيرات الظهور المتدرجة للمقالات
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const animationObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const element = entry.target;
+                        
+                        // إضافة تأثير ظهور
+                        element.classList.add('visible');
+                        
+                        animationObserver.unobserve(element);
+                    }
+                });
+            }, observerOptions);
+
+            // تطبيق تأثيرات الظهور على البطاقات
+            document.querySelectorAll('.article-card').forEach(element => {
+                animationObserver.observe(element);
+            });
+
+            // التمرير السلس للروابط الداخلية
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    if (href === '#' || href === '') return;
+                    
+                    const targetElement = document.querySelector(href);
+                    if (targetElement) {
+                        e.preventDefault();
+                        
+                        // إغلاق القائمة الجانبية على الأجهزة المحمولة
+                        if (isMobile) {
+                            const sidebar = document.getElementById('sidebar');
+                            const sidebarToggleMobile = document.getElementById('sidebarToggleMobile');
+                            if (sidebar && sidebar.classList.contains('active')) {
+                                sidebar.classList.remove('active');
+                                sidebarToggleMobile.innerHTML = '<i class="fas fa-filter"></i>';
+                            }
+                        }
+                        
+                        // التمرير السلس
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // بحث المقالات في الوقت الحقيقي
+            const articleSearch = document.getElementById('articleSearch');
+            const searchButton = document.getElementById('searchButton');
+            const articleCards = document.querySelectorAll('.article-card');
+            const categoryFilters = document.querySelectorAll('.category-filter');
+            const sortFilters = document.querySelectorAll('.sort-filter');
+
+            function performSearch() {
+                const searchTerm = articleSearch.value.toLowerCase().trim();
+                const selectedCategories = Array.from(categoryFilters)
+                    .filter(cb => cb.checked)
+                    .map(cb => cb.value);
+                const selectedSort = document.querySelector('.sort-filter:checked').value;
+
+                let visibleCount = 0;
+                
+                articleCards.forEach(card => {
+                    const title = card.querySelector('.article-title').textContent.toLowerCase();
+                    const excerpt = card.querySelector('.article-excerpt').textContent.toLowerCase();
+                    const category = card.querySelector('.article-badge').textContent.toLowerCase();
+                    
+                    const matchesSearch = searchTerm === '' || title.includes(searchTerm) || excerpt.includes(searchTerm);
+                    const matchesCategory = selectedCategories.length === 0 || 
+                        selectedCategories.some(cat => category.includes(cat.toLowerCase()));
+                    
+                    if (matchesSearch && matchesCategory) {
+                        card.style.display = 'block';
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }, 100);
+                        visibleCount++;
+                    } else {
+                        card.style.opacity = '0.3';
+                        card.style.transform = 'translateY(10px) scale(0.95)';
+                        setTimeout(() => {
+                            card.style.display = 'none';
+                        }, 300);
+                    }
+                });
+
+                // إظهار حالة فارغة إذا لم توجد نتائج
+                const emptyState = document.querySelector('.empty-state');
+                if (visibleCount === 0 && searchTerm !== '') {
+                    if (!emptyState) {
+                        const newEmptyState = document.createElement('div');
+                        newEmptyState.className = 'empty-state';
+                        newEmptyState.innerHTML = `
+                            <i class="fas fa-search"></i>
+                            <h3>لا توجد نتائج</h3>
+                            <p>لم نعثر على مقالات تطابق بحثك. حاول باستخدام كلمات أخرى.</p>
+                            <button onclick="resetFilters()" style="display: inline-flex; align-items: center; gap: 10px; background: var(--gradient-blue); color: var(--beige-color); padding: 12px 24px; border: none; border-radius: var(--radius-pill); font-family: inherit; font-size: 1rem; font-weight: 600; cursor: pointer; transition: var(--transition-fast);">
+                                <i class="fas fa-redo"></i> إعادة التعيين
+                            </button>
+                        `;
+                        document.querySelector('.articles-grid').appendChild(newEmptyState);
+                    }
+                } else if (emptyState && emptyState.parentElement) {
+                    emptyState.remove();
+                }
+            }
+
+            window.resetFilters = function() {
+                articleSearch.value = '';
+                categoryFilters.forEach(cb => cb.checked = false);
+                sortFilters[0].checked = true;
+                performSearch();
+            };
+
+            if (articleSearch) {
+                articleSearch.addEventListener('input', performSearch);
+                articleSearch.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        performSearch();
+                    }
+                });
+            }
+
+            if (searchButton) {
+                searchButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    performSearch();
+                });
+            }
+
+            categoryFilters.forEach(filter => {
+                filter.addEventListener('change', performSearch);
+            });
+
+            sortFilters.forEach(filter => {
+                filter.addEventListener('change', performSearch);
+            });
+
+            // تحسين تحميل الصور
+            if ('IntersectionObserver' in window) {
+                const imageObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            if (img.dataset.src) {
+                                img.src = img.dataset.src;
+                                img.removeAttribute('data-src');
+                            }
+                            imageObserver.unobserve(img);
+                        }
+                    });
+                });
+
+                // تحويل جميع صور المقالات إلى data-src للتحميل المتقطع
+                document.querySelectorAll('.article-image img, .popular-thumb img').forEach(img => {
+                    if (!img.src.includes('data:image')) {
+                        img.dataset.src = img.src;
+                        img.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1"%3E%3C/svg%3E';
+                        imageObserver.observe(img);
+                    }
+                });
+            }
+
+            // إضافة تأثيرات hover للبطاقات
+            document.querySelectorAll('.article-card').forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.transform = 'translateY(-15px) scale(1.02)';
+                    card.style.boxShadow = 'var(--elevated-shadow)';
+                    card.style.zIndex = '10';
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'translateY(0)';
+                    card.style.boxShadow = 'var(--depth-shadow)';
+                    card.style.zIndex = '';
+                });
+            });
+
+            // JavaScript الأصلي
+            const welcomeCircle = document.getElementById('welcomeCircle');
+            
+            welcomeCircle.addEventListener('click', function() {
+                this.style.transform = 'scale(1.3) rotate(360deg)';
+                this.style.opacity = '0.8';
+                
+                setTimeout(() => {
+                    this.style.transform = 'scale(1) rotate(0deg)';
+                    this.style.opacity = '1';
+                }, 600);
+            });
+
+            // Mobile Menu Functionality
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mainNav = document.getElementById('main-nav');
+            
+            mobileMenuBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                mainNav.classList.toggle('active');
+                const icon = this.querySelector('i');
+                icon.classList.toggle('fa-bars');
+                icon.classList.toggle('fa-times');
+                
+                // Prevent body scroll when menu is open
+                document.body.style.overflow = mainNav.classList.contains('active') ? 'hidden' : 'auto';
+            });
+
+            // Close mobile menu when clicking outside or on links
+            document.addEventListener('click', function(event) {
+                if (!mainNav.contains(event.target) && !mobileMenuBtn.contains(event.target)) {
+                    mainNav.classList.remove('active');
+                    mobileMenuBtn.querySelector('i').classList.add('fa-bars');
+                    mobileMenuBtn.querySelector('i').classList.remove('fa-times');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+
+            // Category Filter Functionality
+            document.querySelectorAll('.category-filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    document.querySelectorAll('.category-filter-btn').forEach(b => {
+                        b.classList.remove('active');
+                    });
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    const categoryId = this.dataset.category;
+                    
+                    // If "All" is clicked or no category filter
+                    if (!categoryId || this.textContent === 'الكل') {
+                        // Show all articles
+                        document.querySelectorAll('.article-card').forEach(card => {
+                            card.style.display = 'block';
+                        });
+                    } else {
+                        // Filter articles by category
+                        document.querySelectorAll('.article-card').forEach(card => {
+                            const cardCategory = card.querySelector('.article-badge');
+                            if (cardCategory && cardCategory.textContent.includes(this.textContent.trim())) {
+                                card.style.display = 'block';
+                            } else {
+                                card.style.display = 'none';
+                            }
+                        });
+                    }
+                    
+                    // Animation effect
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 200);
+                });
+            });
+
+            // Initialize with scroll
+            setTimeout(() => {
+                window.dispatchEvent(new Event('scroll'));
+            }, 100);
+
+            // دعم المتصفحات القديمة
+            if (!window.IntersectionObserver) {
+                console.log('متصفحك لا يدعم IntersectionObserver');
+                // Fallback: إظهار جميع العناصر مباشرة
+                document.querySelectorAll('.article-card').forEach(element => {
+                    element.classList.add('visible');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

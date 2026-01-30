@@ -1,0 +1,1887 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اختبارات الشخصية - نوميرا</title>
+    
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;500;700;800&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* ===== نظام Vision Pro الداكن المحسن ===== */
+        :root {
+            /* نظام ألوان Vision Pro داكن مع اللون المطلوب */
+            --primary-bg: #0A0A0C;
+            --secondary-bg: #111113;
+            --card-bg: rgba(20, 20, 22, 0.85);
+            --text-primary: #F5F5DC;
+            --text-secondary: #C0C0B0;
+            --text-tertiary: #8A8A7D;
+            --accent-blue: #007AFF;
+            --accent-green: #34C759;
+            --accent-orange: #FF9500;
+            --accent-purple: #AF52DE;
+            --accent-cyan: #5AC8FA;
+            --accent-red: #FF3B30;
+            --beige-color: #F5F5DC;
+            --beige-light: rgba(245, 245, 220, 0.1);
+            --beige-medium: rgba(245, 245, 220, 0.2);
+            --beige-dark: rgba(245, 245, 220, 0.05);
+            --border-light: rgba(245, 245, 220, 0.1);
+            --border-lighter: rgba(245, 245, 220, 0.05);
+            
+            /* تأثيرات الزجاج الداكن المتقدمة */
+            --glass-bg: rgba(20, 20, 22, 0.7);
+            --glass-bg-light: rgba(30, 30, 32, 0.4);
+            --glass-border: rgba(245, 245, 220, 0.15);
+            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            --card-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+            --elevated-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            --accent-glow: 0 0 40px rgba(0, 122, 255, 0.25);
+            --beige-glow: 0 0 20px rgba(245, 245, 220, 0.15);
+            --glass-gradient: linear-gradient(135deg, 
+                rgba(30, 30, 32, 0.9) 0%, 
+                rgba(20, 20, 22, 0.6) 100%);
+            
+            /* تدرجات Vision Pro الحديثة */
+            --gradient-blue: linear-gradient(135deg, #007AFF 0%, #5856D6 100%);
+            --gradient-green: linear-gradient(135deg, #34C759 0%, #30D158 100%);
+            --gradient-orange: linear-gradient(135deg, #FF9500 0%, #FF2D55 100%);
+            --gradient-purple: linear-gradient(135deg, #AF52DE 0%, #5856D6 100%);
+            --gradient-cyan: linear-gradient(135deg, #5AC8FA 0%, #007AFF 100%);
+            --gradient-pink: linear-gradient(135deg, #FF2D55 0%, #FF9500 100%);
+            --gradient-beige: linear-gradient(135deg, rgba(245, 245, 220, 0.1) 0%, rgba(245, 245, 220, 0.05) 100%);
+            --gradient-dark: linear-gradient(135deg, 
+                #0A0A0C 0%, 
+                #111113 50%, 
+                #0A0A0C 100%);
+            
+            /* تأثيرات الإضاءة والعمق */
+            --light-highlight: 0 0 0 1px rgba(245, 245, 220, 0.1);
+            --inner-shadow: inset 0 1px 0 0 rgba(245, 245, 220, 0.05);
+            --depth-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(0, 0, 0, 0.2);
+            
+            /* أبعاد وتقريب */
+            --radius-sm: 12px;
+            --radius-md: 18px;
+            --radius-lg: 24px;
+            --radius-xl: 32px;
+            --radius-pill: 100px;
+            
+            /* انتقالات Vision Pro السلسة */
+            --transition-smooth: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-bounce: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            --transition-fast: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-spring: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Almarai', 'Tajawal', 'SF Pro Display', sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background: var(--gradient-dark);
+            position: relative;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* ===== Video Background - Vision Pro Dark ===== */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+        }
+
+        .video-background video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.2;
+            filter: brightness(0.5) contrast(1.2) blur(2px);
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(0, 122, 255, 0.1) 0%, transparent 50%),
+                      radial-gradient(circle at 80% 20%, rgba(88, 86, 214, 0.08) 0%, transparent 50%),
+                      radial-gradient(circle at 40% 80%, rgba(255, 149, 0, 0.06) 0%, transparent 50%),
+                      radial-gradient(circle at 60% 40%, rgba(245, 245, 220, 0.03) 0%, transparent 50%);
+            background-color: rgba(10, 10, 12, 0.9);
+            pointer-events: none;
+        }
+
+        /* ===== زر الترحيب الدائري الصغير ===== */
+        .welcome-circle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--beige-color);
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-align: center;
+            cursor: pointer;
+            z-index: 10001;
+            box-shadow: 0 10px 30px rgba(52, 199, 89, 0.4);
+            transition: var(--transition-spring);
+            border: 2px solid rgba(245, 245, 220, 0.2);
+            overflow: hidden;
+            padding: 5px;
+            backdrop-filter: blur(20px);
+        }
+
+        .welcome-circle:hover {
+            transform: scale(1.15) rotate(10deg);
+            box-shadow: 0 15px 40px rgba(52, 199, 89, 0.5);
+            color: white;
+        }
+
+        .welcome-circle::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(245, 245, 220, 0.3), transparent);
+            border-radius: 50%;
+        }
+
+        /* ===== Header - Vision Pro Glass Dark ===== */
+        header {
+            background: rgba(20, 20, 22, 0.9);
+            backdrop-filter: blur(120px) saturate(180%);
+            -webkit-backdrop-filter: blur(120px) saturate(180%);
+            padding: 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10000;
+            border-bottom: 1px solid var(--glass-border);
+            transition: var(--transition-smooth);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        /* الشعار */
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            text-decoration: none;
+            transition: var(--transition-smooth);
+        }
+
+        .logo:hover {
+            transform: translateY(-2px);
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: url("https://d.top4top.io/p_36757e7681.png") no-repeat center;
+            background-size: contain;
+            border-radius: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            filter: brightness(1.2) contrast(1.1);
+        }
+
+        .logo-icon::before {
+            display: none;
+        }
+
+        .logo:hover .logo-icon {
+            transform: none;
+        }
+
+        .logo-icon i {
+            display: none;
+        }
+
+        /* نص الشعار */
+        .logo-text h1 {
+            background: none;
+            -webkit-text-fill-color: initial;
+            color: var(--beige-color);
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 4px;
+            letter-spacing: -0.5px;
+            text-shadow: var(--beige-glow);
+        }
+
+        .logo-text p {
+            color: var(--text-tertiary);
+            font-size: 0.9rem;
+            font-weight: 400;
+        }
+
+        /* ===== Navigation - Vision Pro Dark Glass Style ===== */
+        nav {
+            display: flex;
+            gap: 4px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(80px) saturate(180%);
+            border-radius: var(--radius-pill);
+            padding: 6px;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow), 0 1px 0 0 rgba(245, 245, 220, 0.05);
+            position: relative;
+        }
+
+        nav::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: var(--radius-pill);
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(245, 245, 220, 0.15), rgba(245, 245, 220, 0.05));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 12px 24px;
+            border-radius: var(--radius-pill);
+            transition: var(--transition-smooth);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(52, 199, 89, 0.15), transparent);
+            opacity: 0;
+            transition: var(--transition-fast);
+        }
+
+        nav a:hover {
+            color: var(--beige-color);
+            background: var(--beige-light);
+            transform: translateY(-1px);
+        }
+
+        nav a:hover::before {
+            opacity: 1;
+        }
+
+        nav a.active {
+            background: var(--beige-medium);
+            color: var(--beige-color);
+            font-weight: 700;
+            box-shadow: var(--beige-glow);
+            border: 1px solid var(--beige-light);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--beige-color);
+            font-size: 1.2rem;
+            cursor: pointer;
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            transition: var(--transition-smooth);
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(20px);
+            box-shadow: var(--glass-shadow);
+        }
+
+        /* ===== Hero Section for Quizzes - نفس تصميم الرئيسية ===== */
+        .hero {
+            padding: 200px 0 140px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            margin-top: 80px;
+        }
+
+        /* Hero Background Image */
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .hero-background img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            filter: brightness(0.6) contrast(1.1) saturate(1.1);
+            transform: scale(1.05);
+            transition: transform 20s ease;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(10, 10, 12, 0.9) 0%, rgba(17, 17, 19, 0.4) 100%);
+            z-index: -1;
+        }
+
+        @keyframes heroImageFloat {
+            0%, 100% {
+                transform: scale(1.05) translateY(0);
+            }
+            50% {
+                transform: scale(1.08) translateY(-10px);
+            }
+        }
+
+        .hero-background img {
+            animation: heroImageFloat 30s ease-in-out infinite;
+        }
+
+        .hero-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ===== Hero Badge ===== */
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 24px;
+            background: rgba(52, 199, 89, 0.15);
+            backdrop-filter: blur(20px);
+            border-radius: var(--radius-pill);
+            color: var(--accent-green);
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 32px;
+            border: 2px solid rgba(52, 199, 89, 0.2);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h2 {
+            font-size: 5rem;
+            font-weight: 800;
+            margin-bottom: 32px;
+            line-height: 1.1;
+            letter-spacing: -1.5px;
+            position: relative;
+            animation: fadeInUp 0.8s ease-out;
+            background: linear-gradient(135deg, var(--beige-color) 0%, #d1d1a0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 4px 15px rgba(245, 245, 220, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 40px auto 60px;
+            line-height: 1.8;
+            font-weight: 400;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+            opacity: 0.9;
+        }
+
+        /* ===== Search Box ===== */
+        .hero-search {
+            max-width: 600px;
+            margin: 40px auto 60px;
+            position: relative;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        .search-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 22px 70px 22px 24px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(100px);
+            border: 2px solid var(--glass-border);
+            border-radius: var(--radius-pill);
+            font-size: 1.1rem;
+            color: var(--beige-color);
+            transition: var(--transition-smooth);
+            font-family: inherit;
+            box-shadow: var(--glass-shadow), var(--inner-shadow);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--beige-color);
+            background: rgba(30, 30, 32, 0.9);
+            box-shadow: 0 0 30px rgba(245, 245, 220, 0.2), var(--inner-shadow);
+            transform: translateY(-2px);
+        }
+
+        .search-input::placeholder {
+            color: var(--text-tertiary);
+        }
+
+        .search-button {
+            position: absolute;
+            left: 6px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--gradient-green);
+            color: var(--beige-color);
+            border: none;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: var(--transition-spring);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px rgba(52, 199, 89, 0.4);
+        }
+
+        .search-button:hover {
+            transform: translateY(-50%) scale(1.1) rotate(5deg);
+            box-shadow: 0 6px 25px rgba(52, 199, 89, 0.6);
+            color: white;
+        }
+
+        .search-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--glass-bg);
+            backdrop-filter: blur(100px);
+            border-radius: var(--radius-lg);
+            margin-top: 10px;
+            box-shadow: var(--elevated-shadow);
+            border: 1px solid var(--glass-border);
+            overflow: hidden;
+            display: none;
+            z-index: 1000;
+        }
+
+        .search-suggestions.active {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .suggestion-item {
+            padding: 15px 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition-fast);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .suggestion-item:last-child {
+            border-bottom: none;
+        }
+
+        .suggestion-item:hover {
+            background: var(--beige-light);
+            color: var(--beige-color);
+        }
+
+        /* ===== Hero Actions ===== */
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease-out 0.6s both;
+        }
+
+        /* ===== Buttons ===== */
+        .btn {
+            padding: 16px 32px;
+            border-radius: var(--radius-pill);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-spring);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-decoration: none;
+            border: none;
+            outline: none;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(20px);
+        }
+
+        .btn-primary {
+            background: var(--gradient-green);
+            color: var(--beige-color);
+            box-shadow: 0 8px 25px rgba(52, 199, 89, 0.3);
+            border: 2px solid transparent;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(52, 199, 89, 0.5);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: var(--glass-bg);
+            color: var(--beige-color);
+            border: 2px solid var(--beige-light);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: var(--beige-light);
+            border-color: var(--beige-color);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(245, 245, 220, 0.2);
+        }
+
+        /* ===== SECTION TITLE - نفس تصميم الرئيسية ===== */
+        .section {
+            padding: 120px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 80px;
+            color: var(--beige-color);
+            letter-spacing: -0.8px;
+            position: relative;
+            padding-top: 60px;
+            text-shadow: var(--beige-glow);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 160px;
+            height: 5px;
+            background: linear-gradient(135deg, var(--beige-color) 0%, #d1d1a0 100%);
+            bottom: -25px;
+            right: 50%;
+            transform: translateX(50%);
+            border-radius: 3px;
+            box-shadow: 0 0 20px rgba(245, 245, 220, 0.3);
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 80px;
+            line-height: 1.7;
+        }
+
+        /* ===== محتوى إضافي - نفس تصميم الرئيسية ===== */
+        .extra-content {
+            padding: 120px 0;
+            background: var(--secondary-bg);
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .content-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(120px);
+            border-radius: var(--radius-xl);
+            padding: 40px;
+            box-shadow: var(--depth-shadow);
+            border: 1px solid var(--glass-border);
+            transition: var(--transition-spring);
+            text-align: center;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .content-card:hover {
+            transform: translateY(-15px);
+            box-shadow: var(--elevated-shadow);
+            border-color: var(--beige-light);
+        }
+
+        .content-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient-beige);
+            opacity: 0;
+            transition: var(--transition-smooth);
+            z-index: 0;
+        }
+
+        .content-card:hover::before {
+            opacity: 1;
+        }
+
+        .content-card > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .content-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: var(--radius-md);
+            margin-bottom: 25px;
+            transition: var(--transition-smooth);
+        }
+
+        .content-card:hover img {
+            transform: scale(1.08);
+        }
+
+        .content-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--beige-color);
+        }
+
+        .content-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-size: 1rem;
+            margin-bottom: 25px;
+        }
+
+        /* ===== تصميم بطاقات الكويزات ===== */
+        .quizzes-section {
+            padding: 100px 0;
+        }
+
+        /* تصميم شبكة الكويزات */
+        .quizzes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .quiz-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(120px);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            transition: var(--transition-spring);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--depth-shadow);
+            position: relative;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .quiz-card:hover {
+            transform: translateY(-15px);
+            box-shadow: var(--elevated-shadow);
+            border-color: var(--beige-light);
+        }
+
+        .quiz-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient-beige);
+            opacity: 0;
+            transition: var(--transition-smooth);
+            z-index: 0;
+        }
+
+        .quiz-card:hover::before {
+            opacity: 1;
+        }
+
+        .quiz-card > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .quiz-image-container {
+            position: relative;
+            overflow: hidden;
+            height: 250px;
+            flex-shrink: 0;
+        }
+
+        .quiz-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition-smooth);
+        }
+
+        .quiz-card:hover .quiz-image {
+            transform: scale(1.1);
+        }
+
+        .quiz-difficulty {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: var(--gradient-green);
+            color: var(--beige-color);
+            padding: 8px 20px;
+            border-radius: var(--radius-pill);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            z-index: 2;
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--beige-light);
+            transition: var(--transition-fast);
+        }
+
+        .quiz-card:hover .quiz-difficulty {
+            transform: translateX(-5px);
+            box-shadow: 0 8px 20px rgba(52, 199, 89, 0.3);
+        }
+
+        .quiz-content {
+            padding: 30px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .quiz-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            line-height: 1.4;
+            color: var(--beige-color);
+        }
+
+        .quiz-title a {
+            color: var(--beige-color);
+            text-decoration: none;
+            transition: var(--transition-fast);
+        }
+
+        .quiz-title a:hover {
+            color: var(--accent-green);
+        }
+
+        .quiz-description {
+            color: var(--text-secondary);
+            margin-bottom: 25px;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+
+        .quiz-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-light);
+            color: var(--text-tertiary);
+            font-size: 0.9rem;
+            margin-top: auto;
+        }
+
+        .start-quiz {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--gradient-green);
+            color: var(--beige-color);
+            padding: 12px 30px;
+            border-radius: var(--radius-pill);
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition-spring);
+            border: 2px solid transparent;
+        }
+
+        .start-quiz:hover {
+            transform: translateX(-10px);
+            box-shadow: 0 15px 40px rgba(52, 199, 89, 0.3);
+            gap: 15px;
+            color: white;
+        }
+
+        /* ===== Empty State ===== */
+        .empty-state {
+            text-align: center;
+            padding: 60px 40px;
+            grid-column: 1 / -1;
+            background: var(--glass-bg);
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--glass-border);
+        }
+
+        .card-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--gradient-green);
+            border-radius: var(--radius-xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            transition: var(--transition-spring);
+        }
+
+        .empty-state h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--beige-color);
+        }
+
+        .empty-state p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+
+        /* ===== Stats Section - نفس تصميم الرئيسية ===== */
+        .stats {
+            padding: 120px 0;
+            position: relative;
+            background: var(--primary-bg);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            margin-top: 80px;
+        }
+
+        .stat-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(120px);
+            border-radius: var(--radius-xl);
+            padding: 48px 32px;
+            text-align: center;
+            transition: var(--transition-spring);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--depth-shadow);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-12px) scale(1.05);
+            box-shadow: var(--elevated-shadow), 0 0 40px rgba(245, 245, 220, 0.15);
+            border-color: var(--beige-light);
+        }
+
+        .stat-number {
+            font-size: 4.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--beige-color) 0%, #d1d1a0 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1;
+            margin-bottom: 20px;
+            display: block;
+            text-shadow: 0 0 40px rgba(245, 245, 220, 0.3);
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* ===== Footer - نفس تصميم الرئيسية ===== */
+        footer {
+            background: linear-gradient(180deg, #0A0A0C 0%, #111113 100%);
+            color: var(--beige-color);
+            padding: 120px 0 60px;
+            position: relative;
+            overflow: hidden;
+            border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+            border-top: 1px solid var(--beige-light);
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, var(--beige-color) 0%, #d1d1a0 100%);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 48px;
+            margin-bottom: 48px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: var(--beige-color);
+            position: relative;
+            padding-bottom: 12px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(135deg, var(--beige-color) 0%, #d1d1a0 100%);
+            border-radius: 2px;
+        }
+
+        .footer-column p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 1.1rem;
+            margin-top: 16px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 14px;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 1rem;
+            transition: var(--transition-fast);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+            position: relative;
+        }
+
+        .footer-links a::before {
+            content: '';
+            position: absolute;
+            right: -10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 6px;
+            height: 6px;
+            background: var(--beige-color);
+            border-radius: 50%;
+            opacity: 0;
+            transition: var(--transition-smooth);
+        }
+
+        .footer-links a:hover {
+            color: var(--beige-color);
+            transform: translateX(-10px);
+        }
+
+        .footer-links a:hover::before {
+            opacity: 1;
+            right: -20px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid var(--border-light);
+            color: var(--text-tertiary);
+            font-size: 14px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ===== Responsive Design - نفس تصميم الرئيسية ===== */
+        @media (max-width: 1200px) {
+            .container {
+                padding: 0 32px;
+            }
+            
+            .header-container {
+                padding: 0 32px;
+            }
+            
+            .hero h2 {
+                font-size: 4.2rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .header-container {
+                height: 72px;
+            }
+            
+            nav {
+                position: fixed;
+                top: 72px;
+                right: 0;
+                left: 0;
+                background: var(--glass-bg);
+                backdrop-filter: blur(80px);
+                border-radius: 0;
+                padding: 24px;
+                flex-direction: column;
+                gap: 12px;
+                border-top: 1px solid var(--glass-border);
+                display: none;
+                z-index: 9999;
+                max-height: calc(100vh - 72px);
+                overflow-y: auto;
+                box-shadow: var(--elevated-shadow);
+            }
+            
+            nav.active {
+                display: flex;
+                animation: slideDown 0.3s ease-out;
+            }
+            
+            .mobile-menu-btn {
+                display: flex;
+            }
+            
+            .hero {
+                padding: 160px 0 80px;
+                min-height: 80vh;
+                margin-top: 72px;
+            }
+            
+            .hero h2 {
+                font-size: 3.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+                margin: 32px auto 48px;
+            }
+            
+            .section-title {
+                font-size: 3rem;
+                margin-bottom: 60px;
+            }
+            
+            .section {
+                padding: 80px 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 24px;
+            }
+            
+            .header-container {
+                padding: 0 24px;
+            }
+            
+            .hero {
+                min-height: 70vh;
+            }
+            
+            .hero h2 {
+                font-size: 3rem;
+            }
+            
+            .hero-search {
+                margin-bottom: 40px;
+            }
+            
+            .section-title {
+                font-size: 2.8rem;
+                margin-bottom: 60px;
+            }
+            
+            .quizzes-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .content-card {
+                padding: 30px;
+            }
+            
+            .welcome-circle {
+                width: 50px;
+                height: 50px;
+                font-size: 0.6rem;
+                top: 15px;
+                right: 15px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero {
+                padding: 140px 0 60px;
+                min-height: 60vh;
+            }
+            
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-search {
+                max-width: 100%;
+            }
+            
+            .search-input {
+                padding: 18px 60px 18px 20px;
+                font-size: 1rem;
+            }
+            
+            .search-button {
+                width: 48px;
+                height: 48px;
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .logo-text h1 {
+                font-size: 1.5rem;
+            }
+            
+            .hero-actions {
+                flex-direction: column;
+                align-items: stretch;
+                max-width: 300px;
+                margin: 0 auto;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .quiz-content {
+                padding: 20px;
+            }
+        }
+
+        /* ===== دعم تقليل الحركة ===== */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Video Background -->
+    <div class="video-background">
+        <video autoplay muted loop playsinline>
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-geometric-shapes-rotating-in-space-34905-large.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+
+    <!-- زر الترحيب الدائري -->
+    <div class="welcome-circle" id="welcomeCircle">
+        اختبارات ممتعة!
+    </div>
+
+    <!-- الهيدر المحسن -->
+    <header>
+        <div class="container header-container">
+            <!-- الشعار -->
+            <a href="{% url 'home' %}" class="logo">
+                <div class="logo-icon"></div>
+                <div class="logo-text">
+                    <h1>نوميرا</h1>
+                    <p>اختبارات الشخصية</p>
+                </div>
+            </a>
+            
+            <!-- التنقل -->
+            <nav id="main-nav">
+                <a href="{% url 'home' %}">
+                    <i class="fas fa-home"></i>
+                    الرئيسية
+                </a>
+                <a href="{% url 'calculators' %}">
+                    <i class="fas fa-calculator"></i>
+                    الحاسبات الذكية
+                </a>
+                <a href="{% url 'quizzes' %}" class="active">
+                    <i class="fas fa-brain"></i>
+                    اختبارات الشخصية
+                </a>
+                <a href="{% url 'articles' %}">
+                    <i class="fas fa-newspaper"></i>
+                    المدونة والمقالات
+                </a>
+                <a href="{% url 'coupons' %}">
+                    <i class="fas fa-gift"></i>
+                    كوبونات الخصم
+                </a>
+            </nav>
+            
+            <!-- زر القائمة للموبايل -->
+            <button class="mobile-menu-btn" id="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- قسم البطل المحسن مع البحث -->
+    <section class="hero">
+        <div class="hero-background">
+            <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-4.0.3&auto=format&fit=crop&w=2069&q=80" 
+                 alt="خلفية اختبارات نوميرا"
+                 loading="lazy">
+        </div>
+        
+        <div class="hero-overlay"></div>
+        
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-sparkles"></i>
+                    اختبارات شخصية تفاعلية
+                </div>
+                
+                <h2>اختبارات الشخصية<br>اكتشف. تعلم. استمتع</h2>
+                
+                <p>اختبر نفسك واكتشف شخصيتك من خلال مجموعة متنوعة من الكويزات المسلية. اختبارات في مختلف المجالات مع نتائج ذكية وتحليل مفصل.</p>
+                
+                <!-- مربع البحث -->
+                <div class="hero-search">
+                    <div class="search-container">
+                        <input type="text" 
+                               class="search-input" 
+                               placeholder="ابحث عن اختبارات، موضوعات، أو أنواع..."
+                               id="quiz-search">
+                        <button class="search-button" id="search-button">
+                            <i class="fas fa-search"></i>
+                        </button>
+                        <div class="search-suggestions" id="search-suggestions">
+                            <div class="suggestion-item" data-search="اختبار الشخصية">
+                                <i class="fas fa-user"></i>
+                                <span>اختبار الشخصية</span>
+                            </div>
+                            <div class="suggestion-item" data-search="اختبار الذكاء">
+                                <i class="fas fa-brain"></i>
+                                <span>اختبار الذكاء</span>
+                            </div>
+                            <div class="suggestion-item" data-search="كويزات ثقافية">
+                                <i class="fas fa-book"></i>
+                                <span>كويزات ثقافية</span>
+                            </div>
+                            <div class="suggestion-item" data-search="اختبارات ترفيهية">
+                                <i class="fas fa-gamepad"></i>
+                                <span>اختبارات ترفيهية</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="hero-actions">
+                    <a href="#quizzes" class="btn btn-primary">
+                        <span>استكشف الاختبارات</span>
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
+                    <a href="#categories" class="btn btn-secondary">
+                        <span>أنواع الاختبارات</span>
+                        <i class="fas fa-list"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم أنواع الاختبارات -->
+    <section id="categories" class="extra-content">
+        <div class="container">
+            <h2 class="section-title">أنواع الاختبارات</h2>
+            <p class="section-subtitle">
+                اكتشف مجموعة متنوعة من الاختبارات المصممة خصيصاً لتطوير شخصيتك ومعرفتك
+            </p>
+
+            <div class="content-grid">
+                <div class="content-card">
+                    <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                         alt="اختبارات الشخصية">
+                    <h3>اختبارات الشخصية</h3>
+                    <p>اكتشف جوانب شخصيتك المخفية ونقاط قوتك وضعفك من خلال اختبارات علمية ممتعة</p>
+                    <a href="#quizzes" class="btn btn-secondary" style="padding: 12px 24px; margin-top: 15px;">
+                        <span>ابدأ الآن</span>
+                        <i class="fas fa-play"></i>
+                    </a>
+                </div>
+                
+                <div class="content-card">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                         alt="كويزات ثقافية">
+                    <h3>كويزات ثقافية</h3>
+                    <p>اختبر معلوماتك الثقافية في مختلف المجالات وحسّن من معرفتك العامة</p>
+                    <a href="#quizzes" class="btn btn-secondary" style="padding: 12px 24px; margin-top: 15px;">
+                        <span>ابدأ الآن</span>
+                        <i class="fas fa-play"></i>
+                    </a>
+                </div>
+                
+                <div class="content-card">
+                    <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                         alt="اختبارات الذكاء">
+                    <h3>اختبارات الذكاء</h3>
+                    <p>اختبر قدراتك العقلية وحل الألغاز والتحديات الذهنية الممتعة</p>
+                    <a href="#quizzes" class="btn btn-secondary" style="padding: 12px 24px; margin-top: 15px;">
+                        <span>ابدأ الآن</span>
+                        <i class="fas fa-play"></i>
+                    </a>
+                </div>
+                
+                <div class="content-card">
+                    <img src="https://images.unsplash.com/photo-1501504905252-473c47e087f8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                         alt="كويزات ترفيهية">
+                    <h3>كويزات ترفيهية</h3>
+                    <p>استمتع بكويزات مسلية في الأفلام، الموسيقى، الرياضة والترفيه</p>
+                    <a href="#quizzes" class="btn btn-secondary" style="padding: 12px 24px; margin-top: 15px;">
+                        <span>ابدأ الآن</span>
+                        <i class="fas fa-play"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم جميع الاختبارات -->
+    <section id="quizzes" class="quizzes-section">
+        <div class="container">
+            <h2 class="section-title">جميع الاختبارات</h2>
+            <p class="section-subtitle">
+                اختر من بين مجموعة متنوعة من الاختبارات المصممة بعناية لتقديم تجربة تعليمية مسلية
+            </p>
+            
+            <div class="quizzes-grid">
+                {% for quiz in quizzes %}
+                <article class="quiz-card">
+                    <div class="quiz-image-container">
+                        {% if quiz.image_url %}
+                        <img src="{{ quiz.image_url }}" 
+                             alt="{{ quiz.name }}" 
+                             class="quiz-image"
+                             loading="lazy">
+                        {% else %}
+                        <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                             alt="{{ quiz.name }}" 
+                             class="quiz-image"
+                             loading="lazy">
+                        {% endif %}
+                        
+                        {% if quiz.difficulty %}
+                        <span class="quiz-difficulty">
+                            {{ quiz.difficulty }}
+                        </span>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="quiz-content">
+                        <h3 class="quiz-title">
+                            <a href="{% url 'quiz_detail' quiz.pk %}">
+                                {{ quiz.name }}
+                            </a>
+                        </h3>
+                        
+                        {% if quiz.description %}
+                        <p class="quiz-description">{{ quiz.description|truncatewords:30 }}</p>
+                        {% endif %}
+                        
+                        <div class="quiz-meta">
+                            <span>
+                                <i class="far fa-clock"></i>
+                                {% if quiz.duration %}
+                                {{ quiz.duration }} دقيقة
+                                {% else %}
+                                5 دقائق
+                                {% endif %}
+                            </span>
+                            <a href="{% url 'quiz_detail' quiz.pk %}" class="start-quiz">
+                                <span>ابدأ الاختبار</span>
+                                <i class="fas fa-arrow-left"></i>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+                {% empty %}
+                <div class="empty-state">
+                    <div class="card-icon">
+                        <i class="fas fa-brain" style="font-size: 2.5rem; color: var(--beige-color);"></i>
+                    </div>
+                    <h3>لا توجد اختبارات حالياً</h3>
+                    <p>سيتم إضافة اختبارات جديدة قريباً. تابعنا!</p>
+                    <a href="#categories" class="btn btn-secondary">
+                        <span>تصفح الأنواع</span>
+                        <i class="fas fa-list"></i>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم الإحصائيات -->
+    <section class="stats">
+        <div class="container">
+            <h2 class="section-title">إحصائيات الاختبارات</h2>
+            <p class="section-subtitle">أرقام تعكس ثقة المستخدمين وتطور المنصة</p>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-number">{{ quizzes|length }}</span>
+                    <div class="stat-label">اختبار متاح</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">1000+</span>
+                    <div class="stat-label">مشاركة نشطة</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">95%</span>
+                    <div class="stat-label">رضى المستخدمين</div>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">24/7</span>
+                    <div class="stat-label">متاحة دائمًا</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- الفوتر المحسن -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>عن نوميرا</h3>
+                    <p>
+                        منصة رقمية متكاملة تقدم محتوى متنوع يشمل الحاسبات الذكية، الاختبارات المعرفية، 
+                        المقالات المتميزة، وعروض الكوبونات الحصرية. نهدف إلى تقديم تجربة مستخدم فريدة 
+                        تجمع بين المعرفة والتسلية.
+                    </p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>روابط مهمة</h3>
+                    <ul class="footer-links">
+                        <li><a href="{% url 'home' %}"><i class="fas fa-arrow-left"></i> الصفحة الرئيسية</a></li>
+                        <li><a href="{% url 'calculators' %}"><i class="fas fa-arrow-left"></i> الحاسبات الذكية</a></li>
+                        <li><a href="{% url 'quizzes' %}"><i class="fas fa-arrow-left"></i> الاختبارات</a></li>
+                        <li><a href="{% url 'articles' %}"><i class="fas fa-arrow-left"></i> المدونة</a></li>
+                        <li><a href="{% url 'coupons' %}"><i class="fas fa-arrow-left"></i> كوبونات الخصم</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>تواصل معنا</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-envelope"></i> البريد الإلكتروني</a></li>
+                        <li><a href="#"><i class="fab fa-twitter"></i> تويتر</a></li>
+                        <li><a href="#"><i class="fab fa-linkedin"></i> لينكد إن</a></li>
+                        <li><a href="#"><i class="fab fa-instagram"></i> إنستغرام</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>© {% now "Y" %} نوميرا. جميع الحقوق محفوظة. تصميم متقدم بتقنيات Apple Vision Pro</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // زر الترحيب الدائري
+        const welcomeCircle = document.getElementById('welcomeCircle');
+        
+        welcomeCircle.addEventListener('click', function() {
+            this.style.transform = 'scale(1.3) rotate(360deg)';
+            this.style.opacity = '0.8';
+            
+            setTimeout(() => {
+                this.style.transform = 'scale(1) rotate(0deg)';
+                this.style.opacity = '1';
+            }, 600);
+        });
+
+        // Mobile Menu Functionality
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mainNav = document.getElementById('main-nav');
+        
+        mobileMenuBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            mainNav.classList.toggle('active');
+            const icon = this.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+            
+            // Prevent body scroll when menu is open
+            document.body.style.overflow = mainNav.classList.contains('active') ? 'hidden' : 'auto';
+        });
+
+        // Close mobile menu when clicking outside or on links
+        document.addEventListener('click', function(event) {
+            if (!mainNav.contains(event.target) && !mobileMenuBtn.contains(event.target)) {
+                mainNav.classList.remove('active');
+                mobileMenuBtn.querySelector('i').classList.add('fa-bars');
+                mobileMenuBtn.querySelector('i').classList.remove('fa-times');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Header Scroll Effect
+        let lastScroll = 0;
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 30) {
+                header.style.background = 'rgba(20, 20, 22, 0.95)';
+                header.style.backdropFilter = 'blur(140px) saturate(200%)';
+                header.style.borderBottom = '1px solid var(--glass-border)';
+            } else {
+                header.style.background = 'rgba(20, 20, 22, 0.9)';
+                header.style.backdropFilter = 'blur(120px) saturate(180%)';
+                header.style.borderBottom = '1px solid var(--glass-border)';
+            }
+            
+            lastScroll = currentScroll;
+        });
+
+        // Search Functionality
+        const searchInput = document.getElementById('quiz-search');
+        const searchButton = document.getElementById('search-button');
+        const searchSuggestions = document.getElementById('search-suggestions');
+        const suggestionItems = document.querySelectorAll('.suggestion-item');
+
+        // Show suggestions on input focus
+        searchInput.addEventListener('focus', function() {
+            searchSuggestions.classList.add('active');
+        });
+
+        // Hide suggestions when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!searchInput.contains(event.target) && !searchSuggestions.contains(event.target)) {
+                searchSuggestions.classList.remove('active');
+            }
+        });
+
+        // Handle suggestion clicks
+        suggestionItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const searchTerm = this.getAttribute('data-search');
+                searchInput.value = searchTerm;
+                performQuizSearch(searchTerm);
+                searchSuggestions.classList.remove('active');
+            });
+        });
+
+        // Handle search button click
+        searchButton.addEventListener('click', function() {
+            const searchTerm = searchInput.value.trim();
+            if (searchTerm) {
+                performQuizSearch(searchTerm);
+            }
+        });
+
+        // Handle Enter key in search
+        searchInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const searchTerm = searchInput.value.trim();
+                if (searchTerm) {
+                    performQuizSearch(searchTerm);
+                }
+            }
+        });
+
+        // Perform search function for quizzes
+        function performQuizSearch(term) {
+            const quizCards = document.querySelectorAll('.quiz-card');
+            let found = false;
+            
+            quizCards.forEach(card => {
+                const title = card.querySelector('.quiz-title').textContent.toLowerCase();
+                const description = card.querySelector('.quiz-description').textContent.toLowerCase();
+                const searchTermLower = term.toLowerCase();
+                
+                if (title.includes(searchTermLower) || description.includes(searchTermLower)) {
+                    card.style.display = 'flex';
+                    found = true;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            if (!found && term.trim() !== '') {
+                alert(`🔍 لم يتم العثور على اختبارات مطابقة لـ "${term}"`);
+            }
+        }
+
+        // التمرير السلس
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href === '#' || href === '') return;
+                
+                const targetElement = document.querySelector(href);
+                if (targetElement) {
+                    e.preventDefault();
+                    
+                    if (window.innerWidth <= 992 && mainNav.classList.contains('active')) {
+                        mainNav.classList.remove('active');
+                        mobileMenuBtn.querySelector('i').classList.add('fa-bars');
+                        mobileMenuBtn.querySelector('i').classList.remove('fa-times');
+                        document.body.style.overflow = 'auto';
+                    }
+                    
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // تأثيرات التحميل التدريجي
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // إعداد عناصر للحركة
+        document.querySelectorAll('.content-card, .quiz-card, .stat-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+
+        // تحميل الصور بكسل
+        const images = document.querySelectorAll('img');
+        images.forEach(img => {
+            if (img.complete) {
+                if (img.naturalHeight === 0) {
+                    img.style.display = 'none';
+                    img.parentElement.innerHTML = '<div style="width: 100%; height: 240px; background: var(--gradient-green); display: flex; align-items: center; justify-content: center; color: var(--beige-color); font-size: 32px; border-radius: var(--radius-lg);"><i class="fas fa-image"></i></div>';
+                }
+            } else {
+                img.addEventListener('error', function() {
+                    this.style.display = 'none';
+                    this.parentElement.innerHTML = '<div style="width: 100%; height: 240px; background: var(--gradient-green); display: flex; align-items: center; justify-content: center; color: var(--beige-color); font-size: 32px; border-radius: var(--radius-lg);"><i class="fas fa-image"></i></div>';
+                });
+            }
+        });
+
+        // دعم تقليل الحركة
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            document.querySelectorAll('*').forEach(el => {
+                el.style.animationPlayState = 'paused';
+                el.style.transition = 'none';
+            });
+        }
+
+        // Floating welcome circle animation
+        function floatCircle() {
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                welcomeCircle.style.transform = `translateY(${Math.sin(Date.now() / 1000) * 5}px)`;
+                requestAnimationFrame(floatCircle);
+            }
+        }
+        
+        floatCircle();
+
+        // Animate stats
+        const statNumbers = document.querySelectorAll('.stat-number');
+        statNumbers.forEach(stat => {
+            const text = stat.textContent;
+            if (text.includes('+') || text === '95%' || text === '24/7') {
+                return; // لا تتحرك الإحصائيات النصية
+            }
+            
+            const target = parseInt(text);
+            if (!isNaN(target)) {
+                let current = 0;
+                const increment = target / 40;
+                
+                const statObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const timer = setInterval(() => {
+                                current += increment;
+                                if (current >= target) {
+                                    current = target;
+                                    clearInterval(timer);
+                                }
+                                stat.textContent = Math.floor(current);
+                            }, 30);
+                            statObserver.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.5 });
+                
+                statObserver.observe(stat);
+            }
+        });
+
+        // تحسينات الأداء
+        window.addEventListener('load', function() {
+            // تحميل الصور المتبقية بعد التحميل
+            const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+            lazyImages.forEach(img => {
+                if (!img.complete) {
+                    img.style.opacity = '0';
+                    img.style.transition = 'opacity 0.3s ease';
+                    img.addEventListener('load', function() {
+                        this.style.opacity = '1';
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
