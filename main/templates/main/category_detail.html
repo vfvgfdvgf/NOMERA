@@ -2,65 +2,104 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ category.name }} - مدونة نوميرا</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="format-detection" content="telephone=no">
     
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- ===== SEO & Meta Tags ===== -->
+    <title>{{ category.name }} - نوميرا | مدونة {{ category.name }}</title>
+    <meta name="description" content="تصفح جميع مقالات {{ category.name }} في منصة نوميرا. محتوى غني ومتنوع بأسلوب عصري وتصميم فاخر.">
+    <meta name="keywords" content="{{ category.name }}, مقالات, مدونة, نوميرا, محتوى عربي">
+    <meta name="author" content="نوميرا - Nomira">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="{{ request.build_absolute_uri }}">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:title" content="{{ category.name }} - مدونة نوميرا">
+    <meta property="og:description" content="اكتشف مقالات {{ category.name }} في منصة نوميرا">
+    <meta property="og:image" content="https://nomira.com/static/images/categories/{{ category.slug }}.jpg">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ category.name }} - نوميرا">
+    <meta name="twitter:description" content="مقالات {{ category.name }} بأسلوب عصري">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": "{{ category.name }} - نوميرا",
+        "description": "مقالات في تصنيف {{ category.name }}",
+        "url": "{{ request.build_absolute_uri }}",
+        "keywords": "{{ category.name }}, مقالات, محتوى عربي"
+    }
+    </script>
+    
+    <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;500;700;800&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@300;400;500;600;700;800;900&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
-        /* نفس CSS بالضبط من الصفحة الرئيسية */
+        /* ===== Design System - Vision Pro Edition ===== */
         :root {
-            /* نظام ألوان Vision Pro متطور */
-            --primary-bg: #FFFFFF;
-            --secondary-bg: #F5F5F7;
-            --card-bg: rgba(255, 255, 255, 0.85);
-            --text-primary: #1D1D1F;
-            --text-secondary: #515154;
-            --text-tertiary: #86868B;
+            /* نظام ألوان Vision Pro داكن */
+            --primary-bg: #0A0A0C;
+            --secondary-bg: #111113;
+            --card-bg: rgba(20, 20, 22, 0.85);
+            --surface-1: rgba(30, 30, 32, 0.8);
+            --surface-2: rgba(40, 40, 42, 0.8);
+            --surface-3: rgba(25, 25, 27, 0.8);
+            --text-primary: #F5F5DC;
+            --text-secondary: #C0C0B0;
+            --text-tertiary: #8A8A7D;
+            --text-quaternary: #5A5A52;
+            --text-blue: #5AC8FA;
+            --text-blue-light: #64D2FF;
+            --beige-color: #F5F5DC;
+            --beige-primary: #F5F5DC;
+            --beige-light: rgba(245, 245, 220, 0.1);
+            --beige-medium: rgba(245, 245, 220, 0.2);
+            --beige-dark: rgba(245, 245, 220, 0.05);
+            --beige-soft: rgba(245, 245, 220, 0.08);
             --accent-blue: #007AFF;
             --accent-green: #34C759;
             --accent-orange: #FF9500;
             --accent-purple: #AF52DE;
             --accent-cyan: #5AC8FA;
             --accent-red: #FF3B30;
-            --border-light: rgba(0, 0, 0, 0.08);
-            --border-lighter: rgba(0, 0, 0, 0.05);
+            --accent-teal: #5AC8FA;
+            --accent-coral: #FF6B6B;
+            --accent-gold: #FFD700;
+            --border-light: rgba(245, 245, 220, 0.1);
+            --border-lighter: rgba(245, 245, 220, 0.05);
             
-            /* تأثيرات الزجاج المتقدمة */
-            --glass-bg: rgba(255, 255, 255, 0.7);
-            --glass-bg-light: rgba(255, 255, 255, 0.4);
-            --glass-border: rgba(255, 255, 255, 0.8);
-            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
-            --card-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
-            --elevated-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
-            --accent-glow: 0 0 40px rgba(255, 149, 0, 0.15);
-            --glass-gradient: linear-gradient(135deg, 
-                rgba(255, 255, 255, 0.9) 0%, 
-                rgba(255, 255, 255, 0.6) 100%);
+            /* تأثيرات الزجاج الداكن */
+            --glass-bg: rgba(20, 20, 22, 0.7);
+            --glass-bg-light: rgba(30, 30, 32, 0.4);
+            --glass-border: rgba(245, 245, 220, 0.15);
+            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            --card-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+            --card-shadow-hover: 0 8px 32px rgba(0, 0, 0, 0.3);
+            --card-shadow-elevated: 0 12px 40px rgba(0, 0, 0, 0.35);
+            --card-shadow-float: 0 16px 48px rgba(0, 0, 0, 0.4);
+            --elevated-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            --accent-glow: 0 0 40px rgba(0, 122, 255, 0.25);
+            --beige-glow: 0 0 20px rgba(245, 245, 220, 0.15);
             
-            /* تدرجات Vision Pro الحديثة */
+            /* تدرجات */
+            --gradient-beige: linear-gradient(135deg, rgba(245, 245, 220, 0.1) 0%, rgba(245, 245, 220, 0.05) 100%);
             --gradient-blue: linear-gradient(135deg, #007AFF 0%, #5856D6 100%);
             --gradient-green: linear-gradient(135deg, #34C759 0%, #30D158 100%);
             --gradient-orange: linear-gradient(135deg, #FF9500 0%, #FF2D55 100%);
             --gradient-purple: linear-gradient(135deg, #AF52DE 0%, #5856D6 100%);
             --gradient-cyan: linear-gradient(135deg, #5AC8FA 0%, #007AFF 100%);
-            --gradient-pink: linear-gradient(135deg, #FF2D55 0%, #FF9500 100%);
-            --gradient-glass: linear-gradient(135deg, 
-                rgba(255, 255, 255, 0.95) 0%, 
-                rgba(255, 255, 255, 0.8) 100%);
-            --gradient-light: linear-gradient(135deg, 
-                #FFFFFF 0%, 
-                #F5F5F7 50%, 
-                #FFFFFF 100%);
-            
-            /* تأثيرات الإضاءة والعمق */
-            --light-highlight: 0 0 0 1px rgba(255, 255, 255, 0.5);
-            --inner-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.8);
-            --depth-shadow: 0 20px 40px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.03);
+            --gradient-dark: linear-gradient(135deg, #0A0A0C 0%, #111113 100%);
             
             /* أبعاد وتقريب */
             --radius-sm: 12px;
@@ -69,14 +108,66 @@
             --radius-xl: 32px;
             --radius-pill: 100px;
             
-            /* انتقالات Vision Pro السلسة */
+            /* انتقالات */
             --transition-smooth: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             --transition-bounce: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
             --transition-fast: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --transition-spring: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            
+            /* Typography */
+            --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+            --text-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
+            --text-base: clamp(1rem, 0.9rem + 0.5vw, 1.125rem);
+            --text-lg: clamp(1.125rem, 1rem + 0.65vw, 1.375rem);
+            --text-xl: clamp(1.5rem, 1.2rem + 1.5vw, 2.5rem);
+            --text-2xl: clamp(2rem, 1.5rem + 2.5vw, 4rem);
+            --text-3xl: clamp(2.5rem, 2rem + 3vw, 5rem);
+            
+            --line-height-text: 1.8;
+            --line-height-heading: 1.3;
         }
 
-        * {
+        /* نظام الألوان الفاتح */
+        :root[data-theme="light"] {
+            --primary-bg: #FAFAFA;
+            --secondary-bg: #FFFFFF;
+            --card-bg: #FFFFFF;
+            --surface-1: #F5F5F5;
+            --surface-2: #FFFFFF;
+            --surface-3: #F8F8F8;
+            --text-primary: #2C3E50;
+            --text-secondary: #5D6D7E;
+            --text-tertiary: #95A5A6;
+            --text-quaternary: #BDC3C7;
+            --text-blue: #3498DB;
+            --text-blue-light: #5DADE2;
+            --beige-primary: #8B7355;
+            --beige-light: #A38B6D;
+            --beige-dark: #6B5B45;
+            --beige-color: #8B7355;
+            --beige-soft: rgba(139, 115, 85, 0.1);
+            --beige-medium: rgba(139, 115, 85, 0.15);
+            --accent-teal: #1ABC9C;
+            --accent-coral: #E74C3C;
+            --accent-gold: #F39C12;
+            --accent-purple: #9B59B6;
+            --accent-green: #27AE60;
+            --accent-blue: #3498DB;
+            --accent-orange: #E67E22;
+            --accent-red: #E74C3C;
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --glass-bg-light: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(139, 115, 85, 0.15);
+            --glass-shadow: 0 8px 32px rgba(139, 115, 85, 0.08);
+            --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+            --card-shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.08);
+            --gradient-beige: linear-gradient(135deg, #8B7355 0%, #A38B6D 100%);
+            --gradient-blue: linear-gradient(135deg, #3498DB 0%, #5DADE2 100%);
+            --gradient-teal: linear-gradient(135deg, #1ABC9C 0%, #48C9B0 100%);
+            --gradient-coral: linear-gradient(135deg, #E74C3C 0%, #EC7063 100%);
+        }
+
+        /* ===== Reset & Base ===== */
+        *, *::before, *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -85,486 +176,447 @@
         html {
             scroll-behavior: smooth;
             font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Almarai', 'Tajawal', 'SF Pro Display', sans-serif;
+            font-family: 'Noto Kufi Arabic', system-ui, -apple-system, sans-serif;
             background-color: var(--primary-bg);
             color: var(--text-primary);
-            line-height: 1.6;
+            line-height: var(--line-height-text);
             overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            background: var(--gradient-light);
+            cursor: default;
+            min-height: 100vh;
+            transition: var(--transition-fast);
         }
 
-        .container {
-            width: 100%;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 40px;
-        }
-
-        /* زر الترحيب الدائري الصغير */
-        .welcome-circle {
+        /* ===== Film Grain Overlay ===== */
+        .grain-overlay {
             position: fixed;
-            top: 20px;
-            right: 20px;
-            width: 60px;
-            height: 60px;
-            background: var(--gradient-orange);
+            top: -50%;
+            left: -50%;
+            right: -50%;
+            bottom: -50%;
+            width: 200%;
+            height: 200%;
+            background: transparent url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 9990;
+            opacity: 0.3;
+            animation: grain 8s steps(10) infinite;
+        }
+
+        @keyframes grain {
+            0%, 100% { transform: translate(0, 0); }
+            10% { transform: translate(-5%, -5%); }
+            20% { transform: translate(-10%, 5%); }
+            30% { transform: translate(5%, -10%); }
+            40% { transform: translate(-5%, 15%); }
+            50% { transform: translate(-10%, 5%); }
+            60% { transform: translate(15%, 0); }
+            70% { transform: translate(0, 10%); }
+            80% { transform: translate(-15%, 0); }
+            90% { transform: translate(10%, 5%); }
+        }
+
+        /* ===== Scroll Progress ===== */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: var(--gradient-beige);
+            z-index: 10001;
+            transition: width 0.1s;
+        }
+
+        /* ===== Theme Switch ===== */
+        .theme-switch {
+            position: fixed;
+            bottom: 40px;
+            left: 40px;
+            width: 64px;
+            height: 64px;
             border-radius: 50%;
+            background: var(--card-bg);
+            border: 1px solid var(--border-light);
+            color: var(--beige-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 999;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-align: center;
-            cursor: pointer;
-            z-index: 10001;
-            box-shadow: 0 10px 30px rgba(255, 149, 0, 0.3);
-            transition: var(--transition-spring);
-            border: 2px solid rgba(255, 255, 255, 0.8);
-            overflow: hidden;
-            padding: 5px;
+            transition: var(--transition-bounce);
             backdrop-filter: blur(20px);
+            box-shadow: var(--glass-shadow);
         }
 
-        .welcome-circle:hover {
-            transform: scale(1.15) rotate(10deg);
-            box-shadow: 0 15px 40px rgba(255, 149, 0, 0.4);
+        .theme-switch:hover {
+            transform: scale(1.1) rotate(180deg);
+            border-color: var(--beige-primary);
+            box-shadow: var(--beige-glow);
         }
 
-        .welcome-circle::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent);
-            border-radius: 50%;
-        }
-
-        /* Video Background - Vision Pro Light */
-        .video-background {
+        /* ===== Header - Floating Glass ===== */
+        .header {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-            overflow: hidden;
-        }
-
-        .video-background video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.3;
-            filter: brightness(1.5) contrast(1.1) blur(2px);
-        }
-
-        .video-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 20% 50%, rgba(255, 149, 0, 0.05) 0%, transparent 50%),
-                      radial-gradient(circle at 80% 20%, rgba(255, 45, 85, 0.04) 0%, transparent 50%),
-                      radial-gradient(circle at 40% 80%, rgba(0, 122, 255, 0.03) 0%, transparent 50%);
-            background-color: rgba(255, 255, 255, 0.95);
-            pointer-events: none;
-        }
-
-        /* Header - Vision Pro Glass Transparent */
-        header {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(120px) saturate(180%);
-            -webkit-backdrop-filter: blur(120px) saturate(180%);
-            padding: 0;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 10000;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.8);
-            transition: var(--transition-smooth);
-        }
-
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 80px);
+            max-width: 1400px;
             height: 80px;
+            z-index: 1000;
+            background: var(--glass-bg);
+            backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-xl);
+            padding: 0 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: var(--transition-smooth);
+            box-shadow: var(--glass-shadow);
         }
 
-        /* الشعار */
+        .header.scrolled {
+            width: calc(100% - 40px);
+            height: 70px;
+            border-radius: var(--radius-pill);
+            background: rgba(10,10,12,0.95);
+        }
+
+        /* Logo */
         .logo {
             display: flex;
             align-items: center;
             gap: 16px;
             text-decoration: none;
-        }
-
-        .logo-icon {
-            width: 150px;
-            height: 150px;
-            background: url("https://d.top4top.io/p_36757e7681.png") no-repeat center;
-            background-size: contain;
-            border-radius: 0;
-            box-shadow: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .logo-icon::before {
-            display: none;
-        }
-
-        .logo:hover .logo-icon {
-            transform: none;
-            box-shadow: none;
-        }
-
-        /* إلغاء الأيقونة الخطية */
-        .logo-icon i {
-            display: none;
-        }
-
-        /* نص الشعار */
-        .logo-text h1 {
-            background: none;
-            -webkit-text-fill-color: initial;
-            color: var(--text-primary);
-            font-size: 1.8rem;
-            font-weight: 800;
-        }
-
-        .logo-text p {
-            color: var(--text-tertiary);
-            font-size: 0.9rem;
-        }
-
-        /* Navigation - Vision Pro Glass Style */
-        nav {
-            display: flex;
-            gap: 4px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(80px) saturate(180%);
-            border-radius: var(--radius-pill);
-            padding: 6px;
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            box-shadow: var(--glass-shadow), 0 1px 0 0 rgba(255, 255, 255, 0.8);
-            position: relative;
-        }
-
-        nav::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border-radius: var(--radius-pill);
-            padding: 1px;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4));
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            pointer-events: none;
-        }
-
-        nav a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 600;
-            padding: 12px 24px;
-            border-radius: var(--radius-pill);
-            transition: var(--transition-smooth);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.95rem;
             position: relative;
             overflow: hidden;
         }
 
-        nav a::before {
+        .logo-mark {
+            width: 48px;
+            height: 48px;
+            background: var(--gradient-beige);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-bg);
+            font-size: 1.5rem;
+            font-weight: 800;
+            box-shadow: var(--beige-glow);
+            transition: var(--transition-bounce);
+        }
+
+        .logo:hover .logo-mark {
+            transform: rotate(360deg) scale(1.1);
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-name {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
+            line-height: 1;
+        }
+
+        .logo-tagline {
+            font-size: 0.75rem;
+            color: var(--beige-primary);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 4px;
+            font-weight: 500;
+        }
+
+        /* Navigation */
+        .nav {
+            display: flex;
+            gap: 8px;
+            background: var(--beige-dark);
+            padding: 8px;
+            border-radius: var(--radius-pill);
+            border: 1px solid var(--border-light);
+        }
+
+        [data-theme="light"] .nav {
+            background: var(--beige-soft);
+        }
+
+        .nav-link {
+            padding: 12px 24px;
+            border-radius: var(--radius-pill);
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition-smooth);
+        }
+
+        .nav-link::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(255, 149, 0, 0.1), transparent);
+            inset: 0;
+            background: var(--gradient-beige);
             opacity: 0;
-            transition: var(--transition-fast);
+            transition: opacity 0.4s;
+            border-radius: inherit;
         }
 
-        nav a:hover {
-            color: var(--accent-orange);
-            background: rgba(255, 149, 0, 0.08);
-            transform: translateY(-1px);
+        .nav-link span {
+            position: relative;
+            z-index: 1;
         }
 
-        nav a:hover::before {
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary-bg);
+            transform: translateY(-2px);
+        }
+
+        .nav-link:hover::before, .nav-link.active::before {
             opacity: 1;
         }
 
-        nav a.active {
-            background: rgba(255, 149, 0, 0.12);
-            color: var(--accent-orange);
-            font-weight: 700;
-            box-shadow: 0 0 20px rgba(255, 149, 0, 0.15);
-            border: 1px solid rgba(255, 149, 0, 0.2);
+        .nav-link.active {
+            box-shadow: var(--beige-glow);
         }
 
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .mobile-menu-btn {
+        /* Mobile Menu */
+        .menu-toggle {
             display: none;
-            background: var(--glass-bg);
-            border: 1px solid rgba(255, 255, 255, 0.6);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 1px solid var(--border-light);
+            background: transparent;
             color: var(--text-primary);
-            font-size: 1.2rem;
             cursor: pointer;
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
-            transition: var(--transition-smooth);
+            font-size: 1.25rem;
+            transition: var(--transition-bounce);
+        }
+
+        /* ===== Hero Section - Category Page ===== */
+        .hero {
+            min-height: 100vh;
+            position: relative;
+            display: flex;
             align-items: center;
             justify-content: center;
-            backdrop-filter: blur(20px);
-            box-shadow: var(--glass-shadow);
-        }
-
-        /* Hero Section for Category - نفس تصميم الرئيسية */
-        .hero {
-            padding: 200px 0 140px;
-            text-align: center;
-            position: relative;
             overflow: hidden;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
+            padding: 120px 40px 80px;
         }
 
-        /* Hero Background Image */
-        .hero-background {
+        /* Animated Background */
+        .hero-bg {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            overflow: hidden;
-        }
-
-        .hero-background img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-            filter: brightness(1.1) contrast(1.05) saturate(1.1);
-            transform: scale(1.05);
-            transition: transform 20s ease;
-        }
-
-        .hero-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.4) 100%);
+            inset: 0;
             z-index: -1;
         }
 
-        @keyframes heroImageFloat {
-            0%, 100% {
-                transform: scale(1.05) translateY(0);
-            }
-            50% {
-                transform: scale(1.08) translateY(-10px);
-            }
+        .hero-bg-gradient {
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, var(--beige-light) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(30,58,138,0.05) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, var(--beige-medium) 0%, transparent 40%);
+            animation: bgPulse 10s ease-in-out infinite;
         }
 
-        .hero-background img {
-            animation: heroImageFloat 30s ease-in-out infinite;
+        @keyframes bgPulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.1); }
+        }
+
+        /* 3D Grid */
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(var(--beige-soft) 1px, transparent 1px),
+                linear-gradient(90deg, var(--beige-soft) 1px, transparent 1px);
+            background-size: 60px 60px;
+            transform: perspective(500px) rotateX(60deg);
+            transform-origin: center top;
+            mask-image: linear-gradient(to bottom, black 0%, transparent 60%);
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: perspective(500px) rotateX(60deg) translateY(0); }
+            100% { transform: perspective(500px) rotateX(60deg) translateY(60px); }
         }
 
         .hero-content {
-            max-width: 1000px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
+            text-align: center;
+            max-width: 900px;
+            z-index: 1;
         }
 
-        .hero h2 {
-            font-size: 5rem;
-            font-weight: 800;
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 24px;
+            background: var(--beige-light);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-pill);
+            color: var(--beige-primary);
+            font-size: 0.875rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
             margin-bottom: 32px;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .hero-title {
+            font-size: var(--text-3xl);
+            font-weight: 900;
             line-height: 1.1;
-            letter-spacing: -1.5px;
-            position: relative;
-            animation: fadeInUp 0.8s ease-out;
-            background: var(--gradient-orange);
+            margin-bottom: 32px;
+            overflow: hidden;
+        }
+
+        .hero-title .line {
+            display: block;
+            opacity: 0;
+            transform: translateY(100%);
+        }
+
+        .hero-title .highlight {
+            background: var(--gradient-beige);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-shadow: 0 4px 15px rgba(255, 149, 0, 0.25);
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .hero p {
-            font-size: 1.4rem;
-            color: var(--text-secondary);
-            max-width: 800px;
-            margin: 40px auto 60px;
-            line-height: 1.8;
-            font-weight: 400;
-            animation: fadeInUp 0.8s ease-out 0.2s both;
-            opacity: 0.9;
-        }
-
-        /* SECTION TITLE - نفس تصميم الرئيسية */
-        .section-title {
-            text-align: center;
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin-bottom: 80px;
-            color: var(--text-primary);
-            letter-spacing: -0.8px;
             position: relative;
-            padding-top: 60px;
         }
 
-        .section-title::after {
-            content: '';
-            position: absolute;
-            width: 160px;
-            height: 5px;
-            background: var(--gradient-orange);
-            bottom: -25px;
-            right: 50%;
-            transform: translateX(50%);
-            border-radius: 3px;
-            box-shadow: 0 0 20px rgba(255, 149, 0, 0.3);
+        .hero-subtitle {
+            font-size: var(--text-lg);
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 48px;
+            line-height: 1.8;
+            font-family: 'Noto Naskh Arabic', serif;
+            opacity: 0;
+            transform: translateY(30px);
         }
 
-        /* محتوى إضافي - نفس تصميم الرئيسية */
-        .extra-content {
-            padding: 120px 0;
-            background: var(--secondary-bg);
-        }
-
-        .content-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            margin-top: 60px;
-        }
-
-        .content-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(120px);
-            border-radius: var(--radius-xl);
-            padding: 40px;
-            box-shadow: var(--depth-shadow);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            transition: var(--transition-spring);
-            text-align: center;
-        }
-
-        .content-card:hover {
-            transform: translateY(-10px);
-            box-shadow: var(--elevated-shadow);
-        }
-
-        .content-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: var(--radius-md);
-            margin-bottom: 25px;
-            transition: var(--transition-smooth);
-        }
-
-        .content-card:hover img {
-            transform: scale(1.05);
-        }
-
-        /* Category Stats */
+        /* ===== Category Stats ===== */
         .category-stats {
-            padding: 80px 0;
+            padding: 100px 40px;
             text-align: center;
-            background: linear-gradient(135deg, 
-                rgba(255, 149, 0, 0.08) 0%, 
-                rgba(255, 45, 85, 0.05) 100%);
-            border-radius: var(--radius-xl);
-            margin: 40px auto;
+            background: var(--gradient-dark);
+        }
+
+        .stats-container {
             max-width: 800px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-xl);
+            padding: 60px 40px;
+            backdrop-filter: blur(40px);
+            box-shadow: var(--card-shadow);
         }
 
         .stats-count {
-            font-size: 4.5rem;
-            font-weight: 800;
-            background: var(--gradient-orange);
+            font-size: clamp(4rem, 8vw, 6rem);
+            font-weight: 900;
+            background: var(--gradient-beige);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 20px;
+            line-height: 1;
+            margin-bottom: 24px;
             display: block;
-            text-shadow: 0 0 40px rgba(255, 149, 0, 0.2);
         }
 
-        /* تصميم بطاقات المقالات */
+        .category-description {
+            font-size: var(--text-lg);
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-family: 'Noto Naskh Arabic', serif;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ===== Articles Section ===== */
         .articles-section {
-            padding: 100px 0;
+            padding: 160px 40px;
+            position: relative;
         }
 
-        /* تصميم شبكة المقالات */
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-eyebrow {
+            display: inline-block;
+            padding: 8px 20px;
+            background: var(--surface-1);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-pill);
+            color: var(--beige-primary);
+            font-size: 0.875rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: var(--text-2xl);
+            font-weight: 900;
+            margin-bottom: 24px;
+            line-height: 1.2;
+        }
+
         .articles-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             gap: 40px;
-            margin-top: 60px;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
+        /* Article Cards - Magazine Style */
         .article-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(120px);
+            background: var(--card-bg);
+            border: 1px solid var(--border-light);
             border-radius: var(--radius-xl);
             overflow: hidden;
-            transition: var(--transition-spring);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            box-shadow: var(--depth-shadow);
+            transition: var(--transition-smooth);
             position: relative;
+            opacity: 0;
+            transform: translateY(60px);
+        }
+
+        .article-card.revealed {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .article-card:hover {
-            transform: translateY(-15px);
-            box-shadow: var(--elevated-shadow);
-            border-color: rgba(255, 149, 0, 0.2);
+            transform: translateY(-8px);
+            border-color: var(--beige-medium);
+            box-shadow: var(--card-shadow-hover);
         }
 
         .article-image-container {
@@ -577,7 +629,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: var(--transition-smooth);
+            transition: transform 1.2s var(--transition-smooth);
         }
 
         .article-card:hover .article-image {
@@ -588,614 +640,841 @@
             position: absolute;
             top: 20px;
             left: 20px;
-            background: var(--gradient-orange);
-            color: white;
+            background: var(--gradient-beige);
+            color: var(--primary-bg);
             padding: 8px 20px;
             border-radius: var(--radius-pill);
             font-size: 0.85rem;
             font-weight: 600;
             text-decoration: none;
             z-index: 2;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(245, 245, 220, 0.3);
         }
 
         .article-content {
-            padding: 30px;
-        }
-
-        .article-title {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            line-height: 1.4;
-        }
-
-        .article-title a {
-            color: var(--text-primary);
-            text-decoration: none;
-            transition: var(--transition-fast);
-        }
-
-        .article-title a:hover {
-            color: var(--accent-orange);
-        }
-
-        .article-excerpt {
-            color: var(--text-secondary);
-            margin-bottom: 25px;
-            line-height: 1.6;
+            padding: 32px;
         }
 
         .article-meta {
             display: flex;
+            gap: 24px;
+            margin-bottom: 20px;
+            font-size: 0.875rem;
+            color: var(--text-tertiary);
+        }
+
+        .article-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.4;
+        }
+
+        .article-title a {
+            color: inherit;
+            text-decoration: none;
+            background-image: linear-gradient(var(--beige-primary), var(--beige-primary));
+            background-position: 0% 100%;
+            background-repeat: no-repeat;
+            background-size: 0% 3px;
+            transition: background-size 0.6s var(--transition-smooth);
+        }
+
+        .article-title a:hover {
+            background-size: 100% 3px;
+        }
+
+        .article-excerpt {
+            color: var(--text-secondary);
+            line-height: 1.9;
+            font-family: 'Noto Naskh Arabic', serif;
+            margin-bottom: 24px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .article-footer {
+            display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-top: 20px;
+            padding-top: 24px;
             border-top: 1px solid var(--border-light);
-            color: var(--text-tertiary);
-            font-size: 0.9rem;
         }
 
         .read-more {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            color: var(--accent-orange);
+            gap: 8px;
+            color: var(--beige-primary);
             text-decoration: none;
             font-weight: 600;
-            transition: var(--transition-fast);
+            transition: gap 0.4s;
         }
 
-        .read-more:hover {
-            gap: 15px;
+        .article-card:hover .read-more {
+            gap: 16px;
         }
 
         /* Empty State */
         .empty-state {
             text-align: center;
-            padding: 100px 0;
+            padding: 100px 40px;
             grid-column: 1 / -1;
         }
 
         .empty-state i {
             font-size: 4rem;
             color: var(--text-tertiary);
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
 
         .empty-state h3 {
             font-size: 2rem;
-            margin-bottom: 15px;
+            margin-bottom: 16px;
             color: var(--text-secondary);
         }
 
-        /* Stats Section - نفس تصميم الرئيسية */
+        .empty-state p {
+            color: var(--text-tertiary);
+            font-size: 1.125rem;
+        }
+
+        /* ===== Stats Section ===== */
         .stats {
-            padding: 120px 0;
+            padding: 160px 40px;
             position: relative;
-            background: var(--primary-bg);
+            background: var(--gradient-dark);
+        }
+
+        .stats-bg {
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 30% 50%, var(--beige-light) 0%, transparent 50%),
+                radial-gradient(circle at 70% 50%, rgba(30,58,138,0.05) 0%, transparent 50%);
         }
 
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 40px;
-            margin-top: 80px;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
         }
 
         .stat-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(120px);
+            background: var(--card-bg);
+            border: 1px solid var(--border-light);
             border-radius: var(--radius-xl);
             padding: 48px 32px;
             text-align: center;
-            transition: var(--transition-spring);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            box-shadow: var(--depth-shadow);
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(40px);
+        }
+
+        .stat-card.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--beige-light), transparent);
+            transition: left 0.7s;
+        }
+
+        .stat-card:hover::before {
+            left: 100%;
         }
 
         .stat-card:hover {
-            transform: translateY(-12px) scale(1.05);
-            box-shadow: var(--elevated-shadow), 0 0 40px rgba(255, 149, 0, 0.15);
-            border-color: rgba(255, 149, 0, 0.3);
+            transform: translateY(-12px);
+            border-color: var(--beige-medium);
+            box-shadow: var(--card-shadow-hover);
         }
 
         .stat-number {
             font-size: 4.5rem;
-            font-weight: 800;
-            background: var(--gradient-orange);
+            font-weight: 900;
+            background: var(--gradient-beige);
             -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             background-clip: text;
-            color: transparent;
             line-height: 1;
             margin-bottom: 20px;
             display: block;
-            text-shadow: 0 0 40px rgba(255, 149, 0, 0.2);
+            text-shadow: 0 0 40px rgba(245, 245, 220, 0.2);
         }
 
-        /* Footer - نفس تصميم الرئيسية */
-        footer {
-            background: linear-gradient(180deg, #FFFFFF 0%, #F5F5F7 100%);
-            color: var(--text-primary);
-            padding: 120px 0 60px;
+        .stat-text {
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+            font-weight: 500;
+        }
+
+        /* ===== Footer ===== */
+        .footer {
+            background: var(--secondary-bg);
+            border-top: 1px solid var(--border-light);
+            padding: 100px 40px 40px;
             position: relative;
-            overflow: hidden;
-            border-radius: var(--radius-xl) var(--radius-xl) 0 0;
-            border-top: 1px solid rgba(0, 0, 0, 0.05);
         }
 
-        /* Responsive Design - نفس تصميم الرئيسية */
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 80px;
+            max-width: 1400px;
+            margin: 0 auto 80px;
+        }
+
+        .footer-brand {
+            max-width: 300px;
+        }
+
+        .footer-logo {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: var(--gradient-beige);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 24px;
+            display: inline-block;
+        }
+
+        .footer-desc {
+            color: var(--text-secondary);
+            line-height: 2;
+            font-family: 'Noto Naskh Arabic', serif;
+            font-size: 1rem;
+        }
+
+        .footer-title {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 32px;
+            color: var(--text-primary);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .footer-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition-fast);
+            position: relative;
+        }
+
+        .footer-link::before {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--beige-primary);
+            transition: width 0.4s var(--transition-smooth);
+        }
+
+        .footer-link:hover {
+            color: var(--beige-primary);
+            transform: translateX(-8px);
+        }
+
+        .footer-link:hover::before {
+            width: 100%;
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 40px;
+            border-top: 1px solid var(--border-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-tertiary);
+            font-size: 0.875rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 16px;
+        }
+
+        .social-link {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 1px solid var(--border-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition-bounce);
+        }
+
+        .social-link:hover {
+            background: var(--gradient-beige);
+            color: var(--primary-bg);
+            border-color: var(--beige-primary);
+            transform: translateY(-4px) rotate(360deg);
+        }
+
+        /* ===== Responsive Design ===== */
         @media (max-width: 1200px) {
-            .container {
-                padding: 0 32px;
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
             
-            .hero h2 {
-                font-size: 4.2rem;
-            }
-        }
-
-        @media (max-width: 992px) {
-            .header-container {
-                height: 72px;
-            }
-            
-            nav {
-                position: fixed;
-                top: 72px;
-                right: 0;
-                left: 0;
-                background: var(--glass-bg);
-                backdrop-filter: blur(80px);
-                border-radius: 0;
-                padding: 24px;
-                flex-direction: column;
-                gap: 12px;
-                border-top: 1px solid rgba(255, 255, 255, 0.6);
-                display: none;
-                z-index: 9999;
-                max-height: calc(100vh - 72px);
-                overflow-y: auto;
-                box-shadow: var(--elevated-shadow);
-            }
-            
-            nav.active {
-                display: flex;
-                animation: slideDown 0.3s ease-out;
-            }
-            
-            @keyframes slideDown {
-                from {
-                    opacity: 0;
-                    transform: translateY(-20px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-            
-            .mobile-menu-btn {
-                display: flex;
-            }
-            
-            .hero {
-                padding: 160px 0 80px;
-                min-height: 80vh;
-            }
-            
-            .hero h2 {
-                font-size: 3.5rem;
-            }
-            
-            .hero p {
-                font-size: 1.2rem;
-                margin: 32px auto 48px;
-            }
-            
-            .section-title {
-                font-size: 3rem;
-                margin-bottom: 60px;
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
         @media (max-width: 768px) {
-            .container {
-                padding: 0 24px;
+            .header {
+                width: calc(100% - 32px);
+                padding: 0 20px;
+                height: 70px;
+            }
+            
+            .nav {
+                position: fixed;
+                top: 100px;
+                right: 16px;
+                left: 16px;
+                flex-direction: column;
+                background: var(--card-bg);
+                padding: 24px;
+                border-radius: var(--radius-xl);
+                transform: translateY(-150%);
+                opacity: 0;
+                visibility: hidden;
+                transition: var(--transition-smooth);
+            }
+            
+            .nav.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            .menu-toggle {
+                display: flex;
             }
             
             .hero {
-                min-height: 70vh;
+                padding: 100px 20px 60px;
             }
             
-            .hero h2 {
-                font-size: 3rem;
-            }
-            
-            .section-title {
-                font-size: 2.8rem;
-                margin-bottom: 60px;
+            .hero-title {
+                font-size: var(--text-xl);
             }
             
             .articles-grid {
                 grid-template-columns: 1fr;
             }
-        }
-
-        @media (max-width: 576px) {
-            .hero {
-                padding: 140px 0 60px;
-                min-height: 60vh;
+            
+            .category-stats,
+            .articles-section,
+            .stats {
+                padding: 80px 20px;
             }
             
-            .hero h2 {
-                font-size: 2.5rem;
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 48px;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                gap: 24px;
+                text-align: center;
+            }
+            
+            .theme-switch {
+                bottom: 20px;
+                left: 20px;
+                width: 56px;
+                height: 56px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-eyebrow {
+                font-size: 0.75rem;
+                padding: 8px 16px;
+            }
+            
+            .hero-subtitle {
+                font-size: 1rem;
             }
             
             .section-title {
-                font-size: 2.2rem;
-            }
-            
-            .logo-text h1 {
-                font-size: 1.5rem;
-            }
-            
-            .welcome-circle {
-                width: 50px;
-                height: 50px;
-                font-size: 0.6rem;
-                top: 15px;
-                right: 15px;
-            }
-            
-            .article-content {
-                padding: 20px;
-            }
-            
-            .content-card {
-                padding: 30px;
+                font-size: var(--text-xl);
             }
             
             .stats-count {
+                font-size: 3rem;
+            }
+            
+            .stat-number {
                 font-size: 3.5rem;
             }
         }
 
         /* Reduced Motion */
         @media (prefers-reduced-motion: reduce) {
-            * {
+            *,
+            *::before,
+            *::after {
                 animation-duration: 0.01ms !important;
                 animation-iteration-count: 1 !important;
                 transition-duration: 0.01ms !important;
+            }
+            
+            .hero-grid,
+            .grain-overlay {
+                display: none !important;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- Video Background -->
-    <div class="video-background">
-        <video autoplay muted loop playsinline>
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-geometric-shapes-rotating-in-space-34905-large.mp4" type="video/mp4">
-        </video>
-        <div class="video-overlay"></div>
-    </div>
+    <!-- Scroll Progress -->
+    <div class="scroll-progress" id="scrollProgress" role="progressbar" aria-label="تقدم التمرير"></div>
 
-    <!-- زر الترحيب الدائري -->
-    <div class="welcome-circle" id="welcomeCircle">
-        مقالات متخصصة
-    </div>
+    <!-- Film Grain -->
+    <div class="grain-overlay"></div>
+
+    <!-- Theme Switch -->
+    <button class="theme-switch" id="themeSwitch" aria-label="تبديل الوضع المظلم/الفاتح">
+        <i class="fas fa-moon"></i>
+    </button>
 
     <!-- Header -->
-    <header>
-        <div class="container header-container">
-            <a href="{% url 'home' %}" class="logo">
-                <div class="logo-icon"></div>
-                <div class="logo-text">
-                    <h1>نوميرا</h1>
-                    <p>المدونة والمقالات</p>
-                </div>
-            </a>
-            
-            <nav id="main-nav">
-                <a href="{% url 'home' %}">
-                    <i class="fas fa-home"></i>
-                    الرئيسية
-                </a>
-                <a href="{% url 'calculators' %}">
-                    <i class="fas fa-calculator"></i>
-                    الحاسبات الذكية
-                </a>
-                <a href="{% url 'quizzes' %}">
-                    <i class="fas fa-brain"></i>
-                    اختبارات الشخصية
-                </a>
-                <a href="{% url 'articles' %}" class="active">
-                    <i class="fas fa-newspaper"></i>
-                    المدونة والمقالات
-                </a>
-                <a href="{% url 'coupons' %}">
-                    <i class="fas fa-gift"></i>
-                    كوبونات الخصم
-                </a>
-            </nav>
-            
-            <button class="mobile-menu-btn" id="mobile-menu-btn">
-                <i class="fas fa-bars"></i>
-            </button>
-        </div>
+    <header class="header" id="header" role="banner">
+        <a href="{% url 'home' %}" class="logo" aria-label="العودة إلى الصفحة الرئيسية">
+            <div class="logo-mark">ن</div>
+            <div class="logo-text">
+                <span class="logo-name">نوميرا</span>
+                <span class="logo-tagline">تصنيف {{ category.name }}</span>
+            </div>
+        </a>
+
+        <nav class="nav" id="mainNav" role="navigation" aria-label="القائمة الرئيسية">
+            <a href="{% url 'home' %}" class="nav-link"><span>الرئيسية</span></a>
+            <a href="{% url 'calculators' %}" class="nav-link"><span>الحاسبات</span></a>
+            <a href="{% url 'quizzes' %}" class="nav-link"><span>الاختبارات</span></a>
+            <a href="{% url 'articles' %}" class="nav-link active"><span>المقالات</span></a>
+            <a href="{% url 'coupons' %}" class="nav-link"><span>الكوبونات</span></a>
+        </nav>
+
+        <button class="menu-toggle" id="menuToggle" aria-label="فتح القائمة" aria-expanded="false" aria-controls="mainNav">
+            <i class="fas fa-bars"></i>
+        </button>
     </header>
 
     <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-background">
-            <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3&auto=format&fit=crop&w=2069&q=80" 
-                 alt="خلفية مقالات نوميرا"
-                 loading="lazy">
+    <section class="hero" id="hero">
+        <div class="hero-bg">
+            <div class="hero-bg-gradient"></div>
+            <div class="hero-grid"></div>
         </div>
-        
-        <div class="hero-overlay"></div>
-        
-        <div class="container">
-            <div class="hero-content">
-                <h2>تصنيف: {{ category.name }}<br>اكتشف. تعلم. استمتع</h2>
-                <p>استكشف جميع المقالات في تصنيف {{ category.name }}. محتوى غني ومتنوع يلبي جميع اهتماماتك في هذا المجال.</p>
+
+        <div class="hero-content">
+            <div class="hero-eyebrow">
+                <i class="fas fa-folder"></i>
+                تصنيف {{ category.name }}
             </div>
+            
+            <h1 class="hero-title">
+                <span class="line">كل مقالات</span>
+                <span class="line"><span class="highlight">{{ category.name }}</span></span>
+            </h1>
+            
+            <p class="hero-subtitle">
+                استكشف مجموعتنا المميزة من المقالات في مجال {{ category.name }}. محتوى غني ومتنوع، مكتوب بأسلوب شيق وعصري.
+            </p>
         </div>
     </section>
 
     <!-- Category Stats -->
-    <section class="extra-content">
-        <div class="container">
-            <div class="category-stats">
-                <span class="stats-count">{{ articles_count }}</span>
-                <h3 style="font-size: 2rem; margin-bottom: 20px; color: var(--text-primary);">مقالة في هذا التصنيف</h3>
-                {% if category.description %}
-                <p style="font-size: 1.2rem; color: var(--text-secondary); max-width: 600px; margin: 0 auto;">
-                    {{ category.description }}
-                </p>
-                {% endif %}
-            </div>
-        </div>
-    </section>
-
-    <!-- All Articles Section -->
-    <section class="articles-section">
-        <div class="container">
-            <h2 class="section-title">مقالات تصنيف {{ category.name }}</h2>
-            
-            {% if articles %}
-            <div class="articles-grid">
-                {% for article in articles %}
-                <article class="article-card">
-                    <div class="article-image-container">
-                        {% if article.image_url %}
-                        <img src="{{ article.image_url }}" 
-                             alt="{{ article.title }}" 
-                             class="article-image"
-                             loading="lazy">
-                        {% else %}
-                        <img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                             alt="{{ article.title }}" 
-                             class="article-image"
-                             loading="lazy">
-                        {% endif %}
-                        
-                        <span class="article-category-tag">
-                            {{ category.name }}
-                        </span>
-                    </div>
-                    
-                    <div class="article-content">
-                        <h3 class="article-title">
-                            <a href="{% url 'article_detail' article.pk %}">
-                                {{ article.title }}
-                            </a>
-                        </h3>
-                        
-                        {% if article.excerpt %}
-                        <p class="article-excerpt">{{ article.excerpt|truncatewords:30 }}</p>
-                        {% elif article.content %}
-                        <p class="article-excerpt">{{ article.content|striptags|truncatewords:30 }}</p>
-                        {% endif %}
-                        
-                        <div class="article-meta">
-                            <span>
-                                <i class="far fa-calendar-alt"></i>
-                                {% if article.published_date %}
-                                {{ article.published_date }}
-                                {% elif article.created_at %}
-                                {{ article.created_at|date:"Y-m-d" }}
-                                {% endif %}
-                            </span>
-                            <a href="{% url 'article_detail' article.pk %}" class="read-more">
-                                <span>قراءة المزيد</span>
-                                <i class="fas fa-arrow-left"></i>
-                            </a>
-                        </div>
-                    </div>
-                </article>
-                {% endfor %}
-            </div>
-            {% else %}
-            <div class="empty-state">
-                <i class="far fa-newspaper"></i>
-                <h3>لا توجد مقالات في هذا التصنيف حالياً</h3>
-                <p>سيتم إضافة مقالات جديدة قريباً</p>
-            </div>
+    <section class="category-stats">
+        <div class="stats-container reveal-on-scroll">
+            <span class="stats-count">{{ articles_count }}</span>
+            <h2 style="font-size: 2.5rem; margin-bottom: 20px; color: var(--text-primary);">مقالة في هذا التصنيف</h2>
+            {% if category.description %}
+            <p class="category-description">{{ category.description }}</p>
             {% endif %}
         </div>
     </section>
 
+    <!-- All Articles Section -->
+    <section class="articles-section" id="articles" aria-labelledby="articles-heading">
+        <div class="section-header">
+            <div class="section-eyebrow">المكتبة المعرفية</div>
+            <h2 class="section-title" id="articles-heading">مقالات {{ category.name }}</h2>
+            <p class="category-description">استكشف مجموعتنا الكاملة من المقالات في هذا المجال</p>
+        </div>
+
+        {% if articles %}
+        <div class="articles-grid">
+            {% for article in articles %}
+            <article class="article-card reveal-on-scroll" itemscope itemtype="https://schema.org/Article">
+                <div class="article-image-container">
+                    {% if article.image_url %}
+                    <img src="{{ article.image_url }}" 
+                         alt="{{ article.title }}" 
+                         class="article-image"
+                         loading="lazy"
+                         itemprop="image">
+                    {% else %}
+                    <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?w=600&q=80" 
+                         alt="{{ article.title }}" 
+                         class="article-image"
+                         loading="lazy"
+                         itemprop="image">
+                    {% endif %}
+                    
+                    <span class="article-category-tag" itemprop="articleSection">
+                        {{ category.name }}
+                    </span>
+                </div>
+                
+                <div class="article-content">
+                    <div class="article-meta">
+                        <span><i class="far fa-calendar ml-2"></i> 
+                            <time datetime="{{ article.published_date|default:article.created_at|date:'c' }}" itemprop="datePublished">
+                                {% if article.published_date %}
+                                {{ article.published_date|date:"Y/m/d" }}
+                                {% else %}
+                                {{ article.created_at|date:"Y/m/d" }}
+                                {% endif %}
+                            </time>
+                        </span>
+                        <span><i class="far fa-clock ml-2"></i> 5 دقائق قراءة</span>
+                    </div>
+                    
+                    <h3 class="article-title" itemprop="headline">
+                        <a href="{% url 'article_detail' article.pk %}" itemprop="url">{{ article.title }}</a>
+                    </h3>
+                    
+                    {% if article.excerpt %}
+                    <p class="article-excerpt" itemprop="description">{{ article.excerpt|truncatewords:30 }}</p>
+                    {% elif article.content %}
+                    <p class="article-excerpt" itemprop="description">{{ article.content|striptags|truncatewords:30 }}</p>
+                    {% endif %}
+                    
+                    <div class="article-footer">
+                        <div class="article-author" itemprop="author" itemscope itemtype="https://schema.org/Person">
+                            <div class="author-avatar">
+                                {{ article.author.username|first|upper|default:"ن" }}
+                            </div>
+                            <div>
+                                <span itemprop="name">
+                                    {% if article.author %}
+                                        {{ article.author.get_full_name|default:article.author.username }}
+                                    {% else %}
+                                        فريق نوميرا
+                                    {% endif %}
+                                </span>
+                            </div>
+                        </div>
+                        <a href="{% url 'article_detail' article.pk %}" class="read-more" aria-label="قراءة المزيد من {{ article.title }}">
+                            <span>اقرأ المزيد</span>
+                            <i class="fas fa-arrow-left"></i>
+                        </a>
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="empty-state reveal-on-scroll">
+            <i class="far fa-newspaper"></i>
+            <h3>لا توجد مقالات في هذا التصنيف حالياً</h3>
+            <p>سنقوم بإضافة مقالات جديدة قريباً. تابعنا!</p>
+        </div>
+        {% endif %}
+    </section>
+
     <!-- Stats Section -->
-    <section class="stats">
-        <div class="container">
-            <h2 class="section-title">إحصائيات المدونة</h2>
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <span class="stat-number">{{ articles_count }}</span>
-                    <p class="stat-text">مقال في هذا التصنيف</p>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-number">100+</span>
-                    <p class="stat-text">تصنيف مختلف</p>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-number">1000+</span>
-                    <p class="stat-text">قارئ نشط</p>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-number">24/7</span>
-                    <p class="stat-text">تحديث مستمر</p>
-                </div>
+    <section class="stats" id="stats" aria-label="إحصائيات المدونة">
+        <div class="stats-bg"></div>
+        <div class="stats-grid">
+            <div class="stat-card reveal-on-scroll">
+                <span class="stat-number">{{ articles_count }}</span>
+                <p class="stat-text">مقال في هذا التصنيف</p>
+            </div>
+            <div class="stat-card reveal-on-scroll">
+                <span class="stat-number">100+</span>
+                <p class="stat-text">تصنيف مختلف</p>
+            </div>
+            <div class="stat-card reveal-on-scroll">
+                <span class="stat-number">1000+</span>
+                <p class="stat-text">قارئ نشط</p>
+            </div>
+            <div class="stat-card reveal-on-scroll">
+                <span class="stat-number">24/7</span>
+                <p class="stat-text">تحديث مستمر</p>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>رؤية منصة نوميرا</h3>
-                    <p style="color: var(--text-secondary); line-height: 1.8; margin-top: 20px; font-size: 1.1rem;">
-                        نوميرا منصة متكاملة تهدف إلى تقديم محتوى مفيد ومسلي في مكان واحد. نحن نؤمن بأن المعرفة والتسلية يجب أن تكون متاحة للجميع بشكل سهل ومجاني. من خلال أدواتنا الحسابية، اختباراتنا المسلية، مقالاتنا الغنية، وكوبوناتنا الحصرية، نسعى لجعل تجربتك على الإنترنت أكثر فائدة وإمتاعاً.
-                    </p>
-                    <div style="margin-top: 40px; display: flex; gap: 20px;">
-                        <a href="#" style="color: var(--text-secondary); font-size: 1.4rem; transition: var(--transition-fast); display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 12px; background: var(--glass-bg); border: 1px solid rgba(255, 255, 255, 0.6); box-shadow: var(--glass-shadow);"><i class="fab fa-twitter"></i></a>
-                        <a href="#" style="color: var(--text-secondary); font-size: 1.4rem; transition: var(--transition-fast); display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 12px; background: var(--glass-bg); border: 1px solid rgba(255, 255, 255, 0.6); box-shadow: var(--glass-shadow);"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" style="color: var(--text-secondary); font-size: 1.4rem; transition: var(--transition-fast); display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 12px; background: var(--glass-bg); border: 1px solid rgba(255, 255, 255, 0.6); box-shadow: var(--glass-shadow);"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
+    <footer class="footer" role="contentinfo">
+        <div class="footer-grid">
+            <div class="footer-brand reveal-on-scroll">
+                <div class="footer-logo">نوميرا</div>
+                <p class="footer-desc">منصة رقمية فاخرة تقدم محتوى متنوع يشمل الحاسبات الذكية، الاختبارات المعرفية، والمقالات العميقة بتصميم مستوحى من أرقى المعايير العالمية.</p>
             </div>
             
-            <div class="copyright">
-                <p>© 2024 نوميرا. جميع الحقوق محفوظة. تصميم متقدم بتقنيات Apple Vision Pro</p>
+            <div class="reveal-on-scroll">
+                <h4 class="footer-title">روابط سريعة</h4>
+                <ul class="footer-links">
+                    <li><a href="/" class="footer-link"><i class="fas fa-home text-xs"></i> الرئيسية</a></li>
+                    <li><a href="/about" class="footer-link"><i class="fas fa-info-circle text-xs"></i> من نحن</a></li>
+                    <li><a href="/contact" class="footer-link"><i class="fas fa-envelope text-xs"></i> تواصل معنا</a></li>
+                    <li><a href="/privacy" class="footer-link"><i class="fas fa-shield-alt text-xs"></i> الخصوصية</a></li>
+                </ul>
             </div>
+            
+            <div class="reveal-on-scroll">
+                <h4 class="footer-title">الخدمات</h4>
+                <ul class="footer-links">
+                    <li><a href="{% url 'calculators' %}" class="footer-link"><i class="fas fa-calculator text-xs"></i> الحاسبات</a></li>
+                    <li><a href="{% url 'quizzes' %}" class="footer-link"><i class="fas fa-brain text-xs"></i> الاختبارات</a></li>
+                    <li><a href="{% url 'articles' %}" class="footer-link active"><i class="fas fa-newspaper text-xs"></i> المقالات</a></li>
+                    <li><a href="{% url 'coupons' %}" class="footer-link"><i class="fas fa-tags text-xs"></i> الكوبونات</a></li>
+                </ul>
+            </div>
+            
+            <div class="reveal-on-scroll">
+                <h4 class="footer-title">تابعنا</h4>
+                <div class="social-links">
+                    <a href="https://twitter.com/nomira" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="تويتر"><i class="fab fa-twitter"></i></a>
+                    <a href="https://linkedin.com/company/nomira" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="لينكد إن"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://instagram.com/nomira" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="إنستغرام"><i class="fab fa-instagram"></i></a>
+                    <a href="https://youtube.com/nomira" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="يوتيوب"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>© {% now "Y" %} نوميرا. جميع الحقوق محفوظة.</p>
+            <p>تصميم متقدم بتقنيات Apple Vision Pro</p>
         </div>
     </footer>
 
     <script>
-        // زر الترحيب الدائري
-        const welcomeCircle = document.getElementById('welcomeCircle');
-        
-        welcomeCircle.addEventListener('click', function() {
-            this.style.transform = 'scale(1.3) rotate(360deg)';
-            this.style.opacity = '0.8';
-            
-            setTimeout(() => {
-                this.style.transform = 'scale(1) rotate(0deg)';
-                this.style.opacity = '1';
-            }, 600);
+        // ===== Scroll Progress =====
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            document.getElementById('scrollProgress').style.width = scrollPercent + '%';
         });
 
-        // Mobile Menu Functionality
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mainNav = document.getElementById('main-nav');
-        
-        mobileMenuBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            mainNav.classList.toggle('active');
-            const icon = this.querySelector('i');
-            icon.classList.toggle('fa-bars');
-            icon.classList.toggle('fa-times');
-            
-            // Prevent body scroll when menu is open
-            document.body.style.overflow = mainNav.classList.contains('active') ? 'hidden' : 'auto';
-        });
-
-        // Close mobile menu when clicking outside or on links
-        document.addEventListener('click', function(event) {
-            if (!mainNav.contains(event.target) && !mobileMenuBtn.contains(event.target)) {
-                mainNav.classList.remove('active');
-                mobileMenuBtn.querySelector('i').classList.add('fa-bars');
-                mobileMenuBtn.querySelector('i').classList.remove('fa-times');
-                document.body.style.overflow = 'auto';
-            }
-        });
-
-        // Header Scroll Effect
-        let lastScroll = 0;
-        window.addEventListener('scroll', function() {
-            const header = document.querySelector('header');
-            const currentScroll = window.pageYOffset;
-            
-            if (currentScroll > 30) {
-                header.style.background = 'rgba(255, 255, 255, 0.9)';
-                header.style.backdropFilter = 'blur(140px) saturate(200%)';
-                header.style.borderBottom = '1px solid rgba(255, 255, 255, 0.9)';
+        // ===== Header Scroll Effect =====
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
             } else {
-                header.style.background = 'rgba(255, 255, 255, 0.8)';
-                header.style.backdropFilter = 'blur(120px) saturate(180%)';
-                header.style.borderBottom = '1px solid rgba(255, 255, 255, 0.8)';
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // ===== Mobile Menu =====
+        const menuToggle = document.getElementById('menuToggle');
+        const mainNav = document.getElementById('mainNav');
+        
+        menuToggle.addEventListener('click', () => {
+            const isExpanded = mainNav.classList.toggle('active');
+            menuToggle.setAttribute('aria-expanded', isExpanded);
+            const icon = menuToggle.querySelector('i');
+            icon.className = isExpanded ? 'fas fa-times' : 'fas fa-bars';
+        });
+
+        // Close menu when clicking outside on mobile
+        document.addEventListener('click', (e) => {
+            if (window.innerWidth <= 768 && 
+                !mainNav.contains(e.target) && 
+                !menuToggle.contains(e.target) && 
+                mainNav.classList.contains('active')) {
+                mainNav.classList.remove('active');
+                menuToggle.setAttribute('aria-expanded', 'false');
+                menuToggle.querySelector('i').className = 'fas fa-bars';
+            }
+        });
+
+        // ===== Theme Switcher =====
+        const themeSwitch = document.getElementById('themeSwitch');
+        const html = document.documentElement;
+        const icon = themeSwitch.querySelector('i');
+        
+        const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        html.setAttribute('data-theme', savedTheme);
+        icon.className = savedTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+
+        themeSwitch.addEventListener('click', () => {
+            const current = html.getAttribute('data-theme');
+            const newTheme = current === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            icon.className = newTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+        });
+
+        // ===== Scroll Reveal Animation =====
+        function revealOnScroll() {
+            const elements = document.querySelectorAll('.reveal-on-scroll');
+            
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('revealed');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll(); // Initial check
+
+        // ===== Hero Text Animation =====
+        function animateHeroText() {
+            const eyebrow = document.querySelector('.hero-eyebrow');
+            const titleLines = document.querySelectorAll('.hero-title .line');
+            const subtitle = document.querySelector('.hero-subtitle');
+            
+            if (eyebrow) {
+                eyebrow.style.opacity = '1';
+                eyebrow.style.transform = 'translateY(0)';
             }
             
-            lastScroll = currentScroll;
-        });
-
-        // Article Card Animation
-        document.querySelectorAll('.article-card').forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                const img = this.querySelector('.article-image');
-                if (img) {
-                    img.style.transform = 'scale(1.1)';
-                }
+            titleLines.forEach((line, index) => {
+                setTimeout(() => {
+                    line.style.opacity = '1';
+                    line.style.transform = 'translateY(0)';
+                }, 500 + (index * 300));
             });
             
-            card.addEventListener('mouseleave', function() {
-                const img = this.querySelector('.article-image');
-                if (img) {
-                    img.style.transform = 'scale(1)';
-                }
-            });
-        });
-
-        // Content Card Animation
-        document.querySelectorAll('.content-card').forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                const img = this.querySelector('img');
-                if (img) {
-                    img.style.transform = 'scale(1.08)';
-                }
-            });
-            
-            card.addEventListener('mouseleave', function() {
-                const img = this.querySelector('img');
-                if (img) {
-                    img.style.transform = 'scale(1)';
-                }
-            });
-        });
-
-        // Stat Card Animation
-        document.querySelectorAll('.stat-card').forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                const number = this.querySelector('.stat-number');
-                if (number) {
-                    number.style.transform = 'scale(1.1)';
-                }
-            });
-            
-            card.addEventListener('mouseleave', function() {
-                const number = this.querySelector('.stat-number');
-                if (number) {
-                    number.style.transform = 'scale(1)';
-                }
-            });
-        });
-
-        // Initialize with scroll
-        setTimeout(() => {
-            window.dispatchEvent(new Event('scroll'));
-        }, 100);
-
-        // Floating welcome circle animation
-        function floatCircle() {
-            welcomeCircle.style.transform = `translateY(${Math.sin(Date.now() / 1000) * 5}px)`;
-            requestAnimationFrame(floatCircle);
+            if (subtitle) {
+                setTimeout(() => {
+                    subtitle.style.opacity = '1';
+                    subtitle.style.transform = 'translateY(0)';
+                }, 1200);
+            }
         }
-        
-        floatCircle();
+
+        // Run animations after page load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                animateHeroText();
+                revealOnScroll();
+            }, 300);
+        });
+
+        // ===== Stat Counter Animation =====
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            
+            counters.forEach(counter => {
+                const target = parseInt(counter.textContent);
+                let current = 0;
+                const increment = target / 50;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        counter.textContent = target;
+                        clearInterval(timer);
+                    } else {
+                        counter.textContent = Math.floor(current);
+                    }
+                }, 20);
+            });
+        }
+
+        // Animate counters when in view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.stat-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // ===== Article Card Hover Effect =====
+        document.querySelectorAll('.article-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-8px)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+
+        // ===== Smooth Scroll for Anchor Links =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (window.innerWidth <= 768) {
+                        mainNav.classList.remove('active');
+                        menuToggle.setAttribute('aria-expanded', 'false');
+                        menuToggle.querySelector('i').className = 'fas fa-bars';
+                    }
+                }
+            });
+        });
+
+        // ===== Initialize =====
+        document.addEventListener('DOMContentLoaded', () => {
+            // Trigger initial animations
+            setTimeout(animateHeroText, 500);
+            
+            // Initial scroll check
+            window.dispatchEvent(new Event('scroll'));
+        });
     </script>
 </body>
 </html>

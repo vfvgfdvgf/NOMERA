@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # ======= تصنيفات المقالات =======
 class Category(models.Model):
@@ -17,6 +18,12 @@ class Category(models.Model):
 class Article(models.Model):
     title = models.CharField(max_length=200)
     content = models.TextField()
+    author = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True
+    )
     category = models.ForeignKey(
         Category,
         on_delete=models.SET_NULL,
@@ -34,6 +41,12 @@ class Article(models.Model):
 
     def __str__(self):
         return self.title
+
+    # دالة مساعدة للقالب
+    def author_name(self):
+        if self.author:
+            return self.author.get_full_name() or self.author.username
+        return "إدارة الموقع"
 
 
 # ======= الكويزات =======

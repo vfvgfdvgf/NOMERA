@@ -2,35 +2,119 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>اختبارات الشخصية - نوميرا</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="format-detection" content="telephone=no">
     
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <!-- ===== SEO & Meta Tags Premium ===== -->
+    <title>اختبارات الشخصية - نوميرا | منصة الاختبارات الذكية</title>
+    <meta name="description" content="اكتشف شخصيتك من خلال اختبارات نوميرا الذكية. اختبارات شخصية، ذكاء، وترفيهية مع تحليل مفصل وتجربة تفاعلية متطورة.">
+    <meta name="keywords" content="اختبارات شخصية, اختبارات ذكاء, كويزات, تحليل الشخصية, نوميرا, اختبارات معرفية">
+    <meta name="author" content="نوميرا - Nomira">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    <link rel="canonical" href="https://nomira.com/quizzes/">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://nomira.com/quizzes/">
+    <meta property="og:title" content="اختبارات الشخصية - نوميرا">
+    <meta property="og:description" content="اكتشف شخصيتك من خلال اختبارات ذكية مع تحليل مفصل">
+    <meta property="og:image" content="https://nomira.com/static/images/quizzes-og.jpg">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="اختبارات الشخصية - نوميرا">
+    <meta name="twitter:description" content="اكتشف شخصيتك من خلال اختبارات ذكية مع تحليل مفصل">
+    <meta name="twitter:image" content="https://nomira.com/static/images/quizzes-og.jpg">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": "اختبارات نوميرا - اكتشف شخصيتك",
+        "description": "مجموعة متنوعة من الاختبارات الذكية لتحليل الشخصية والمعرفة",
+        "url": "https://nomira.com/quizzes/",
+        "publisher": {
+            "@type": "Organization",
+            "name": "نوميرا",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://nomira.com/static/images/logo.png"
+            }
+        },
+        "inLanguage": "ar",
+        "hasPart": [
+            {
+                "@type": "ItemList",
+                "numberOfItems": "{{ quizzes|length }}",
+                "itemListElement": [
+                    {% for quiz in quizzes|slice:":10" %}
+                    {
+                        "@type": "ListItem",
+                        "position": {{ forloop.counter }},
+                        "item": {
+                            "@type": "Quiz",
+                            "name": "{{ quiz.name }}",
+                            "description": "{{ quiz.description|default:'اختبار شخصية ذكي' }}",
+                            "url": "{{ quiz.get_absolute_url }}"
+                        }
+                    }{% if not forloop.last %},{% endif %}
+                    {% endfor %}
+                ]
+            }
+        ]
+    }
+    </script>
+    
+    <!-- Preload Critical Resources -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@300;400;500;600;700;800;900&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap">
+    <link rel="preload" as="script" href="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js">
+    <link rel="preload" as="script" href="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js">
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#0A0A0C" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#FAFAFA" media="(prefers-color-scheme: light)">
+    
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@300;400;500;600;700;800;900&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap">
+    
+    <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;500;700;800&family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js" defer></script>
+
     <style>
-        /* ===== نظام Vision Pro الداكن المحسن ===== */
+        /* ===== نظام ألوان Vision Pro الكامل ===== */
         :root {
-            /* نظام ألوان Vision Pro داكن مع اللون المطلوب */
+            /* نظام ألوان Vision Pro داكن */
             --primary-bg: #0A0A0C;
             --secondary-bg: #111113;
             --card-bg: rgba(20, 20, 22, 0.85);
+            --surface-1: rgba(30, 30, 32, 0.8);
+            --surface-2: rgba(40, 40, 42, 0.8);
+            --surface-3: rgba(25, 25, 27, 0.8);
             --text-primary: #F5F5DC;
             --text-secondary: #C0C0B0;
             --text-tertiary: #8A8A7D;
+            --text-blue: #5AC8FA;
+            --beige-color: #F5F5DC;
+            --beige-primary: #F5F5DC;
+            --beige-light: rgba(245, 245, 220, 0.1);
+            --beige-medium: rgba(245, 245, 220, 0.2);
+            --beige-dark: rgba(245, 245, 220, 0.05);
+            --beige-soft: rgba(245, 245, 220, 0.08);
             --accent-blue: #007AFF;
             --accent-green: #34C759;
             --accent-orange: #FF9500;
             --accent-purple: #AF52DE;
             --accent-cyan: #5AC8FA;
             --accent-red: #FF3B30;
-            --beige-color: #F5F5DC;
-            --beige-light: rgba(245, 245, 220, 0.1);
-            --beige-medium: rgba(245, 245, 220, 0.2);
-            --beige-dark: rgba(245, 245, 220, 0.05);
+            --accent-teal: #5AC8FA;
+            --accent-coral: #FF6B6B;
+            --accent-gold: #FFD700;
             --border-light: rgba(245, 245, 220, 0.1);
             --border-lighter: rgba(245, 245, 220, 0.05);
             
@@ -40,6 +124,9 @@
             --glass-border: rgba(245, 245, 220, 0.15);
             --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
             --card-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+            --card-shadow-hover: 0 8px 32px rgba(0, 0, 0, 0.3);
+            --card-shadow-elevated: 0 12px 40px rgba(0, 0, 0, 0.35);
+            --card-shadow-float: 0 16px 48px rgba(0, 0, 0, 0.4);
             --elevated-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
             --accent-glow: 0 0 40px rgba(0, 122, 255, 0.25);
             --beige-glow: 0 0 20px rgba(245, 245, 220, 0.15);
@@ -77,9 +164,72 @@
             --transition-bounce: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
             --transition-fast: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             --transition-spring: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            
+            /* Typography Scale */
+            --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+            --text-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
+            --text-base: clamp(1rem, 0.9rem + 0.5vw, 1.125rem);
+            --text-lg: clamp(1.125rem, 1rem + 0.65vw, 1.375rem);
+            --text-xl: clamp(1.5rem, 1.2rem + 1.5vw, 2.5rem);
+            --text-2xl: clamp(2rem, 1.5rem + 2.5vw, 4rem);
         }
 
-        * {
+        /* ===== نظام الألوان الفاتح ===== */
+        :root[data-theme="light"] {
+            /* خلفيات فاتحة أنيقة */
+            --primary-bg: #FAFAFA;
+            --secondary-bg: #FFFFFF;
+            --card-bg: #FFFFFF;
+            --surface-1: #F5F5F5;
+            --surface-2: #FFFFFF;
+            --surface-3: #F8F8F8;
+            
+            /* نص باللون الرمادي الداكن */
+            --text-primary: #2C3E50;
+            --text-secondary: #5D6D7E;
+            --text-tertiary: #95A5A6;
+            --text-blue: #3498DB;
+            
+            /* اللون البيج كأساسي */
+            --beige-primary: #8B7355;
+            --beige-light: rgba(139, 115, 85, 0.1);
+            --beige-medium: rgba(139, 115, 85, 0.15);
+            --beige-color: #8B7355;
+            --beige-soft: rgba(139, 115, 85, 0.08);
+            
+            /* ألوان ثانوية متناسقة */
+            --accent-teal: #1ABC9C;
+            --accent-coral: #E74C3C;
+            --accent-gold: #F39C12;
+            --accent-purple: #9B59B6;
+            --accent-green: #27AE60;
+            --accent-blue: #3498DB;
+            --accent-orange: #E67E22;
+            --accent-red: #E74C3C;
+            
+            /* تأثيرات الظلال */
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --glass-border: rgba(139, 115, 85, 0.15);
+            --glass-shadow: 0 8px 32px rgba(139, 115, 85, 0.08);
+            --card-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+            --card-shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.08);
+            --card-shadow-elevated: 0 12px 35px rgba(0, 0, 0, 0.1);
+            --card-shadow-float: 0 16px 45px rgba(0, 0, 0, 0.12);
+            --elevated-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+            --accent-glow: 0 0 30px rgba(52, 152, 219, 0.2);
+            --beige-glow: 0 0 15px rgba(139, 115, 85, 0.1);
+            
+            /* تدرجات جميلة */
+            --gradient-beige: linear-gradient(135deg, #8B7355 0%, #A38B6D 100%);
+            --gradient-blue: linear-gradient(135deg, #3498DB 0%, #5DADE2 100%);
+            --gradient-teal: linear-gradient(135deg, #1ABC9C 0%, #48C9B0 100%);
+            --gradient-coral: linear-gradient(135deg, #E74C3C 0%, #EC7063 100%);
+            --gradient-green: linear-gradient(135deg, #27AE60 0%, #2ECC71 100%);
+            --gradient-dark: linear-gradient(135deg, #FAFAFA 0%, #FFFFFF 100%);
+        }
+
+        /* ===== Reset & Base ===== */
+        *, *::before, *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -88,1468 +238,1762 @@
         html {
             scroll-behavior: smooth;
             font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Almarai', 'Tajawal', 'SF Pro Display', sans-serif;
+            font-family: 'Noto Kufi Arabic', system-ui, -apple-system, sans-serif;
             background-color: var(--primary-bg);
             color: var(--text-primary);
-            line-height: 1.6;
+            line-height: 1.8;
             overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            background: var(--gradient-dark);
-            position: relative;
             min-height: 100vh;
+            transition: var(--transition-fast);
         }
 
-        .container {
-            width: 100%;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 40px;
+        /* ===== Film Grain Overlay ===== */
+        .grain-overlay {
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            right: -50%;
+            bottom: -50%;
+            width: 200%;
+            height: 200%;
+            background: transparent url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 9990;
+            opacity: 0.3;
+            animation: grain 8s steps(10) infinite;
         }
 
-        /* ===== Video Background - Vision Pro Dark ===== */
-        .video-background {
+        @keyframes grain {
+            0%, 100% { transform: translate(0, 0); }
+            10% { transform: translate(-5%, -5%); }
+            20% { transform: translate(-10%, 5%); }
+            30% { transform: translate(5%, -10%); }
+            40% { transform: translate(-5%, 15%); }
+            50% { transform: translate(-10%, 5%); }
+            60% { transform: translate(15%, 0); }
+            70% { transform: translate(0, 10%); }
+            80% { transform: translate(-15%, 0); }
+            90% { transform: translate(10%, 5%); }
+        }
+
+        /* ===== Scroll Progress Bar ===== */
+        .scroll-progress {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-            overflow: hidden;
+            width: 0%;
+            height: 3px;
+            background: var(--gradient-beige);
+            z-index: 10001;
+            transition: width 0.1s;
         }
 
-        .video-background video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.2;
-            filter: brightness(0.5) contrast(1.2) blur(2px);
+        /* ===== Preloader - Quizzes Edition ===== */
+        .preloader {
+            position: fixed;
+            inset: 0;
+            background: var(--primary-bg);
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 1s var(--transition-smooth), visibility 1s;
         }
-
-        .video-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 20% 50%, rgba(0, 122, 255, 0.1) 0%, transparent 50%),
-                      radial-gradient(circle at 80% 20%, rgba(88, 86, 214, 0.08) 0%, transparent 50%),
-                      radial-gradient(circle at 40% 80%, rgba(255, 149, 0, 0.06) 0%, transparent 50%),
-                      radial-gradient(circle at 60% 40%, rgba(245, 245, 220, 0.03) 0%, transparent 50%);
-            background-color: rgba(10, 10, 12, 0.9);
+        .preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
             pointer-events: none;
         }
-
-        /* ===== زر الترحيب الدائري الصغير ===== */
-        .welcome-circle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            width: 60px;
-            height: 60px;
-            background: var(--gradient-green);
-            border-radius: 50%;
+        .preloader-logo {
+            width: 120px;
+            height: 120px;
+            border: 2px solid var(--beige-primary);
+            border-radius: var(--radius-lg);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--beige-color);
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-align: center;
-            cursor: pointer;
-            z-index: 10001;
-            box-shadow: 0 10px 30px rgba(52, 199, 89, 0.4);
-            transition: var(--transition-spring);
-            border: 2px solid rgba(245, 245, 220, 0.2);
+            font-size: 3rem;
+            color: var(--beige-primary);
+            position: relative;
             overflow: hidden;
-            padding: 5px;
-            backdrop-filter: blur(20px);
         }
-
-        .welcome-circle:hover {
-            transform: scale(1.15) rotate(10deg);
-            box-shadow: 0 15px 40px rgba(52, 199, 89, 0.5);
-            color: white;
-        }
-
-        .welcome-circle::before {
+        .preloader-logo::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(245, 245, 220, 0.3), transparent);
-            border-radius: 50%;
+            inset: -50%;
+            background: var(--gradient-beige);
+            animation: rotate 3s linear infinite;
+        }
+        .preloader-logo::after {
+            content: '';
+            position: absolute;
+            inset: 4px;
+            background: var(--primary-bg);
+            border-radius: calc(var(--radius-lg) - 4px);
+        }
+        .preloader-logo i {
+            position: relative;
+            z-index: 1;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes rotate {
+            to { transform: rotate(360deg); }
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
         }
 
-        /* ===== Header - Vision Pro Glass Dark ===== */
-        header {
-            background: rgba(20, 20, 22, 0.9);
-            backdrop-filter: blur(120px) saturate(180%);
-            -webkit-backdrop-filter: blur(120px) saturate(180%);
-            padding: 0;
+        /* ===== Header - Floating Glass ===== */
+        .header {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 10000;
-            border-bottom: 1px solid var(--glass-border);
-            transition: var(--transition-smooth);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 80px);
+            max-width: 1400px;
             height: 80px;
+            z-index: 1000;
+            background: var(--glass-bg);
+            backdrop-filter: blur(40px) saturate(180%);
+            -webkit-backdrop-filter: blur(40px) saturate(180%);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-xl);
+            padding: 0 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: var(--transition-smooth);
+            box-shadow: var(--glass-shadow);
+        }
+        .header.scrolled {
+            width: calc(100% - 40px);
+            height: 70px;
+            border-radius: var(--radius-pill);
+            background: rgba(10,10,12,0.95);
+        }
+        [data-theme="light"] .header {
+            background: var(--glass-bg);
+            border-color: var(--glass-border);
         }
 
-        /* الشعار */
+        /* Logo Animation */
         .logo {
             display: flex;
             align-items: center;
             gap: 16px;
             text-decoration: none;
-            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
         }
-
-        .logo:hover {
-            transform: translateY(-2px);
-        }
-
-        .logo-icon {
-            width: 50px;
-            height: 50px;
-            background: url("https://d.top4top.io/p_36757e7681.png") no-repeat center;
-            background-size: contain;
-            border-radius: 0;
+        .logo-mark {
+            width: 48px;
+            height: 48px;
+            background: var(--gradient-beige);
+            border-radius: var(--radius-md);
             display: flex;
             align-items: center;
             justify-content: center;
-            filter: brightness(1.2) contrast(1.1);
-        }
-
-        .logo-icon::before {
-            display: none;
-        }
-
-        .logo:hover .logo-icon {
-            transform: none;
-        }
-
-        .logo-icon i {
-            display: none;
-        }
-
-        /* نص الشعار */
-        .logo-text h1 {
-            background: none;
-            -webkit-text-fill-color: initial;
-            color: var(--beige-color);
-            font-size: 1.8rem;
+            color: var(--primary-bg);
+            font-size: 1.5rem;
             font-weight: 800;
-            margin-bottom: 4px;
-            letter-spacing: -0.5px;
-            text-shadow: var(--beige-glow);
+            box-shadow: var(--beige-glow);
+            transition: var(--transition-bounce);
         }
-
-        .logo-text p {
-            color: var(--text-tertiary);
-            font-size: 0.9rem;
-            font-weight: 400;
+        .logo:hover .logo-mark {
+            transform: rotate(360deg) scale(1.1);
         }
-
-        /* ===== Navigation - Vision Pro Dark Glass Style ===== */
-        nav {
+        .logo-text {
             display: flex;
-            gap: 4px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(80px) saturate(180%);
-            border-radius: var(--radius-pill);
-            padding: 6px;
-            border: 1px solid var(--glass-border);
-            box-shadow: var(--glass-shadow), 0 1px 0 0 rgba(245, 245, 220, 0.05);
-            position: relative;
+            flex-direction: column;
+        }
+        .logo-name {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
+            line-height: 1;
+        }
+        .logo-tagline {
+            font-size: 0.75rem;
+            color: var(--beige-primary);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 4px;
+            font-weight: 500;
         }
 
-        nav::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+        /* Navigation */
+        .nav {
+            display: flex;
+            gap: 8px;
+            background: var(--beige-dark);
+            padding: 8px;
             border-radius: var(--radius-pill);
-            padding: 1px;
-            background: linear-gradient(135deg, rgba(245, 245, 220, 0.15), rgba(245, 245, 220, 0.05));
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            pointer-events: none;
+            border: 1px solid var(--border-light);
         }
-
-        nav a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 600;
+        [data-theme="light"] .nav {
+            background: var(--beige-soft);
+        }
+        .nav-link {
             padding: 12px 24px;
             border-radius: var(--radius-pill);
-            transition: var(--transition-smooth);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.95rem;
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 500;
             position: relative;
             overflow: hidden;
+            transition: var(--transition-smooth);
         }
-
-        nav a::before {
+        .nav-link::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(52, 199, 89, 0.15), transparent);
+            inset: 0;
+            background: var(--gradient-beige);
             opacity: 0;
-            transition: var(--transition-fast);
+            transition: opacity 0.4s;
+            border-radius: inherit;
         }
-
-        nav a:hover {
-            color: var(--beige-color);
-            background: var(--beige-light);
-            transform: translateY(-1px);
+        .nav-link span {
+            position: relative;
+            z-index: 1;
         }
-
-        nav a:hover::before {
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary-bg);
+            transform: translateY(-2px);
+        }
+        .nav-link:hover::before, .nav-link.active::before {
             opacity: 1;
         }
-
-        nav a.active {
-            background: var(--beige-medium);
-            color: var(--beige-color);
-            font-weight: 700;
+        .nav-link.active {
             box-shadow: var(--beige-glow);
-            border: 1px solid var(--beige-light);
         }
 
-        .mobile-menu-btn {
+        /* Mobile Menu Toggle */
+        .menu-toggle {
             display: none;
-            background: var(--glass-bg);
-            border: 1px solid var(--glass-border);
-            color: var(--beige-color);
-            font-size: 1.2rem;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 1px solid var(--border-light);
+            background: transparent;
+            color: var(--text-primary);
             cursor: pointer;
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
-            transition: var(--transition-smooth);
-            align-items: center;
-            justify-content: center;
-            backdrop-filter: blur(20px);
-            box-shadow: var(--glass-shadow);
+            font-size: 1.25rem;
+            transition: var(--transition-bounce);
+        }
+        .menu-toggle:hover {
+            background: var(--beige-primary);
+            color: var(--primary-bg);
+            border-color: var(--beige-primary);
+            transform: rotate(90deg);
         }
 
-        /* ===== Hero Section for Quizzes - نفس تصميم الرئيسية ===== */
+        /* ===== Hero Section - Quizzes Edition ===== */
         .hero {
-            padding: 200px 0 140px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
             min-height: 100vh;
+            position: relative;
             display: flex;
             align-items: center;
-            margin-top: 80px;
-        }
-
-        /* Hero Background Image */
-        .hero-background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
+            justify-content: center;
             overflow: hidden;
+            padding: 200px 40px 80px;
         }
 
-        .hero-background img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-            filter: brightness(0.6) contrast(1.1) saturate(1.1);
-            transform: scale(1.05);
-            transition: transform 20s ease;
-        }
-
-        .hero-overlay {
+        /* Animated Background */
+        .hero-bg {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(10, 10, 12, 0.9) 0%, rgba(17, 17, 19, 0.4) 100%);
+            inset: 0;
             z-index: -1;
         }
-
-        @keyframes heroImageFloat {
-            0%, 100% {
-                transform: scale(1.05) translateY(0);
-            }
-            50% {
-                transform: scale(1.08) translateY(-10px);
-            }
+        .hero-bg-gradient {
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, var(--beige-light) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(30,58,138,0.05) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, var(--beige-medium) 0%, transparent 40%);
+            animation: bgPulse 10s ease-in-out infinite;
+        }
+        @keyframes bgPulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.1); }
         }
 
-        .hero-background img {
-            animation: heroImageFloat 30s ease-in-out infinite;
+        /* 3D Grid */
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(var(--beige-soft) 1px, transparent 1px),
+                linear-gradient(90deg, var(--beige-soft) 1px, transparent 1px);
+            background-size: 60px 60px;
+            transform: perspective(500px) rotateX(60deg);
+            transform-origin: center top;
+            mask-image: linear-gradient(to bottom, black 0%, transparent 60%);
+            animation: gridMove 20s linear infinite;
+        }
+        @keyframes gridMove {
+            0% { transform: perspective(500px) rotateX(60deg) translateY(0); }
+            100% { transform: perspective(500px) rotateX(60deg) translateY(60px); }
         }
 
         .hero-content {
-            max-width: 1000px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 2;
+            text-align: center;
+            max-width: 900px;
+            z-index: 1;
         }
 
-        /* ===== Hero Badge ===== */
-        .hero-badge {
+        /* Split Text Animation */
+        .hero-eyebrow {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             padding: 12px 24px;
-            background: rgba(52, 199, 89, 0.15);
-            backdrop-filter: blur(20px);
+            background: var(--beige-light);
+            border: 1px solid var(--border-light);
             border-radius: var(--radius-pill);
-            color: var(--accent-green);
-            font-size: 14px;
+            color: var(--beige-primary);
+            font-size: 0.875rem;
             font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
             margin-bottom: 32px;
-            border: 2px solid rgba(52, 199, 89, 0.2);
-            animation: float 3s ease-in-out infinite;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        .hero-eyebrow i {
+            animation: sparkle 3s ease-in-out infinite;
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .hero h2 {
-            font-size: 5rem;
-            font-weight: 800;
-            margin-bottom: 32px;
+        .hero-title {
+            font-size: var(--text-2xl);
+            font-weight: 900;
             line-height: 1.1;
-            letter-spacing: -1.5px;
-            position: relative;
-            animation: fadeInUp 0.8s ease-out;
-            background: linear-gradient(135deg, var(--beige-color) 0%, #d1d1a0 100%);
+            margin-bottom: 32px;
+            overflow: hidden;
+        }
+        .hero-title .line {
+            display: block;
+            opacity: 0;
+            transform: translateY(100%);
+        }
+        .hero-title .highlight {
+            background: var(--gradient-beige);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            text-shadow: 0 4px 15px rgba(245, 245, 220, 0.3);
-        }
-
-        .hero p {
-            font-size: 1.4rem;
-            color: var(--text-secondary);
-            max-width: 800px;
-            margin: 40px auto 60px;
-            line-height: 1.8;
-            font-weight: 400;
-            animation: fadeInUp 0.8s ease-out 0.2s both;
-            opacity: 0.9;
-        }
-
-        /* ===== Search Box ===== */
-        .hero-search {
-            max-width: 600px;
-            margin: 40px auto 60px;
             position: relative;
-            animation: fadeInUp 0.8s ease-out 0.4s both;
         }
-
-        .search-container {
-            position: relative;
+        .hero-title .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
             width: 100%;
+            height: 4px;
+            background: var(--gradient-beige);
+            border-radius: 2px;
+            transform: scaleX(0);
+            transform-origin: right;
+            animation: lineReveal 1.5s var(--transition-smooth) forwards;
+            animation-delay: 1s;
+        }
+        @keyframes lineReveal {
+            to { transform: scaleX(1); transform-origin: left; }
         }
 
+        .hero-subtitle {
+            font-size: var(--text-lg);
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 48px;
+            line-height: 1.8;
+            font-family: 'Noto Naskh Arabic', serif;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        /* Search Bar - Advanced */
+        .hero-search {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto 40px;
+            opacity: 0;
+            transform: translateY(30px) scale(0.95);
+        }
         .search-input {
             width: 100%;
-            padding: 22px 70px 22px 24px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(100px);
-            border: 2px solid var(--glass-border);
+            height: 72px;
+            padding: 0 80px 0 32px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-light);
             border-radius: var(--radius-pill);
-            font-size: 1.1rem;
-            color: var(--beige-color);
-            transition: var(--transition-smooth);
             font-family: inherit;
-            box-shadow: var(--glass-shadow), var(--inner-shadow);
+            font-size: 1.125rem;
+            color: var(--text-primary);
+            backdrop-filter: blur(20px);
+            transition: var(--transition-smooth);
+            box-shadow: var(--card-shadow);
         }
-
         .search-input:focus {
             outline: none;
-            border-color: var(--beige-color);
-            background: rgba(30, 30, 32, 0.9);
-            box-shadow: 0 0 30px rgba(245, 245, 220, 0.2), var(--inner-shadow);
-            transform: translateY(-2px);
+            border-color: var(--beige-primary);
+            box-shadow: var(--beige-glow), var(--card-shadow);
+            transform: scale(1.02);
         }
-
-        .search-input::placeholder {
-            color: var(--text-tertiary);
-        }
-
-        .search-button {
+        .search-btn {
             position: absolute;
-            left: 6px;
+            left: 8px;
             top: 50%;
             transform: translateY(-50%);
-            background: var(--gradient-green);
-            color: var(--beige-color);
-            border: none;
             width: 56px;
             height: 56px;
             border-radius: 50%;
+            background: var(--gradient-beige);
+            border: none;
+            color: var(--primary-bg);
             cursor: pointer;
-            transition: var(--transition-spring);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            box-shadow: 0 4px 15px rgba(52, 199, 89, 0.4);
+            font-size: 1.25rem;
+            transition: var(--transition-bounce);
+            box-shadow: 0 4px 20px var(--beige-medium);
+        }
+        .search-btn:hover {
+            transform: translateY(-50%) scale(1.1) rotate(15deg);
+            box-shadow: 0 8px 30px var(--beige-medium);
         }
 
-        .search-button:hover {
-            transform: translateY(-50%) scale(1.1) rotate(5deg);
-            box-shadow: 0 6px 25px rgba(52, 199, 89, 0.6);
-            color: white;
-        }
-
+        /* Search Suggestions */
         .search-suggestions {
             position: absolute;
             top: 100%;
             left: 0;
             right: 0;
-            background: var(--glass-bg);
-            backdrop-filter: blur(100px);
+            background: var(--card-bg);
+            border: 1px solid var(--border-light);
             border-radius: var(--radius-lg);
-            margin-top: 10px;
-            box-shadow: var(--elevated-shadow);
-            border: 1px solid var(--glass-border);
-            overflow: hidden;
-            display: none;
-            z-index: 1000;
+            margin-top: 8px;
+            padding: 16px;
+            backdrop-filter: blur(20px);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: var(--transition-smooth);
+            z-index: 100;
         }
-
-        .search-suggestions.active {
-            display: block;
-            animation: slideDown 0.3s ease;
+        .search-input:focus + .search-btn + .search-suggestions,
+        .search-suggestions:hover {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
         }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
         .suggestion-item {
-            padding: 15px 24px;
+            padding: 12px 16px;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: var(--transition-fast);
             display: flex;
             align-items: center;
             gap: 12px;
-            color: var(--text-secondary);
-            cursor: pointer;
-            transition: var(--transition-fast);
-            border-bottom: 1px solid var(--border-light);
         }
-
-        .suggestion-item:last-child {
-            border-bottom: none;
-        }
-
         .suggestion-item:hover {
             background: var(--beige-light);
-            color: var(--beige-color);
         }
 
-        /* ===== Hero Actions ===== */
         .hero-actions {
             display: flex;
             gap: 16px;
             justify-content: center;
-            flex-wrap: wrap;
-            animation: fadeInUp 0.8s ease-out 0.6s both;
+            opacity: 0;
+            transform: translateY(30px);
         }
 
-        /* ===== Buttons ===== */
+        /* Buttons */
         .btn {
-            padding: 16px 32px;
+            position: relative;
+            padding: 18px 40px;
             border-radius: var(--radius-pill);
             font-size: 1rem;
             font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition-spring);
+            text-decoration: none;
             display: inline-flex;
             align-items: center;
-            justify-content: center;
-            gap: 10px;
-            text-decoration: none;
-            border: none;
-            outline: none;
-            position: relative;
+            gap: 12px;
             overflow: hidden;
-            backdrop-filter: blur(20px);
+            transition: var(--transition-smooth);
+            border: none;
+            cursor: pointer;
         }
-
         .btn-primary {
-            background: var(--gradient-green);
-            color: var(--beige-color);
-            box-shadow: 0 8px 25px rgba(52, 199, 89, 0.3);
-            border: 2px solid transparent;
+            background: var(--gradient-beige);
+            color: var(--primary-bg);
+            box-shadow: var(--beige-glow);
         }
-
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+        .btn-primary:hover::before {
+            transform: translateX(100%);
+        }
         .btn-primary:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 15px 35px rgba(52, 199, 89, 0.5);
-            color: white;
+            transform: translateY(-4px);
+            box-shadow: var(--card-shadow-hover);
         }
-
         .btn-secondary {
-            background: var(--glass-bg);
-            color: var(--beige-color);
-            border: 2px solid var(--beige-light);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border-light);
+            backdrop-filter: blur(10px);
         }
-
         .btn-secondary:hover {
             background: var(--beige-light);
-            border-color: var(--beige-color);
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(245, 245, 220, 0.2);
+            border-color: var(--beige-primary);
+            transform: translateY(-4px);
         }
 
-        /* ===== SECTION TITLE - نفس تصميم الرئيسية ===== */
-        .section {
-            padding: 120px 0;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin-bottom: 80px;
-            color: var(--beige-color);
-            letter-spacing: -0.8px;
+        /* ===== Categories Section - Enhanced ===== */
+        .features {
+            padding: 160px 40px;
             position: relative;
-            padding-top: 60px;
-            text-shadow: var(--beige-glow);
         }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            width: 160px;
-            height: 5px;
-            background: linear-gradient(135deg, var(--beige-color) 0%, #d1d1a0 100%);
-            bottom: -25px;
-            right: 50%;
-            transform: translateX(50%);
-            border-radius: 3px;
-            box-shadow: 0 0 20px rgba(245, 245, 220, 0.3);
-        }
-
-        .section-subtitle {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
+        .section-header {
             text-align: center;
+            margin-bottom: 80px;
+        }
+        .section-eyebrow {
+            display: inline-block;
+            padding: 8px 20px;
+            background: var(--surface-1);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-pill);
+            color: var(--beige-primary);
+            font-size: 0.875rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+        .section-title {
+            font-size: var(--text-2xl);
+            font-weight: 900;
+            margin-bottom: 24px;
+            line-height: 1.2;
+        }
+        .section-subtitle {
+            font-size: var(--text-lg);
+            color: var(--text-secondary);
             max-width: 600px;
-            margin: 0 auto 80px;
-            line-height: 1.7;
+            margin: 0 auto;
+            font-family: 'Noto Naskh Arabic', serif;
         }
 
-        /* ===== محتوى إضافي - نفس تصميم الرئيسية ===== */
-        .extra-content {
-            padding: 120px 0;
-            background: var(--secondary-bg);
-        }
-
-        .content-grid {
+        /* Categories Grid with Hover Effects */
+        .categories-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            margin-top: 60px;
+            gap: 24px;
+            max-width: 1400px;
+            margin: 0 auto;
         }
-
-        .content-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(120px);
-            border-radius: var(--radius-xl);
+        .category-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
             padding: 40px;
-            box-shadow: var(--depth-shadow);
-            border: 1px solid var(--glass-border);
-            transition: var(--transition-spring);
-            text-align: center;
-            height: 100%;
             position: relative;
             overflow: hidden;
-        }
-
-        .content-card:hover {
-            transform: translateY(-15px);
-            box-shadow: var(--elevated-shadow);
-            border-color: var(--beige-light);
-        }
-
-        .content-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: var(--gradient-beige);
-            opacity: 0;
             transition: var(--transition-smooth);
-            z-index: 0;
-        }
-
-        .content-card:hover::before {
-            opacity: 1;
-        }
-
-        .content-card > * {
-            position: relative;
-            z-index: 1;
-        }
-
-        .content-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: var(--radius-md);
-            margin-bottom: 25px;
-            transition: var(--transition-smooth);
-        }
-
-        .content-card:hover img {
-            transform: scale(1.08);
-        }
-
-        .content-card h3 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: var(--beige-color);
-        }
-
-        .content-card p {
-            color: var(--text-secondary);
-            line-height: 1.6;
-            font-size: 1rem;
-            margin-bottom: 25px;
-        }
-
-        /* ===== تصميم بطاقات الكويزات ===== */
-        .quizzes-section {
-            padding: 100px 0;
-        }
-
-        /* تصميم شبكة الكويزات */
-        .quizzes-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 40px;
-            margin-top: 60px;
-        }
-
-        .quiz-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(120px);
-            border-radius: var(--radius-xl);
-            overflow: hidden;
-            transition: var(--transition-spring);
-            border: 1px solid var(--glass-border);
-            box-shadow: var(--depth-shadow);
-            position: relative;
-            height: 100%;
+            cursor: pointer;
+            min-height: 280px;
             display: flex;
             flex-direction: column;
         }
-
-        .quiz-card:hover {
-            transform: translateY(-15px);
-            box-shadow: var(--elevated-shadow);
-            border-color: var(--beige-light);
-        }
-
-        .quiz-card::before {
+        .category-card::before {
             content: '';
             position: absolute;
             top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--beige-light), transparent);
+            transition: left 0.7s;
+        }
+        .category-card:hover::before {
+            left: 100%;
+        }
+        .category-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: var(--beige-medium);
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        .category-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--beige-light);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            color: var(--beige-primary);
+            margin-bottom: 24px;
+            transition: var(--transition-bounce);
+        }
+        .category-card:hover .category-icon {
             background: var(--gradient-beige);
-            opacity: 0;
-            transition: var(--transition-smooth);
-            z-index: 0;
+            color: var(--primary-bg);
+            transform: scale(1.1) rotate(-5deg);
+            box-shadow: var(--beige-glow);
+        }
+        .category-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+        .category-count {
+            color: var(--text-tertiary);
+            font-size: 0.875rem;
+            margin-bottom: 16px;
+        }
+        .category-desc {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-family: 'Noto Naskh Arabic', serif;
+            margin-bottom: auto;
+        }
+        .category-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--beige-primary);
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 24px;
+            transition: gap 0.4s;
+        }
+        .category-card:hover .category-link {
+            gap: 16px;
         }
 
-        .quiz-card:hover::before {
-            opacity: 1;
-        }
-
-        .quiz-card > * {
+        /* ===== Quizzes Grid - Premium Style ===== */
+        .quizzes-section {
+            padding: 160px 40px;
+            background: var(--gradient-dark);
             position: relative;
-            z-index: 1;
+        }
+        .quizzes-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            margin-bottom: 64px;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+        .filter-controls {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+        .filter-select {
+            padding: 12px 24px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
+            font-family: inherit;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            min-width: 180px;
+        }
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--beige-primary);
+            box-shadow: var(--beige-glow);
         }
 
-        .quiz-image-container {
-            position: relative;
+        .quizzes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 30px;
+        }
+        @media (max-width: 768px) {
+            .quizzes-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .quiz-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-xl);
             overflow: hidden;
-            height: 250px;
-            flex-shrink: 0;
+            transition: var(--transition-smooth);
+            opacity: 0;
+            transform: translateY(30px);
+            position: relative;
+        }
+        .quiz-card.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .quiz-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--beige-medium);
+            box-shadow: var(--card-shadow-float);
         }
 
+        /* Quiz Image with Overlay */
+        .quiz-image-wrapper {
+            position: relative;
+            height: 250px;
+            overflow: hidden;
+        }
         .quiz-image {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: var(--transition-smooth);
+            transition: transform 1.2s var(--transition-smooth);
         }
-
         .quiz-card:hover .quiz-image {
             transform: scale(1.1);
         }
-
-        .quiz-difficulty {
+        .quiz-image-overlay {
             position: absolute;
-            top: 20px;
-            left: 20px;
-            background: var(--gradient-green);
-            color: var(--beige-color);
-            padding: 8px 20px;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 50%);
+            display: flex;
+            align-items: flex-end;
+            padding: 24px;
+        }
+        .quiz-category {
+            padding: 6px 16px;
+            background: var(--beige-light);
+            border: 1px solid var(--border-light);
+            color: var(--beige-primary);
             border-radius: var(--radius-pill);
-            font-size: 0.85rem;
-            font-weight: 600;
-            text-decoration: none;
-            z-index: 2;
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--beige-light);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
             transition: var(--transition-fast);
         }
-
-        .quiz-card:hover .quiz-difficulty {
-            transform: translateX(-5px);
-            box-shadow: 0 8px 20px rgba(52, 199, 89, 0.3);
+        .quiz-card:hover .quiz-category {
+            background: var(--gradient-beige);
+            color: var(--primary-bg);
         }
 
         .quiz-content {
-            padding: 30px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
+            padding: 32px;
         }
-
+        .quiz-meta {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 16px;
+            font-size: 0.875rem;
+            color: var(--text-tertiary);
+            flex-wrap: wrap;
+        }
         .quiz-title {
             font-size: 1.5rem;
-            margin-bottom: 15px;
+            font-weight: 700;
             line-height: 1.4;
-            color: var(--beige-color);
+            margin-bottom: 16px;
         }
-
         .quiz-title a {
-            color: var(--beige-color);
+            color: var(--text-primary);
             text-decoration: none;
-            transition: var(--transition-fast);
+            background-image: linear-gradient(var(--beige-primary), var(--beige-primary));
+            background-position: 0% 100%;
+            background-repeat: no-repeat;
+            background-size: 0% 3px;
+            transition: background-size 0.6s var(--transition-smooth);
         }
-
         .quiz-title a:hover {
-            color: var(--accent-green);
+            background-size: 100% 3px;
         }
-
         .quiz-description {
             color: var(--text-secondary);
-            margin-bottom: 25px;
-            line-height: 1.6;
-            flex-grow: 1;
+            line-height: 1.8;
+            font-family: 'Noto Naskh Arabic', serif;
+            margin-bottom: 24px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
-
-        .quiz-meta {
+        .quiz-footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding-top: 20px;
+            padding-top: 24px;
             border-top: 1px solid var(--border-light);
-            color: var(--text-tertiary);
-            font-size: 0.9rem;
-            margin-top: auto;
         }
-
         .start-quiz {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            background: var(--gradient-green);
-            color: var(--beige-color);
-            padding: 12px 30px;
-            border-radius: var(--radius-pill);
+            gap: 8px;
+            color: var(--beige-primary);
             text-decoration: none;
             font-weight: 600;
-            transition: var(--transition-spring);
-            border: 2px solid transparent;
+            transition: gap 0.4s;
         }
-
-        .start-quiz:hover {
-            transform: translateX(-10px);
-            box-shadow: 0 15px 40px rgba(52, 199, 89, 0.3);
-            gap: 15px;
-            color: white;
+        .quiz-card:hover .start-quiz {
+            gap: 16px;
         }
-
-        /* ===== Empty State ===== */
-        .empty-state {
-            text-align: center;
-            padding: 60px 40px;
-            grid-column: 1 / -1;
-            background: var(--glass-bg);
-            border-radius: var(--radius-xl);
-            border: 1px solid var(--glass-border);
-        }
-
-        .card-icon {
-            width: 80px;
-            height: 80px;
-            background: var(--gradient-green);
-            border-radius: var(--radius-xl);
+        .quiz-duration {
+            font-size: 0.875rem;
+            color: var(--text-tertiary);
             display: flex;
             align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            transition: var(--transition-spring);
+            gap: 8px;
         }
 
-        .empty-state h3 {
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-            color: var(--beige-color);
+        /* Quiz Difficulty Badges */
+        .difficulty-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: var(--radius-pill);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .difficulty-easy {
+            background: rgba(52, 199, 89, 0.1);
+            color: #34C759;
+            border: 1px solid rgba(52, 199, 89, 0.2);
+        }
+        .difficulty-medium {
+            background: rgba(255, 149, 0, 0.1);
+            color: #FF9500;
+            border: 1px solid rgba(255, 149, 0, 0.2);
+        }
+        .difficulty-hard {
+            background: rgba(255, 59, 48, 0.1);
+            color: #FF3B30;
+            border: 1px solid rgba(255, 59, 48, 0.2);
         }
 
-        .empty-state p {
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-            margin-bottom: 30px;
+        /* ===== Trending Quizzes Sidebar ===== */
+        .trending-sidebar {
+            background: var(--card-bg);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-xl);
+            padding: 32px;
+            margin-top: 64px;
+        }
+        .trending-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+        .trending-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .trending-item {
+            display: flex;
+            gap: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-light);
+        }
+        .trending-item:last-child {
+            border-bottom: none;
+        }
+        .trending-rank {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--beige-primary);
+            min-width: 40px;
+        }
+        .trending-title {
+            font-size: 1rem;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+        .trending-title a {
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: var(--transition-fast);
+        }
+        .trending-title a:hover {
+            color: var(--beige-primary);
         }
 
-        /* ===== Stats Section - نفس تصميم الرئيسية ===== */
+        /* ===== Stats Section ===== */
         .stats {
-            padding: 120px 0;
+            padding: 160px 40px;
             position: relative;
-            background: var(--primary-bg);
+            overflow: hidden;
         }
-
+        .stats-bg {
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 30% 50%, var(--beige-light) 0%, transparent 50%),
+                radial-gradient(circle at 70% 50%, rgba(30,58,138,0.05) 0%, transparent 50%);
+        }
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 40px;
-            margin-top: 80px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 48px;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
         }
-
-        .stat-card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(120px);
-            border-radius: var(--radius-xl);
-            padding: 48px 32px;
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .stat-item {
             text-align: center;
-            transition: var(--transition-spring);
-            border: 1px solid var(--glass-border);
-            box-shadow: var(--depth-shadow);
+            position: relative;
+            opacity: 0;
+            transform: translateY(40px);
         }
-
-        .stat-card:hover {
-            transform: translateY(-12px) scale(1.05);
-            box-shadow: var(--elevated-shadow), 0 0 40px rgba(245, 245, 220, 0.15);
-            border-color: var(--beige-light);
+        .stat-item.revealed {
+            opacity: 1;
+            transform: translateY(0);
         }
-
         .stat-number {
-            font-size: 4.5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--beige-color) 0%, #d1d1a0 100%);
+            font-size: clamp(3rem, 5vw, 4.5rem);
+            font-weight: 900;
+            background: var(--gradient-beige);
             -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+            -webkit-text-fill-color: transparent;
             line-height: 1;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             display: block;
-            text-shadow: 0 0 40px rgba(245, 245, 220, 0.3);
+            font-variant-numeric: tabular-nums;
         }
-
         .stat-label {
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: var(--text-secondary);
+            letter-spacing: 2px;
+            text-transform: uppercase;
             font-weight: 500;
         }
 
-        /* ===== Footer - نفس تصميم الرئيسية ===== */
-        footer {
-            background: linear-gradient(180deg, #0A0A0C 0%, #111113 100%);
-            color: var(--beige-color);
-            padding: 120px 0 60px;
+        /* ===== Featured Quiz ===== */
+        .featured-quiz {
+            background: var(--glass-gradient);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-xl);
+            padding: 60px;
+            margin: 80px 0;
+            backdrop-filter: blur(40px);
             position: relative;
             overflow: hidden;
-            border-radius: var(--radius-xl) var(--radius-xl) 0 0;
-            border-top: 1px solid var(--beige-light);
         }
-
-        footer::before {
-            content: '';
+        .featured-badge {
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(135deg, var(--beige-color) 0%, #d1d1a0 100%);
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 48px;
-            margin-bottom: 48px;
-        }
-
-        .footer-column h3 {
-            font-size: 1.3rem;
+            top: 24px;
+            left: 24px;
+            background: var(--gradient-beige);
+            color: var(--primary-bg);
+            padding: 8px 24px;
+            border-radius: var(--radius-pill);
+            font-size: 0.875rem;
             font-weight: 700;
-            margin-bottom: 24px;
-            color: var(--beige-color);
-            position: relative;
-            padding-bottom: 12px;
-        }
-
-        .footer-column h3::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 60px;
-            height: 3px;
-            background: linear-gradient(135deg, var(--beige-color) 0%, #d1d1a0 100%);
-            border-radius: 2px;
-        }
-
-        .footer-column p {
-            color: var(--text-secondary);
-            line-height: 1.8;
-            font-size: 1.1rem;
-            margin-top: 16px;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 14px;
-        }
-
-        .footer-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 1rem;
-            transition: var(--transition-fast);
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 8px 0;
-            position: relative;
-        }
-
-        .footer-links a::before {
-            content: '';
-            position: absolute;
-            right: -10px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 6px;
-            height: 6px;
-            background: var(--beige-color);
-            border-radius: 50%;
-            opacity: 0;
-            transition: var(--transition-smooth);
-        }
-
-        .footer-links a:hover {
-            color: var(--beige-color);
-            transform: translateX(-10px);
-        }
-
-        .footer-links a:hover::before {
-            opacity: 1;
-            right: -20px;
-        }
-
-        .copyright {
-            text-align: center;
-            padding-top: 40px;
-            border-top: 1px solid var(--border-light);
-            color: var(--text-tertiary);
-            font-size: 14px;
-            position: relative;
+            letter-spacing: 1px;
+            text-transform: uppercase;
             z-index: 2;
         }
-
-        /* ===== Responsive Design - نفس تصميم الرئيسية ===== */
-        @media (max-width: 1200px) {
-            .container {
-                padding: 0 32px;
-            }
-            
-            .header-container {
-                padding: 0 32px;
-            }
-            
-            .hero h2 {
-                font-size: 4.2rem;
+        .featured-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        @media (max-width: 992px) {
+            .featured-content {
+                grid-template-columns: 1fr;
             }
         }
+        .featured-info h3 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 24px;
+            color: var(--beige-color);
+        }
+        .featured-description {
+            color: var(--text-secondary);
+            line-height: 1.9;
+            font-family: 'Noto Naskh Arabic', serif;
+            margin-bottom: 32px;
+            font-size: 1.1rem;
+        }
+        .featured-meta {
+            display: flex;
+            gap: 32px;
+            margin-bottom: 40px;
+        }
+        .featured-image {
+            position: relative;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--elevated-shadow);
+        }
+        .featured-image img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            transition: transform 1.2s var(--transition-smooth);
+        }
+        .featured-quiz:hover .featured-image img {
+            transform: scale(1.05);
+        }
 
+        /* ===== How It Works ===== */
+        .how-it-works {
+            padding: 120px 40px;
+            background: var(--gradient-dark);
+        }
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 80px auto 0;
+        }
+        .step-card {
+            text-align: center;
+            padding: 40px;
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-light);
+            transition: var(--transition-smooth);
+        }
+        .step-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--beige-primary);
+            box-shadow: var(--card-shadow-hover);
+        }
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-beige);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-bg);
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin: 0 auto 24px;
+        }
+        .step-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--beige-color);
+        }
+        .step-description {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* ===== Footer ===== */
+        .footer {
+            background: var(--secondary-bg);
+            border-top: 1px solid var(--border-light);
+            padding: 100px 40px 40px;
+            position: relative;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 80px;
+            max-width: 1400px;
+            margin: 0 auto 80px;
+        }
         @media (max-width: 992px) {
-            .header-container {
-                height: 72px;
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 48px;
             }
-            
-            nav {
-                position: fixed;
-                top: 72px;
-                right: 0;
-                left: 0;
-                background: var(--glass-bg);
-                backdrop-filter: blur(80px);
-                border-radius: 0;
-                padding: 24px;
+        }
+        @media (max-width: 768px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .footer-brand {
+            max-width: 300px;
+        }
+        .footer-logo {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: var(--gradient-beige);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 24px;
+            display: inline-block;
+        }
+        .footer-desc {
+            color: var(--text-secondary);
+            line-height: 2;
+            font-family: 'Noto Naskh Arabic', serif;
+            font-size: 1rem;
+        }
+        .footer-title {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 32px;
+            color: var(--text-primary);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .footer-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: var(--transition-fast);
+            position: relative;
+        }
+        .footer-link::before {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--beige-primary);
+            transition: width 0.4s var(--transition-smooth);
+        }
+        .footer-link:hover {
+            color: var(--beige-primary);
+            transform: translateX(-8px);
+        }
+        .footer-link:hover::before {
+            width: 100%;
+        }
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 40px;
+            border-top: 1px solid var(--border-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-tertiary);
+            font-size: 0.875rem;
+        }
+        @media (max-width: 768px) {
+            .footer-bottom {
                 flex-direction: column;
-                gap: 12px;
-                border-top: 1px solid var(--glass-border);
-                display: none;
-                z-index: 9999;
-                max-height: calc(100vh - 72px);
-                overflow-y: auto;
-                box-shadow: var(--elevated-shadow);
+                gap: 24px;
+                text-align: center;
             }
-            
-            nav.active {
-                display: flex;
-                animation: slideDown 0.3s ease-out;
-            }
-            
-            .mobile-menu-btn {
-                display: flex;
-            }
-            
-            .hero {
-                padding: 160px 0 80px;
-                min-height: 80vh;
-                margin-top: 72px;
-            }
-            
-            .hero h2 {
-                font-size: 3.5rem;
-            }
-            
-            .hero p {
-                font-size: 1.2rem;
-                margin: 32px auto 48px;
-            }
-            
-            .section-title {
-                font-size: 3rem;
-                margin-bottom: 60px;
-            }
-            
-            .section {
-                padding: 80px 0;
+        }
+        .social-links {
+            display: flex;
+            gap: 16px;
+        }
+        .social-link {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 1px solid var(--border-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition-bounce);
+        }
+        .social-link:hover {
+            background: var(--gradient-beige);
+            color: var(--primary-bg);
+            border-color: var(--beige-primary);
+            transform: translateY(-4px) rotate(360deg);
+        }
+
+        /* ===== Theme Switch ===== */
+        .theme-switch {
+            position: fixed;
+            bottom: 40px;
+            left: 40px;
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            border: 1px solid var(--border-light);
+            color: var(--beige-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-bounce);
+            backdrop-filter: blur(20px);
+            box-shadow: var(--glass-shadow);
+        }
+        .theme-switch:hover {
+            transform: scale(1.1) rotate(180deg);
+            border-color: var(--beige-primary);
+            box-shadow: var(--beige-glow);
+        }
+
+        /* ===== Back to Top Button ===== */
+        .back-to-top {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: var(--gradient-beige);
+            border: none;
+            color: var(--primary-bg);
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 998;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-bounce);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            box-shadow: var(--beige-glow);
+        }
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .back-to-top:hover {
+            transform: translateY(-4px) scale(1.1);
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        /* ===== Responsive Design ===== */
+        @media (max-width: 1200px) {
+            .quizzes-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
         @media (max-width: 768px) {
-            .container {
-                padding: 0 24px;
+            .header {
+                width: calc(100% - 32px);
+                padding: 0 20px;
+                height: 70px;
             }
-            
-            .header-container {
-                padding: 0 24px;
+            .nav {
+                position: fixed;
+                top: 100px;
+                right: 16px;
+                left: 16px;
+                flex-direction: column;
+                background: var(--card-bg);
+                padding: 24px;
+                border-radius: var(--radius-xl);
+                transform: translateY(-150%);
+                opacity: 0;
+                visibility: hidden;
+                transition: var(--transition-smooth);
             }
-            
+            .nav.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+            .menu-toggle {
+                display: flex;
+            }
             .hero {
-                min-height: 70vh;
+                padding: 140px 20px 60px;
             }
-            
-            .hero h2 {
-                font-size: 3rem;
+            .hero-title {
+                font-size: var(--text-xl);
             }
-            
-            .hero-search {
-                margin-bottom: 40px;
-            }
-            
-            .section-title {
-                font-size: 2.8rem;
-                margin-bottom: 60px;
-            }
-            
-            .quizzes-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .content-card {
-                padding: 30px;
-            }
-            
-            .welcome-circle {
-                width: 50px;
-                height: 50px;
-                font-size: 0.6rem;
-                top: 15px;
-                right: 15px;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .hero {
-                padding: 140px 0 60px;
-                min-height: 60vh;
-            }
-            
-            .hero h2 {
-                font-size: 2.5rem;
-            }
-            
-            .hero-search {
-                max-width: 100%;
-            }
-            
-            .search-input {
-                padding: 18px 60px 18px 20px;
-                font-size: 1rem;
-            }
-            
-            .search-button {
-                width: 48px;
-                height: 48px;
-                font-size: 1rem;
-            }
-            
-            .section-title {
-                font-size: 2.2rem;
-            }
-            
-            .logo-text h1 {
-                font-size: 1.5rem;
-            }
-            
             .hero-actions {
                 flex-direction: column;
-                align-items: stretch;
-                max-width: 300px;
-                margin: 0 auto;
+                align-items: center;
             }
-            
             .btn {
                 width: 100%;
+                justify-content: center;
             }
-            
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: 40px;
+            .features,
+            .quizzes-section,
+            .stats,
+            .how-it-works {
+                padding: 80px 20px;
             }
-            
-            .quiz-content {
-                padding: 20px;
+            .section-title {
+                font-size: var(--text-xl);
+            }
+            .quizzes-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .filter-controls {
+                width: 100%;
+                justify-content: space-between;
+            }
+            .filter-select {
+                flex: 1;
+            }
+            .featured-quiz {
+                padding: 40px 20px;
+            }
+            .featured-info h3 {
+                font-size: 1.8rem;
+            }
+            .theme-switch,
+            .back-to-top {
+                bottom: 20px;
+                left: 20px;
+                right: 20px;
+                width: 56px;
+                height: 56px;
+            }
+            .back-to-top {
+                right: 20px;
+                left: auto;
             }
         }
 
-        /* ===== دعم تقليل الحركة ===== */
+        @media (max-width: 480px) {
+            .hero-eyebrow {
+                font-size: 0.75rem;
+                padding: 8px 16px;
+            }
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+            .categories-grid {
+                grid-template-columns: 1fr;
+            }
+            .featured-content {
+                gap: 32px;
+            }
+            .featured-meta {
+                flex-direction: column;
+                gap: 16px;
+            }
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ===== Accessibility Improvements ===== */
         @media (prefers-reduced-motion: reduce) {
-            * {
+            *,
+            *::before,
+            *::after {
                 animation-duration: 0.01ms !important;
                 animation-iteration-count: 1 !important;
                 transition-duration: 0.01ms !important;
+            }
+            
+            .grain-overlay {
+                display: none !important;
+            }
+        }
+
+        @media (prefers-contrast: high) {
+            :root {
+                --text-primary: #FFFFFF;
+                --text-secondary: #CCCCCC;
+                --border-light: rgba(255, 255, 255, 0.3);
+            }
+            
+            .btn-primary,
+            .nav-link.active {
+                border: 2px solid var(--beige-primary);
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            .header,
+            .theme-switch,
+            .back-to-top,
+            .scroll-progress,
+            .grain-overlay,
+            .hero-bg,
+            .footer,
+            .featured-quiz,
+            .how-it-works {
+                display: none !important;
+            }
+            
+            body {
+                background: white !important;
+                color: black !important;
+                font-size: 12pt !important;
+            }
+            
+            .hero,
+            .features,
+            .quizzes-section,
+            .stats {
+                padding: 0 !important;
+                margin: 20pt 0 !important;
+            }
+            
+            .quiz-card {
+                break-inside: avoid;
+                border: 1px solid #ddd !important;
+                box-shadow: none !important;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Video Background -->
-    <div class="video-background">
-        <video autoplay muted loop playsinline>
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-geometric-shapes-rotating-in-space-34905-large.mp4" type="video/mp4">
-        </video>
-        <div class="video-overlay"></div>
-    </div>
+    <!-- Scroll Progress -->
+    <div class="scroll-progress" id="scrollProgress" role="progressbar" aria-label="تقدم التمرير"></div>
 
-    <!-- زر الترحيب الدائري -->
-    <div class="welcome-circle" id="welcomeCircle">
-        اختبارات ممتعة!
-    </div>
+    <!-- Film Grain -->
+    <div class="grain-overlay"></div>
 
-    <!-- الهيدر المحسن -->
-    <header>
-        <div class="container header-container">
-            <!-- الشعار -->
-            <a href="{% url 'home' %}" class="logo">
-                <div class="logo-icon"></div>
-                <div class="logo-text">
-                    <h1>نوميرا</h1>
-                    <p>اختبارات الشخصية</p>
-                </div>
-            </a>
-            
-            <!-- التنقل -->
-            <nav id="main-nav">
-                <a href="{% url 'home' %}">
-                    <i class="fas fa-home"></i>
-                    الرئيسية
-                </a>
-                <a href="{% url 'calculators' %}">
-                    <i class="fas fa-calculator"></i>
-                    الحاسبات الذكية
-                </a>
-                <a href="{% url 'quizzes' %}" class="active">
-                    <i class="fas fa-brain"></i>
-                    اختبارات الشخصية
-                </a>
-                <a href="{% url 'articles' %}">
-                    <i class="fas fa-newspaper"></i>
-                    المدونة والمقالات
-                </a>
-                <a href="{% url 'coupons' %}">
-                    <i class="fas fa-gift"></i>
-                    كوبونات الخصم
-                </a>
-            </nav>
-            
-            <!-- زر القائمة للموبايل -->
-            <button class="mobile-menu-btn" id="mobile-menu-btn">
-                <i class="fas fa-bars"></i>
-            </button>
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-logo">
+            <i class="fas fa-brain"></i>
         </div>
+    </div>
+
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop" aria-label="العودة للأعلى">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Theme Switch -->
+    <button class="theme-switch" id="themeSwitch" aria-label="تبديل الوضع المظلم/الفاتح">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <!-- Header -->
+    <header class="header" id="header" role="banner">
+        <a href="{% url 'home' %}" class="logo" aria-label="العودة إلى الصفحة الرئيسية">
+            <div class="logo-mark">ن</div>
+            <div class="logo-text">
+                <span class="logo-name">نوميرا</span>
+                <span class="logo-tagline">اختبارات الشخصية</span>
+            </div>
+        </a>
+
+        <nav class="nav" id="mainNav" role="navigation" aria-label="القائمة الرئيسية">
+            <a href="{% url 'home' %}" class="nav-link"><span>الرئيسية</span></a>
+            <a href="{% url 'calculators' %}" class="nav-link"><span>الحاسبات</span></a>
+            <a href="{% url 'quizzes' %}" class="nav-link active"><span>الاختبارات</span></a>
+            <a href="{% url 'articles' %}" class="nav-link"><span>المقالات</span></a>
+            <a href="{% url 'coupons' %}" class="nav-link"><span>الكوبونات</span></a>
+        </nav>
+
+        <button class="menu-toggle" id="menuToggle" aria-label="فتح القائمة" aria-expanded="false" aria-controls="mainNav">
+            <i class="fas fa-bars"></i>
+        </button>
     </header>
 
-    <!-- قسم البطل المحسن مع البحث -->
-    <section class="hero">
-        <div class="hero-background">
-            <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-4.0.3&auto=format&fit=crop&w=2069&q=80" 
-                 alt="خلفية اختبارات نوميرا"
-                 loading="lazy">
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-bg">
+            <div class="hero-bg-gradient"></div>
+            <div class="hero-grid"></div>
         </div>
-        
-        <div class="hero-overlay"></div>
-        
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-badge">
-                    <i class="fas fa-sparkles"></i>
-                    اختبارات شخصية تفاعلية
-                </div>
-                
-                <h2>اختبارات الشخصية<br>اكتشف. تعلم. استمتع</h2>
-                
-                <p>اختبر نفسك واكتشف شخصيتك من خلال مجموعة متنوعة من الكويزات المسلية. اختبارات في مختلف المجالات مع نتائج ذكية وتحليل مفصل.</p>
-                
-                <!-- مربع البحث -->
-                <div class="hero-search">
-                    <div class="search-container">
-                        <input type="text" 
-                               class="search-input" 
-                               placeholder="ابحث عن اختبارات، موضوعات، أو أنواع..."
-                               id="quiz-search">
-                        <button class="search-button" id="search-button">
-                            <i class="fas fa-search"></i>
-                        </button>
-                        <div class="search-suggestions" id="search-suggestions">
-                            <div class="suggestion-item" data-search="اختبار الشخصية">
-                                <i class="fas fa-user"></i>
-                                <span>اختبار الشخصية</span>
-                            </div>
-                            <div class="suggestion-item" data-search="اختبار الذكاء">
-                                <i class="fas fa-brain"></i>
-                                <span>اختبار الذكاء</span>
-                            </div>
-                            <div class="suggestion-item" data-search="كويزات ثقافية">
-                                <i class="fas fa-book"></i>
-                                <span>كويزات ثقافية</span>
-                            </div>
-                            <div class="suggestion-item" data-search="اختبارات ترفيهية">
-                                <i class="fas fa-gamepad"></i>
-                                <span>اختبارات ترفيهية</span>
-                            </div>
-                        </div>
+
+        <div class="hero-content">
+            <div class="hero-eyebrow">
+                <i class="fas fa-sparkles"></i>
+                اختبارات شخصية تفاعلية
+            </div>
+            
+            <h1 class="hero-title">
+                <span class="line">اكتشف شخصيتك</span>
+                <span class="line"><span class="highlight">مع اختبارات نوميرا</span></span>
+            </h1>
+            
+            <p class="hero-subtitle">
+                اختبر نفسك واكتشف شخصيتك من خلال مجموعة متنوعة من الكويزات المسلية. اختبارات في مختلف المجالات مع نتائج ذكية وتحليل مفصل.
+            </p>
+
+            <div class="hero-search">
+                <input type="text" class="search-input" placeholder="ابحث عن اختبارات، موضوعات، أو أنواع..." 
+                       aria-label="البحث في الاختبارات" autocomplete="off">
+                <button class="search-btn" aria-label="بحث">
+                    <i class="fas fa-search"></i>
+                </button>
+                <div class="search-suggestions">
+                    <div class="suggestion-item">
+                        <i class="fas fa-user"></i>
+                        اختبارات الشخصية
+                    </div>
+                    <div class="suggestion-item">
+                        <i class="fas fa-brain"></i>
+                        اختبارات الذكاء
+                    </div>
+                    <div class="suggestion-item">
+                        <i class="fas fa-book"></i>
+                        اختبارات ثقافية
+                    </div>
+                    <div class="suggestion-item">
+                        <i class="fas fa-gamepad"></i>
+                        اختبارات ترفيهية
                     </div>
                 </div>
-                
-                <div class="hero-actions">
-                    <a href="#quizzes" class="btn btn-primary">
-                        <span>استكشف الاختبارات</span>
-                        <i class="fas fa-arrow-left"></i>
-                    </a>
-                    <a href="#categories" class="btn btn-secondary">
-                        <span>أنواع الاختبارات</span>
-                        <i class="fas fa-list"></i>
-                    </a>
-                </div>
+            </div>
+
+            <div class="hero-actions">
+                <a href="#quizzes" class="btn btn-primary">
+                    استكشف الاختبارات
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+                <a href="#categories" class="btn btn-secondary">
+                    <i class="fas fa-tags"></i>
+                    أنواع الاختبارات
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- قسم أنواع الاختبارات -->
-    <section id="categories" class="extra-content">
-        <div class="container">
-            <h2 class="section-title">أنواع الاختبارات</h2>
-            <p class="section-subtitle">
-                اكتشف مجموعة متنوعة من الاختبارات المصممة خصيصاً لتطوير شخصيتك ومعرفتك
-            </p>
+    <!-- Categories Section -->
+    <section class="features" id="categories" aria-labelledby="categories-heading">
+        <div class="section-header">
+            <div class="section-eyebrow">أنواع الاختبارات</div>
+            <h2 class="section-title" id="categories-heading">اكتشف مجموعة متنوعة من الاختبارات</h2>
+            <p class="section-subtitle">اختبر شخصيتك ومعرفتك من خلال اختبارات مصممة بعناية</p>
+        </div>
 
-            <div class="content-grid">
-                <div class="content-card">
-                    <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                         alt="اختبارات الشخصية">
-                    <h3>اختبارات الشخصية</h3>
-                    <p>اكتشف جوانب شخصيتك المخفية ونقاط قوتك وضعفك من خلال اختبارات علمية ممتعة</p>
-                    <a href="#quizzes" class="btn btn-secondary" style="padding: 12px 24px; margin-top: 15px;">
-                        <span>ابدأ الآن</span>
-                        <i class="fas fa-play"></i>
-                    </a>
+        <div class="categories-grid">
+            <article class="category-card reveal-on-scroll">
+                <div class="category-icon">
+                    <i class="fas fa-user"></i>
                 </div>
-                
-                <div class="content-card">
-                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                         alt="كويزات ثقافية">
-                    <h3>كويزات ثقافية</h3>
-                    <p>اختبر معلوماتك الثقافية في مختلف المجالات وحسّن من معرفتك العامة</p>
-                    <a href="#quizzes" class="btn btn-secondary" style="padding: 12px 24px; margin-top: 15px;">
-                        <span>ابدأ الآن</span>
-                        <i class="fas fa-play"></i>
-                    </a>
+                <h3 class="category-title">اختبارات الشخصية</h3>
+                <div class="category-count">{{ personality_quizzes|length }} اختبار</div>
+                <p class="category-desc">
+                    اكتشف جوانب شخصيتك المخفية ونقاط قوتك وضعفك من خلال اختبارات علمية ممتعة
+                </p>
+                <a href="#personality" class="category-link">
+                    ابدأ الآن <i class="fas fa-arrow-left"></i>
+                </a>
+            </article>
+
+            <article class="category-card reveal-on-scroll">
+                <div class="category-icon">
+                    <i class="fas fa-brain"></i>
                 </div>
-                
-                <div class="content-card">
-                    <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                         alt="اختبارات الذكاء">
-                    <h3>اختبارات الذكاء</h3>
-                    <p>اختبر قدراتك العقلية وحل الألغاز والتحديات الذهنية الممتعة</p>
-                    <a href="#quizzes" class="btn btn-secondary" style="padding: 12px 24px; margin-top: 15px;">
-                        <span>ابدأ الآن</span>
-                        <i class="fas fa-play"></i>
-                    </a>
+                <h3 class="category-title">اختبارات الذكاء</h3>
+                <div class="category-count">{{ intelligence_quizzes|length }} اختبار</div>
+                <p class="category-desc">
+                    اختبر قدراتك العقلية وحل الألغاز والتحديات الذهنية الممتعة
+                </p>
+                <a href="#intelligence" class="category-link">
+                    ابدأ الآن <i class="fas fa-arrow-left"></i>
+                </a>
+            </article>
+
+            <article class="category-card reveal-on-scroll">
+                <div class="category-icon">
+                    <i class="fas fa-book"></i>
                 </div>
-                
-                <div class="content-card">
-                    <img src="https://images.unsplash.com/photo-1501504905252-473c47e087f8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                         alt="كويزات ترفيهية">
-                    <h3>كويزات ترفيهية</h3>
-                    <p>استمتع بكويزات مسلية في الأفلام، الموسيقى، الرياضة والترفيه</p>
-                    <a href="#quizzes" class="btn btn-secondary" style="padding: 12px 24px; margin-top: 15px;">
-                        <span>ابدأ الآن</span>
-                        <i class="fas fa-play"></i>
-                    </a>
+                <h3 class="category-title">كويزات ثقافية</h3>
+                <div class="category-count">{{ culture_quizzes|length }} اختبار</div>
+                <p class="category-desc">
+                    اختبر معلوماتك الثقافية في مختلف المجالات وحسّن من معرفتك العامة
+                </p>
+                <a href="#culture" class="category-link">
+                    ابدأ الآن <i class="fas fa-arrow-left"></i>
+                </a>
+            </article>
+
+            <article class="category-card reveal-on-scroll">
+                <div class="category-icon">
+                    <i class="fas fa-gamepad"></i>
                 </div>
-            </div>
+                <h3 class="category-title">كويزات ترفيهية</h3>
+                <div class="category-count">{{ entertainment_quizzes|length }} اختبار</div>
+                <p class="category-desc">
+                    استمتع بكويزات مسلية في الأفلام، الموسيقى، الرياضة والترفيه
+                </p>
+                <a href="#entertainment" class="category-link">
+                    ابدأ الآن <i class="fas fa-arrow-left"></i>
+                </a>
+            </article>
         </div>
     </section>
 
-    <!-- قسم جميع الاختبارات -->
-    <section id="quizzes" class="quizzes-section">
+    <!-- Featured Quiz -->
+    {% if featured_quiz %}
+    <section class="featured-quiz">
+        <div class="featured-badge">
+            <i class="fas fa-star"></i>
+            مميز
+        </div>
+        <div class="featured-content">
+            <div class="featured-info">
+                <h3>{{ featured_quiz.name }}</h3>
+                <p class="featured-description">
+                    {{ featured_quiz.description|default:"اختبار مميز من نوميرا مصمم خصيصاً لاكتشاف جوانب شخصيتك" }}
+                </p>
+                <div class="featured-meta">
+                    <div style="display: flex; align-items: center; gap: 12px; color: var(--text-secondary);">
+                        <i class="far fa-clock"></i>
+                        <span>{{ featured_quiz.duration|default:"10" }} دقيقة</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 12px; color: var(--text-secondary);">
+                        <i class="far fa-question-circle"></i>
+                        <span>{{ featured_quiz.questions_count|default:"15" }} سؤال</span>
+                    </div>
+                    <div class="difficulty-badge difficulty-{{ featured_quiz.difficulty|default:'medium' }}">
+                        <i class="fas fa-chart-line"></i>
+                        {{ featured_quiz.get_difficulty_display|default:"متوسط" }}
+                    </div>
+                </div>
+                <a href="{% url 'quiz_detail' featured_quiz.pk %}" class="btn btn-primary" style="padding: 16px 32px; font-size: 1.1rem;">
+                    ابدأ الاختبار المميز
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+            </div>
+            <div class="featured-image">
+                {% if featured_quiz.image %}
+                <img src="{{ featured_quiz.image.url }}" alt="{{ featured_quiz.name }}" loading="lazy">
+                {% else %}
+                <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&q=80" 
+                     alt="{{ featured_quiz.name }}" loading="lazy">
+                {% endif %}
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+    <!-- All Quizzes Section -->
+    <section class="quizzes-section" id="quizzes" aria-labelledby="quizzes-heading">
         <div class="container">
-            <h2 class="section-title">جميع الاختبارات</h2>
-            <p class="section-subtitle">
-                اختر من بين مجموعة متنوعة من الاختبارات المصممة بعناية لتقديم تجربة تعليمية مسلية
-            </p>
-            
-            <div class="quizzes-grid">
+            <div class="quizzes-header">
+                <div>
+                    <div class="section-eyebrow">جميع الاختبارات</div>
+                    <h2 class="section-title" id="quizzes-heading">اختر اختبارك المفضل</h2>
+                    <p class="section-subtitle">اختر من بين مجموعة متنوعة من الاختبارات المصممة بعناية</p>
+                </div>
+                
+                <div class="filter-controls">
+                    <select class="filter-select" id="categoryFilter" aria-label="تصفية حسب التصنيف">
+                        <option value="">جميع التصنيفات</option>
+                        <option value="personality">شخصية</option>
+                        <option value="intelligence">ذكاء</option>
+                        <option value="culture">ثقافة</option>
+                        <option value="entertainment">ترفيه</option>
+                    </select>
+                    
+                    <select class="filter-select" id="difficultyFilter" aria-label="تصفية حسب الصعوبة">
+                        <option value="">جميع المستويات</option>
+                        <option value="easy">سهل</option>
+                        <option value="medium">متوسط</option>
+                        <option value="hard">صعب</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="quizzes-grid" id="quizzesContainer">
                 {% for quiz in quizzes %}
-                <article class="quiz-card">
-                    <div class="quiz-image-container">
-                        {% if quiz.image_url %}
-                        <img src="{{ quiz.image_url }}" 
-                             alt="{{ quiz.name }}" 
-                             class="quiz-image"
-                             loading="lazy">
+                <article class="quiz-card reveal-on-scroll" data-category="{{ quiz.category }}" 
+                         data-difficulty="{{ quiz.difficulty|default:'medium' }}">
+                    <div class="quiz-image-wrapper">
+                        {% if quiz.image %}
+                        <img src="{{ quiz.image.url }}" alt="{{ quiz.name }}" class="quiz-image" loading="lazy">
                         {% else %}
-                        <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                             alt="{{ quiz.name }}" 
-                             class="quiz-image"
-                             loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&q=80" 
+                             alt="{{ quiz.name }}" class="quiz-image" loading="lazy">
                         {% endif %}
-                        
-                        {% if quiz.difficulty %}
-                        <span class="quiz-difficulty">
-                            {{ quiz.difficulty }}
-                        </span>
-                        {% endif %}
+                        <div class="quiz-image-overlay">
+                            <span class="quiz-category">{{ quiz.get_category_display|default:"شخصية" }}</span>
+                        </div>
                     </div>
                     
                     <div class="quiz-content">
-                        <h3 class="quiz-title">
-                            <a href="{% url 'quiz_detail' quiz.pk %}">
-                                {{ quiz.name }}
-                            </a>
-                        </h3>
-                        
-                        {% if quiz.description %}
-                        <p class="quiz-description">{{ quiz.description|truncatewords:30 }}</p>
-                        {% endif %}
-                        
                         <div class="quiz-meta">
                             <span>
-                                <i class="far fa-clock"></i>
-                                {% if quiz.duration %}
-                                {{ quiz.duration }} دقيقة
-                                {% else %}
-                                5 دقائق
-                                {% endif %}
+                                <i class="far fa-clock ml-2"></i>
+                                {{ quiz.duration|default:"5" }} دقيقة
                             </span>
-                            <a href="{% url 'quiz_detail' quiz.pk %}" class="start-quiz">
-                                <span>ابدأ الاختبار</span>
-                                <i class="fas fa-arrow-left"></i>
+                            <span>
+                                <i class="far fa-question-circle ml-2"></i>
+                                {{ quiz.questions_count|default:"10" }} سؤال
+                            </span>
+                            <span class="difficulty-badge difficulty-{{ quiz.difficulty|default:'medium' }}">
+                                <i class="fas fa-chart-line"></i>
+                                {{ quiz.get_difficulty_display|default:"متوسط" }}
+                            </span>
+                        </div>
+                        
+                        <h3 class="quiz-title">
+                            <a href="{% url 'quiz_detail' quiz.pk %}">{{ quiz.name }}</a>
+                        </h3>
+                        
+                        <p class="quiz-description">
+                            {% if quiz.description %}
+                                {{ quiz.description|truncatewords:25 }}
+                            {% else %}
+                                اختبار ممتع ومفيد من نوميرا
+                            {% endif %}
+                        </p>
+                        
+                        <div class="quiz-footer">
+                            <a href="{% url 'quiz_detail' quiz.pk %}" class="start-quiz" 
+                               aria-label="بدء اختبار: {{ quiz.name }}">
+                                ابدأ الآن <i class="fas fa-arrow-left"></i>
                             </a>
+                            <span class="quiz-duration">
+                                <i class="fas fa-users ml-2"></i>
+                                {{ quiz.participants_count|default:"0" }} مشارك
+                            </span>
                         </div>
                     </div>
                 </article>
                 {% empty %}
-                <div class="empty-state">
-                    <div class="card-icon">
-                        <i class="fas fa-brain" style="font-size: 2.5rem; color: var(--beige-color);"></i>
+                <div class="empty-state" style="grid-column: 1/-1; text-align: center; padding: 80px 20px;">
+                    <div style="width: 100px; height: 100px; margin: 0 auto 32px; background: var(--beige-light); border-radius: 50%; 
+                                display: flex; align-items: center; justify-content: center; font-size: 2.5rem; color: var(--beige-primary);">
+                        <i class="fas fa-brain"></i>
                     </div>
-                    <h3>لا توجد اختبارات حالياً</h3>
-                    <p>سيتم إضافة اختبارات جديدة قريباً. تابعنا!</p>
-                    <a href="#categories" class="btn btn-secondary">
-                        <span>تصفح الأنواع</span>
-                        <i class="fas fa-list"></i>
+                    <h3 style="margin-bottom: 16px;">لا توجد اختبارات حالياً</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 40px; max-width: 400px; margin-left: auto; margin-right: auto;">
+                        سيتم إضافة اختبارات جديدة قريباً. تابعنا للحصول على أحدث الاختبارات.
+                    </p>
+                    <a href="#categories" class="btn btn-secondary" style="padding: 12px 32px;">
+                        <i class="fas fa-tags ml-2"></i>
+                        تصفح الأنواع
                     </a>
                 </div>
                 {% endfor %}
@@ -1557,331 +2001,662 @@
         </div>
     </section>
 
-    <!-- قسم الإحصائيات -->
-    <section class="stats">
+    <!-- How It Works -->
+    <section class="how-it-works" aria-labelledby="how-it-works-heading">
         <div class="container">
-            <h2 class="section-title">إحصائيات الاختبارات</h2>
-            <p class="section-subtitle">أرقام تعكس ثقة المستخدمين وتطور المنصة</p>
-            
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <span class="stat-number">{{ quizzes|length }}</span>
-                    <div class="stat-label">اختبار متاح</div>
+            <div class="section-header">
+                <div class="section-eyebrow">كيف تعمل الاختبارات</div>
+                <h2 class="section-title" id="how-it-works-heading">سهولة الاستخدام</h2>
+                <p class="section-subtitle">ابدأ رحلة الاكتشاف مع نوميرا في 3 خطوات بسيطة</p>
+            </div>
+
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h4 class="step-title">اختر اختباراً</h4>
+                    <p class="step-description">
+                        اختر من بين مجموعة متنوعة من الاختبارات في مختلف المجالات
+                    </p>
                 </div>
-                <div class="stat-card">
-                    <span class="stat-number">1000+</span>
-                    <div class="stat-label">مشاركة نشطة</div>
+                
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h4 class="step-title">أجب عن الأسئلة</h4>
+                    <p class="step-description">
+                        اقرأ الأسئلة بعناية واختر الإجابة التي تعتقد أنها الأصح
+                    </p>
                 </div>
-                <div class="stat-card">
-                    <span class="stat-number">95%</span>
-                    <div class="stat-label">رضى المستخدمين</div>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-number">24/7</span>
-                    <div class="stat-label">متاحة دائمًا</div>
+                
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h4 class="step-title">احصل على النتيجة</h4>
+                    <p class="step-description">
+                        احصل على تحليل مفصل لنتيجتك مع نصائح وتوصيات شخصية
+                    </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- الفوتر المحسن -->
-    <footer>
+    <!-- Stats Section -->
+    <section class="stats" id="stats" aria-label="إحصائيات الاختبارات">
+        <div class="stats-bg"></div>
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>عن نوميرا</h3>
-                    <p>
+            <div class="section-header">
+                <div class="section-eyebrow">إحصائيات المنصة</div>
+                <h2 class="section-title">أرقام تعكس ثقتنا</h2>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-item reveal-on-scroll">
+                    <span class="stat-number" data-target="{{ total_quizzes|default:0 }}">0</span>
+                    <span class="stat-label">اختبار متاح</span>
+                </div>
+                <div class="stat-item reveal-on-scroll">
+                    <span class="stat-number" data-target="{{ total_participants|default:1000 }}">0</span>
+                    <span class="stat-label">مشاركة نشطة</span>
+                </div>
+                <div class="stat-item reveal-on-scroll">
+                    <span class="stat-number" data-target="95">0</span>
+                    <span class="stat-label">رضى المستخدمين</span>
+                </div>
+                <div class="stat-item reveal-on-scroll">
+                    <span class="stat-number" data-target="24">0</span>
+                    <span class="stat-label">ساعة متواصلة</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand reveal-on-scroll">
+                    <div class="footer-logo">نوميرا</div>
+                    <p class="footer-desc">
                         منصة رقمية متكاملة تقدم محتوى متنوع يشمل الحاسبات الذكية، الاختبارات المعرفية، 
-                        المقالات المتميزة، وعروض الكوبونات الحصرية. نهدف إلى تقديم تجربة مستخدم فريدة 
-                        تجمع بين المعرفة والتسلية.
+                        المقالات المتميزة، وعروض الكوبونات الحصرية. نقدم محتوى عالي الجودة بتجربة مستخدم فريدة.
                     </p>
                 </div>
                 
-                <div class="footer-column">
-                    <h3>روابط مهمة</h3>
+                <div class="reveal-on-scroll">
+                    <h4 class="footer-title">روابط مهمة</h4>
+                  <ul class="footer-links">
+    <li><a href="/" class="footer-link"><i class="fas fa-home text-xs"></i> الصفحة الرئيسية</a></li>
+    <li><a href="#" class="footer-link"><i class="fas fa-info-circle text-xs"></i> من نحن</a></li>
+    <li><a href="#" class="footer-link"><i class="fas fa-envelope text-xs"></i> تواصل معنا</a></li>
+    <li><a href="#" class="footer-link"><i class="fas fa-shield-alt text-xs"></i> الخصوصية</a></li>
+</ul>
+
+                </div>
+                
+                <div class="reveal-on-scroll">
+                    <h4 class="footer-title">الخدمات</h4>
                     <ul class="footer-links">
-                        <li><a href="{% url 'home' %}"><i class="fas fa-arrow-left"></i> الصفحة الرئيسية</a></li>
-                        <li><a href="{% url 'calculators' %}"><i class="fas fa-arrow-left"></i> الحاسبات الذكية</a></li>
-                        <li><a href="{% url 'quizzes' %}"><i class="fas fa-arrow-left"></i> الاختبارات</a></li>
-                        <li><a href="{% url 'articles' %}"><i class="fas fa-arrow-left"></i> المدونة</a></li>
-                        <li><a href="{% url 'coupons' %}"><i class="fas fa-arrow-left"></i> كوبونات الخصم</a></li>
+                        <li><a href="{% url 'calculators' %}" class="footer-link"><i class="fas fa-calculator text-xs"></i> الحاسبات</a></li>
+                        <li><a href="{% url 'quizzes' %}" class="footer-link"><i class="fas fa-brain text-xs"></i> الاختبارات</a></li>
+                        <li><a href="{% url 'articles' %}" class="footer-link"><i class="fas fa-newspaper text-xs"></i> المدونة</a></li>
+                        <li><a href="{% url 'coupons' %}" class="footer-link"><i class="fas fa-tags text-xs"></i> الكوبونات</a></li>
                     </ul>
                 </div>
                 
-                <div class="footer-column">
-                    <h3>تواصل معنا</h3>
-                    <ul class="footer-links">
-                        <li><a href="#"><i class="fas fa-envelope"></i> البريد الإلكتروني</a></li>
-                        <li><a href="#"><i class="fab fa-twitter"></i> تويتر</a></li>
-                        <li><a href="#"><i class="fab fa-linkedin"></i> لينكد إن</a></li>
-                        <li><a href="#"><i class="fab fa-instagram"></i> إنستغرام</a></li>
-                    </ul>
+                <div class="reveal-on-scroll">
+                    <h4 class="footer-title">تابعنا</h4>
+                    <div class="social-links">
+                        <a href="https://twitter.com/nomira" class="social-link" target="_blank" rel="noopener noreferrer" 
+                           aria-label="تابعنا على تويتر">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://linkedin.com/company/nomira" class="social-link" target="_blank" rel="noopener noreferrer" 
+                           aria-label="تابعنا على لينكد إن">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://instagram.com/nomira" class="social-link" target="_blank" rel="noopener noreferrer" 
+                           aria-label="تابعنا على إنستغرام">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://youtube.com/nomira" class="social-link" target="_blank" rel="noopener noreferrer" 
+                           aria-label="تابعنا على يوتيوب">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
             
-            <div class="copyright">
-                <p>© {% now "Y" %} نوميرا. جميع الحقوق محفوظة. تصميم متقدم بتقنيات Apple Vision Pro</p>
+            <div class="footer-bottom">
+                <p>© <span id="currentYear">{% now "Y" %}</span> نوميرا. جميع الحقوق محفوظة.</p>
+                <p>صنع بإتقان في المملكة العربية السعودية 🇸🇦</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // زر الترحيب الدائري
-        const welcomeCircle = document.getElementById('welcomeCircle');
-        
-        welcomeCircle.addEventListener('click', function() {
-            this.style.transform = 'scale(1.3) rotate(360deg)';
-            this.style.opacity = '0.8';
-            
+        // ===== Preloader =====
+        window.addEventListener('load', () => {
             setTimeout(() => {
-                this.style.transform = 'scale(1) rotate(0deg)';
-                this.style.opacity = '1';
-            }, 600);
+                const preloader = document.getElementById('preloader');
+                preloader.classList.add('hidden');
+                initAnimations();
+            }, 1000);
         });
 
-        // Mobile Menu Functionality
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mainNav = document.getElementById('main-nav');
+        // ===== Scroll Progress =====
+        const scrollProgress = document.getElementById('scrollProgress');
         
-        mobileMenuBtn.addEventListener('click', function(e) {
-            e.stopPropagation();
-            mainNav.classList.toggle('active');
-            const icon = this.querySelector('i');
-            icon.classList.toggle('fa-bars');
-            icon.classList.toggle('fa-times');
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            
+            scrollProgress.style.width = scrollPercent + '%';
+            
+            // Back to Top Button
+            const backToTop = document.getElementById('backToTop');
+            if (scrollTop > 500) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+            
+            // Header effect
+            const header = document.getElementById('header');
+            if (scrollTop > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // ===== Header Scroll Effect =====
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // ===== Mobile Menu =====
+        const menuToggle = document.getElementById('menuToggle');
+        const mainNav = document.getElementById('mainNav');
+        
+        menuToggle.addEventListener('click', () => {
+            const isExpanded = mainNav.classList.toggle('active');
+            menuToggle.setAttribute('aria-expanded', isExpanded);
+            const icon = menuToggle.querySelector('i');
+            icon.className = isExpanded ? 'fas fa-times' : 'fas fa-bars';
             
             // Prevent body scroll when menu is open
-            document.body.style.overflow = mainNav.classList.contains('active') ? 'hidden' : 'auto';
+            document.body.style.overflow = isExpanded ? 'hidden' : 'auto';
         });
 
-        // Close mobile menu when clicking outside or on links
-        document.addEventListener('click', function(event) {
-            if (!mainNav.contains(event.target) && !mobileMenuBtn.contains(event.target)) {
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (window.innerWidth <= 768 && 
+                !mainNav.contains(e.target) && 
+                !menuToggle.contains(e.target) && 
+                mainNav.classList.contains('active')) {
                 mainNav.classList.remove('active');
-                mobileMenuBtn.querySelector('i').classList.add('fa-bars');
-                mobileMenuBtn.querySelector('i').classList.remove('fa-times');
+                menuToggle.setAttribute('aria-expanded', 'false');
+                menuToggle.querySelector('i').className = 'fas fa-bars';
                 document.body.style.overflow = 'auto';
             }
         });
 
-        // Header Scroll Effect
-        let lastScroll = 0;
-        window.addEventListener('scroll', function() {
-            const header = document.querySelector('header');
-            const currentScroll = window.pageYOffset;
+        // ===== Theme Switcher =====
+        const themeSwitch = document.getElementById('themeSwitch');
+        const html = document.documentElement;
+        const icon = themeSwitch.querySelector('i');
+        
+        const savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        html.setAttribute('data-theme', savedTheme);
+        icon.className = savedTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+
+        themeSwitch.addEventListener('click', () => {
+            const current = html.getAttribute('data-theme');
+            const newTheme = current === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            icon.className = newTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
             
-            if (currentScroll > 30) {
-                header.style.background = 'rgba(20, 20, 22, 0.95)';
-                header.style.backdropFilter = 'blur(140px) saturate(200%)';
-                header.style.borderBottom = '1px solid var(--glass-border)';
+            // Update meta theme-color
+            const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+            if (newTheme === 'dark') {
+                metaThemeColor.setAttribute('content', '#0A0A0C');
             } else {
-                header.style.background = 'rgba(20, 20, 22, 0.9)';
-                header.style.backdropFilter = 'blur(120px) saturate(180%)';
-                header.style.borderBottom = '1px solid var(--glass-border)';
-            }
-            
-            lastScroll = currentScroll;
-        });
-
-        // Search Functionality
-        const searchInput = document.getElementById('quiz-search');
-        const searchButton = document.getElementById('search-button');
-        const searchSuggestions = document.getElementById('search-suggestions');
-        const suggestionItems = document.querySelectorAll('.suggestion-item');
-
-        // Show suggestions on input focus
-        searchInput.addEventListener('focus', function() {
-            searchSuggestions.classList.add('active');
-        });
-
-        // Hide suggestions when clicking outside
-        document.addEventListener('click', function(event) {
-            if (!searchInput.contains(event.target) && !searchSuggestions.contains(event.target)) {
-                searchSuggestions.classList.remove('active');
+                metaThemeColor.setAttribute('content', '#FAFAFA');
             }
         });
 
-        // Handle suggestion clicks
-        suggestionItems.forEach(item => {
-            item.addEventListener('click', function() {
-                const searchTerm = this.getAttribute('data-search');
-                searchInput.value = searchTerm;
-                performQuizSearch(searchTerm);
-                searchSuggestions.classList.remove('active');
+        // ===== Back to Top =====
+        document.getElementById('backToTop').addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
             });
         });
 
-        // Handle search button click
-        searchButton.addEventListener('click', function() {
-            const searchTerm = searchInput.value.trim();
-            if (searchTerm) {
-                performQuizSearch(searchTerm);
-            }
-        });
+        // ===== GSAP Animations =====
+        gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
-        // Handle Enter key in search
-        searchInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                const searchTerm = searchInput.value.trim();
-                if (searchTerm) {
-                    performQuizSearch(searchTerm);
+        function initAnimations() {
+            // Hero Animations
+            const heroTl = gsap.timeline();
+            
+            heroTl.to('.hero-eyebrow', { opacity: 1, y: 0, duration: 1, ease: 'power3.out' })
+                  .to('.hero-title .line', { 
+                      opacity: 1, 
+                      y: 0, 
+                      duration: 1.2, 
+                      stagger: 0.2, 
+                      ease: 'power4.out' 
+                  }, '-=0.5')
+                  .to('.hero-subtitle', { opacity: 1, y: 0, duration: 1, ease: 'power3.out' }, '-=0.8')
+                  .to('.hero-search', { opacity: 1, y: 0, scale: 1, duration: 1, ease: 'elastic.out(1, 0.5)' }, '-=0.6')
+                  .to('.hero-actions', { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.6');
+
+            // Scroll Reveal with Stagger
+            gsap.utils.toArray('.reveal-on-scroll').forEach((element, i) => {
+                gsap.fromTo(element, 
+                    { opacity: 0, y: 60 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: 1,
+                        ease: 'power3.out',
+                        scrollTrigger: {
+                            trigger: element,
+                            start: 'top 85%',
+                            end: 'bottom 20%',
+                            toggleActions: 'play none none reverse',
+                            once: true
+                        },
+                        delay: i % 3 * 0.1
+                    }
+                );
+            });
+
+            // Stat Counters Animation
+            gsap.utils.toArray('.stat-number').forEach(stat => {
+                const target = parseInt(stat.getAttribute('data-target'));
+                
+                ScrollTrigger.create({
+                    trigger: stat,
+                    start: 'top 85%',
+                    once: true,
+                    onEnter: () => {
+                        gsap.to(stat, {
+                            innerHTML: target,
+                            duration: 3,
+                            snap: { innerHTML: 1 },
+                            ease: 'power2.out',
+                            onUpdate: function() {
+                                stat.innerHTML = Math.ceil(this.targets()[0].innerHTML);
+                            }
+                        });
+                    }
+                });
+            });
+
+            // Parallax for Hero Grid
+            gsap.to('.hero-grid', {
+                yPercent: 50,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: '.hero',
+                    start: 'top top',
+                    end: 'bottom top',
+                    scrub: true
                 }
-            }
-        });
+            });
+        }
 
-        // Perform search function for quizzes
-        function performQuizSearch(term) {
-            const quizCards = document.querySelectorAll('.quiz-card');
+        // ===== Filter Quizzes =====
+        const categoryFilter = document.getElementById('categoryFilter');
+        const difficultyFilter = document.getElementById('difficultyFilter');
+        const quizzesContainer = document.getElementById('quizzesContainer');
+        
+        if (categoryFilter && difficultyFilter && quizzesContainer) {
+            const quizzes = Array.from(quizzesContainer.querySelectorAll('.quiz-card'));
+            
+            function filterQuizzes() {
+                const category = categoryFilter.value;
+                const difficulty = difficultyFilter.value;
+                
+                let filteredQuizzes = quizzes;
+                
+                // Filter by category
+                if (category) {
+                    filteredQuizzes = filteredQuizzes.filter(quiz => 
+                        quiz.dataset.category === category
+                    );
+                }
+                
+                // Filter by difficulty
+                if (difficulty) {
+                    filteredQuizzes = filteredQuizzes.filter(quiz => 
+                        quiz.dataset.difficulty === difficulty
+                    );
+                }
+                
+                // Update UI
+                quizzes.forEach(quiz => {
+                    if (filteredQuizzes.includes(quiz)) {
+                        quiz.style.display = 'block';
+                        gsap.to(quiz, {
+                            opacity: 1,
+                            scale: 1,
+                            duration: 0.5,
+                            ease: 'power2.out'
+                        });
+                    } else {
+                        gsap.to(quiz, {
+                            opacity: 0,
+                            scale: 0.8,
+                            duration: 0.5,
+                            ease: 'power2.in',
+                            onComplete: () => {
+                                quiz.style.display = 'none';
+                            }
+                        });
+                    }
+                });
+                
+                // Reorder quizzes in container
+                filteredQuizzes.forEach(quiz => {
+                    quizzesContainer.appendChild(quiz);
+                });
+            }
+            
+            categoryFilter.addEventListener('change', filterQuizzes);
+            difficultyFilter.addEventListener('change', filterQuizzes);
+        }
+
+        // ===== Search Functionality =====
+        const searchInput = document.querySelector('.search-input');
+        const searchBtn = document.querySelector('.search-btn');
+        const searchSuggestions = document.querySelector('.search-suggestions');
+        const suggestionItems = document.querySelectorAll('.suggestion-item');
+        
+        if (searchInput) {
+            // Focus animation
+            searchInput.addEventListener('focus', () => {
+                gsap.to('.hero-content > *:not(.hero-search)', {
+                    opacity: 0.3,
+                    duration: 0.4
+                });
+            });
+            
+            searchInput.addEventListener('blur', () => {
+                gsap.to('.hero-content > *:not(.hero-search)', {
+                    opacity: 1,
+                    duration: 0.4
+                });
+            });
+            
+            // Search button
+            searchBtn.addEventListener('click', () => {
+                performSearch(searchInput.value);
+            });
+            
+            // Enter key
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    performSearch(searchInput.value);
+                }
+            });
+            
+            // Suggestions
+            suggestionItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    searchInput.value = item.textContent.trim();
+                    performSearch(searchInput.value);
+                });
+            });
+        }
+        
+        function performSearch(term) {
+            if (!term.trim()) return;
+            
+            // Filter quizzes by search term
+            const quizzes = document.querySelectorAll('.quiz-card');
             let found = false;
             
-            quizCards.forEach(card => {
-                const title = card.querySelector('.quiz-title').textContent.toLowerCase();
-                const description = card.querySelector('.quiz-description').textContent.toLowerCase();
+            quizzes.forEach(quiz => {
+                const title = quiz.querySelector('.quiz-title').textContent.toLowerCase();
+                const description = quiz.querySelector('.quiz-description').textContent.toLowerCase();
                 const searchTermLower = term.toLowerCase();
                 
                 if (title.includes(searchTermLower) || description.includes(searchTermLower)) {
-                    card.style.display = 'flex';
+                    quiz.style.display = 'block';
                     found = true;
+                    
+                    // Highlight effect
+                    quiz.style.animation = 'none';
+                    setTimeout(() => {
+                        quiz.style.animation = 'fadeIn 0.5s ease-out, pulse 2s ease-in-out 0.5s 2';
+                    }, 10);
                 } else {
-                    card.style.display = 'none';
+                    quiz.style.display = 'none';
                 }
             });
             
-            if (!found && term.trim() !== '') {
-                alert(`🔍 لم يتم العثور على اختبارات مطابقة لـ "${term}"`);
+            if (!found) {
+                showNotification('لم يتم العثور على اختبارات تطابق بحثك', 'info');
+            } else {
+                showNotification(`تم العثور على ${document.querySelectorAll('.quiz-card[style*="display: block"]').length} اختبار`, 'success');
+                
+                // Scroll to results
+                gsap.to(window, {
+                    duration: 1,
+                    scrollTo: { y: '#quizzes', offsetY: 100 },
+                    ease: 'power3.inOut'
+                });
             }
         }
 
-        // التمرير السلس
+        // ===== Quiz Card Click Animation =====
+        document.querySelectorAll('.quiz-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                // Don't trigger if clicking on a link
+                if (e.target.tagName === 'A' || e.target.closest('a')) {
+                    return;
+                }
+                
+                const link = this.querySelector('.quiz-title a');
+                if (link) {
+                    // Ripple effect
+                    const ripple = document.createElement('span');
+                    const rect = this.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    const x = e.clientX - rect.left - size / 2;
+                    const y = e.clientY - rect.top - size / 2;
+                    
+                    ripple.style.cssText = `
+                        position: absolute;
+                        border-radius: 50%;
+                        background: var(--beige-light);
+                        transform: scale(0);
+                        animation: ripple 0.6s linear;
+                        width: ${size}px;
+                        height: ${size}px;
+                        left: ${x}px;
+                        top: ${y}px;
+                        pointer-events: none;
+                    `;
+                    
+                    this.style.position = 'relative';
+                    this.style.overflow = 'hidden';
+                    this.appendChild(ripple);
+                    
+                    setTimeout(() => {
+                        window.location.href = link.href;
+                    }, 600);
+                }
+            });
+        });
+
+        // ===== Notification System =====
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            
+            let icon = 'fas fa-info-circle';
+            let bgColor = 'var(--gradient-blue)';
+            
+            if (type === 'success') {
+                icon = 'fas fa-check-circle';
+                bgColor = 'var(--gradient-green)';
+            } else if (type === 'error') {
+                icon = 'fas fa-exclamation-circle';
+                bgColor = 'var(--gradient-pink)';
+            }
+            
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 40px;
+                background: ${bgColor};
+                color: var(--primary-bg);
+                padding: 16px 24px;
+                border-radius: var(--radius-lg);
+                box-shadow: var(--elevated-shadow);
+                z-index: 10003;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                animation: slideIn 0.3s ease-out;
+                max-width: 400px;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+            `;
+            
+            notification.innerHTML = `
+                <i class="${icon}" style="font-size: 1.2rem;"></i>
+                <span>${message}</span>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Add animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideIn {
+                    from {
+                        opacity: 0;
+                        transform: translateX(100%);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateX(0);
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            // Remove after 5 seconds
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => notification.remove(), 300);
+            }, 5000);
+        }
+
+        // ===== Image Lazy Loading =====
+        function lazyLoadImages() {
+            const images = document.querySelectorAll('img[data-src]');
+            
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src;
+                        img.removeAttribute('data-src');
+                        imageObserver.unobserve(img);
+                    }
+                });
+            }, { rootMargin: '100px' });
+            
+            images.forEach(img => imageObserver.observe(img));
+        }
+
+        // ===== Initialize Everything =====
+        window.addEventListener('load', () => {
+            lazyLoadImages();
+            
+            // Current year in footer
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+            
+            // Initialize with scroll
+            setTimeout(() => {
+                window.dispatchEvent(new Event('scroll'));
+            }, 100);
+        });
+
+        // ===== Keyboard Navigation =====
+        document.addEventListener('keydown', (e) => {
+            // Close menu on Escape
+            if (e.key === 'Escape' && mainNav.classList.contains('active')) {
+                mainNav.classList.remove('active');
+                menuToggle.setAttribute('aria-expanded', 'false');
+                menuToggle.querySelector('i').className = 'fas fa-bars';
+                document.body.style.overflow = 'auto';
+            }
+            
+            // Search focus with Ctrl+K or Cmd+K
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                searchInput?.focus();
+            }
+        });
+
+        // ===== Smooth Scroll for Anchor Links =====
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 const href = this.getAttribute('href');
-                if (href === '#' || href === '') return;
-                
-                const targetElement = document.querySelector(href);
-                if (targetElement) {
+                if (href !== '#') {
                     e.preventDefault();
-                    
-                    if (window.innerWidth <= 992 && mainNav.classList.contains('active')) {
-                        mainNav.classList.remove('active');
-                        mobileMenuBtn.querySelector('i').classList.add('fa-bars');
-                        mobileMenuBtn.querySelector('i').classList.remove('fa-times');
-                        document.body.style.overflow = 'auto';
-                    }
-                    
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-
-        // تأثيرات التحميل التدريجي
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-
-        // إعداد عناصر للحركة
-        document.querySelectorAll('.content-card, .quiz-card, .stat-card').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(el);
-        });
-
-        // تحميل الصور بكسل
-        const images = document.querySelectorAll('img');
-        images.forEach(img => {
-            if (img.complete) {
-                if (img.naturalHeight === 0) {
-                    img.style.display = 'none';
-                    img.parentElement.innerHTML = '<div style="width: 100%; height: 240px; background: var(--gradient-green); display: flex; align-items: center; justify-content: center; color: var(--beige-color); font-size: 32px; border-radius: var(--radius-lg);"><i class="fas fa-image"></i></div>';
-                }
-            } else {
-                img.addEventListener('error', function() {
-                    this.style.display = 'none';
-                    this.parentElement.innerHTML = '<div style="width: 100%; height: 240px; background: var(--gradient-green); display: flex; align-items: center; justify-content: center; color: var(--beige-color); font-size: 32px; border-radius: var(--radius-lg);"><i class="fas fa-image"></i></div>';
-                });
-            }
-        });
-
-        // دعم تقليل الحركة
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-            document.querySelectorAll('*').forEach(el => {
-                el.style.animationPlayState = 'paused';
-                el.style.transition = 'none';
-            });
-        }
-
-        // Floating welcome circle animation
-        function floatCircle() {
-            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                welcomeCircle.style.transform = `translateY(${Math.sin(Date.now() / 1000) * 5}px)`;
-                requestAnimationFrame(floatCircle);
-            }
-        }
-        
-        floatCircle();
-
-        // Animate stats
-        const statNumbers = document.querySelectorAll('.stat-number');
-        statNumbers.forEach(stat => {
-            const text = stat.textContent;
-            if (text.includes('+') || text === '95%' || text === '24/7') {
-                return; // لا تتحرك الإحصائيات النصية
-            }
-            
-            const target = parseInt(text);
-            if (!isNaN(target)) {
-                let current = 0;
-                const increment = target / 40;
-                
-                const statObserver = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            const timer = setInterval(() => {
-                                current += increment;
-                                if (current >= target) {
-                                    current = target;
-                                    clearInterval(timer);
-                                }
-                                stat.textContent = Math.floor(current);
-                            }, 30);
-                            statObserver.unobserve(entry.target);
+                    const target = document.querySelector(href);
+                    if (target) {
+                        gsap.to(window, {
+                            duration: 1.5,
+                            scrollTo: { y: target, offsetY: 100 },
+                            ease: 'power3.inOut'
+                        });
+                        
+                        // Close mobile menu if open
+                        if (window.innerWidth <= 768) {
+                            mainNav.classList.remove('active');
+                            menuToggle.setAttribute('aria-expanded', 'false');
+                            menuToggle.querySelector('i').className = 'fas fa-bars';
+                            document.body.style.overflow = 'auto';
                         }
-                    });
-                }, { threshold: 0.5 });
-                
-                statObserver.observe(stat);
-            }
-        });
-
-        // تحسينات الأداء
-        window.addEventListener('load', function() {
-            // تحميل الصور المتبقية بعد التحميل
-            const lazyImages = document.querySelectorAll('img[loading="lazy"]');
-            lazyImages.forEach(img => {
-                if (!img.complete) {
-                    img.style.opacity = '0';
-                    img.style.transition = 'opacity 0.3s ease';
-                    img.addEventListener('load', function() {
-                        this.style.opacity = '1';
-                    });
+                    }
                 }
             });
         });
+
+        // ===== Listen for system theme changes =====
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            if (!localStorage.getItem('theme')) {
+                const newTheme = e.matches ? 'dark' : 'light';
+                html.setAttribute('data-theme', newTheme);
+                icon.className = newTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+            }
+        });
+
+        // Add ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>

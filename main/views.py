@@ -62,6 +62,12 @@ def category_detail(request, pk):
 # ==================================================
 # 🧠 الكويزات
 # ==================================================
+from django.shortcuts import render, get_object_or_404
+from .models import Quiz
+from django.views.decorators.cache import cache_page
+
+
+# صفحة عرض جميع الكويزات (عادي فيها كاش)
 @cache_page(60 * 10)
 def quizzes(request):
     quizzes = Quiz.objects.all()
@@ -71,20 +77,45 @@ def quizzes(request):
     })
 
 
-@cache_page(60 * 10)
+# صفحة الكويز + حساب النتيجة (❌ بدون كاش)
 def quiz_detail(request, pk):
     quiz = get_object_or_404(Quiz, pk=pk)
+    questions = quiz.questions.all()
 
-    # تجهيز الإجابة الصحيحة لكل سؤال (بدون منطق داخل القالب)
-    for question in quiz.questions.all():
-        question.correct_choice = question.choices.filter(
-            is_correct=True
-        ).first()
+    score = 0
+    total = questions.count()
 
+    # ===============================
+    # 🧮 حساب النتيجة
+    # ===============================
+    if request.method == "POST":
+        for question in questions:
+            selected_choice_id = request.POST.get(f"question_{question.id}")
+
+            if selected_choice_id:
+                try:
+                    choice = question.choices.get(id=selected_choice_id)
+                    if choice.is_correct:
+                        score += 1
+                except:
+                    pass
+
+        percentage = int((score / total) * 100) if total > 0 else 0
+
+        return render(request, 'main/quiz_result.html', {
+            'quiz': quiz,
+            'score': score,
+            'total': total,
+            'percentage': percentage
+        })
+
+    # ===============================
+    # عرض الكويز
+    # ===============================
     return render(request, 'main/quiz_detail.html', {
-        'quiz': quiz
+        'quiz': quiz,
+        'questions': questions
     })
-
 
 # ==================================================
 # 🧮 الحاسبات
